@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import { View} from '@tarojs/components'
 import Content from "./components/Content";
 import Footer from "./components/Footer";
 import './index.less'
@@ -11,7 +11,9 @@ export default class Index extends Component {
 
   componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    console.log(123)
+  }
 
   componentWillUnmount() { }
 

@@ -10,10 +10,10 @@ export default class Footer extends Component {
   render() {
     return (
       <View className='footer'>
-        <view className="inner">
-          <view className="price">￥123元</view>
-          <view className="button">选好了，发给老板</view>
-        </view>
+        <View className="inner">
+          <View className="price">￥123元</View>
+          <View className="button">选好了，发给老板</View>
+        </View>
       </View>
     )
   }
