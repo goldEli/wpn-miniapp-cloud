@@ -1,26 +1,32 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import './index.less'
 
-import Login from '../../components/login/index'
+// import Login from '../../components/login/index'
 
 export default class Index extends Component {
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () { }
+  componentDidMount() { }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
+  onShareAppMessage() {
+    console.log(123)
+    Taro.navigateTo({
+      url: '/pages/management/management'
+    })
+  }
 
-  render () {
+  render() {
     return (
       <View className='index'>
-        <Login/>
+        <Button onClick={this.onShareAppMessage}>go management</Button>
       </View>
     )
   }
