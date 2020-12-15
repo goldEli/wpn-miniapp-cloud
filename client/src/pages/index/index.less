@@ -2,12 +2,16 @@
 @import "../../style/color.less";
 
 .wme-index {
+  .btnBackgroundColor;
   width: 100%;
   // height: 100%;
   padding: 8px;
   box-sizing: border-box;
+
   // height: 200px;
   .content {
+    border-radius: 8px;
+    background-color: @white;
     width: 100%;
     padding-bottom: 100px;
     .item {
@@ -18,6 +22,7 @@
       grid-template-rows: 160px 1fr;
       .img {
         .flex();
+        border-radius: 8px;
         justify-content: center;
         align-items: center;
         grid-area: img;
@@ -39,7 +44,24 @@
       }
       .action {
         .flex(row, flex-end, center);
+        margin-right: 32px;
         grid-area: action;
+        .button-icon-sub,
+        .button-icon-add {
+          .flex(row, center, center);
+          border-radius: 16px;
+          padding: 8px;
+        }
+        .button-icon-add {
+          background-color: @yellow_dark;
+        }
+        .button-icon-sub {
+          background-color: @yellow_light;
+        }
+        .text {
+          .flex(row, center, center);
+          padding: 0 32px;
+        }
       }
     }
     // }
