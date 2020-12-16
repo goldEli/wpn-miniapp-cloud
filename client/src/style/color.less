@@ -1,12 +1,13 @@
 @black: #0e0e0e;
 @white: #fff;
-@yellow_light: #f8da58;
-@yellow_dark: #eec05e;
+@color_brand: #ffc701;
+@color_brand_light: #ffd541;
+@color_brand_dark: #cc9f01;
 .btnBackgroundColor {
-  background: rgb(248, 218, 88);
+  background: @color_brand_light;
   background: linear-gradient(
     90deg,
-    rgba(248, 218, 88, 1) 0%,
-    rgba(238, 192, 94, 1) 100%
+    @color_brand_light 0%,
+    @color_brand_dark 100%
   );
 }

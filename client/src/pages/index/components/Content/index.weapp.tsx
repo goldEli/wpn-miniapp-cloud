@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
-import { View, Image, ScrollView } from '@tarojs/components'
+import { View, Image, ScrollView, Button } from '@tarojs/components'
 import "taro-ui/dist/style/components/icon.scss"
 
 interface IContentProps {
@@ -17,9 +17,17 @@ interface IContentProps {
 }
 
 const Content: React.FC<IContentProps> = (props) => {
-  const goToMenuMngmt = () => {
+  const goToLogin = () => {
+    // Taro.cloud
+    //   .callFunction({
+    //     name: "login",
+    //     data: {}
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //   })
     Taro.navigateTo({
-      url: '/pages/menuMngmt/menuMngmt'
+      url: '/pages/login/login'
     })
   }
   return (
@@ -31,7 +39,7 @@ const Content: React.FC<IContentProps> = (props) => {
         {
           props?.list?.map((item, idx) => (
             <View key={item._id} className="item">
-              <Image onLongPress={goToMenuMngmt} className="img" mode="widthFix" src={item.imgSrc}></Image>
+              <Image onLongPress={goToLogin} className="img" mode="widthFix" src={item.imgSrc}></Image>
               <View className="title">{item.title}</View>
               <View className="price">{`￥${item.price}/${item.unit}${item.netUnit ? '/' + item.net + item.netUnit : ""}`}</View>
               <View className="action">

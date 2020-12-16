@@ -1,7 +1,8 @@
 export default {
   pages: [
+    'pages/login/login',
+    'pages/menuMngmt/menuMngmt',
     'pages/index/index',
-    'pages/menuMngmt/menuMngmt'
   ],
   window: {
     backgroundTextStyle: 'light',
