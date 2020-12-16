@@ -11,6 +11,14 @@ interface IItemProps {
 
 const Item: React.FC<IItemProps> = (props) => {
   const [data, setData] = React.useState<Partial<IMenu>>({})
+
+  React.useEffect(() => {
+    if (props.data) {
+      setData(props.data)
+    }
+
+  }, [props.data])
+
   const onSubmit = (event) => {
     Taro.atMessage({
       'message': '修改成功',
