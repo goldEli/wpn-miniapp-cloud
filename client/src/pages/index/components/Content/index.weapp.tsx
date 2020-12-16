@@ -3,6 +3,7 @@ import Taro, { Config } from '@tarojs/taro'
 import { View, Image, ScrollView } from '@tarojs/components'
 import "taro-ui/dist/style/components/icon.scss"
 import { IMenu } from "../../../../type"
+import Skeletons from "../../../../components/skeletons/index.skeletions"
 
 interface IContentProps {
 
@@ -34,11 +35,14 @@ const Content: React.FC<IContentProps> = (props) => {
     })
   }
   return (
-    <ScrollView
-      scrollY
-      scrollWithAnimation
-    >
-      <View className="content">
+    <>
+      {/* <Skeletons /> */}
+      <ScrollView
+        scrollY
+        scrollWithAnimation
+        className="content"
+      >
+        {/* <View className="content"> */}
         {
           list.map((item, idx) => (
             <View key={item._id} className="item">
@@ -59,9 +63,9 @@ const Content: React.FC<IContentProps> = (props) => {
             </View>
           ))
         }
-      </View>
-    </ScrollView>
-
+        {/* </View> */}
+      </ScrollView>
+    </>
   )
 }
 
