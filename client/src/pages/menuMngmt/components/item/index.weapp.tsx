@@ -20,6 +20,18 @@ const Item: React.FC<IItemProps> = (props) => {
   }, [props.data])
 
   const onSubmit = (event) => {
+    console.log(data)
+    for (let key in data) {
+      if (["imgSrc", "index", "unit", "title", "price"].includes(key as never) && (data[key] === void 0 || data[key] === "")) {
+
+        Taro.atMessage({
+          'message': '除净重和净重单位外都需要填写',
+          'type': "error",
+        })
+        return
+      }
+    }
+    // if (Object)
     Taro.atMessage({
       'message': '修改成功',
       'type': "success",
@@ -84,7 +96,7 @@ const Item: React.FC<IItemProps> = (props) => {
       />
       <AtInput
         name='netUnit'
-        title='净重'
+        title='净重单位'
         type="text"
         value={data?.netUnit}
         onChange={onInputChange}

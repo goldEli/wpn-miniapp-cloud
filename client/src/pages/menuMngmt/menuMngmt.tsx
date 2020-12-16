@@ -7,11 +7,19 @@ import { AtMessage, AtButton } from 'taro-ui'
 import './index.less'
 import useMenuHook from "../../hooks/useMenuHook"
 import Skeletons from "@/components/skeletons/index.skeletions";
+import { IMenu } from "@/type/index";
 
 interface IMenuMngmtProps { }
 
 const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
-  const [list, loading] = useMenuHook()
+  const {list, loading, add} = useMenuHook()
+
+  const handleChange = (data:IMenu) => {
+
+  }
+
+
+
   return (
     <View className="wme-menu-mngmt">
       <AtMessage />
@@ -22,7 +30,7 @@ const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
         })
 
       }
-      {!loading && <AtButton type="secondary">新增</AtButton>}
+      {!loading && <AtButton onClick={add} type="secondary">新增</AtButton>}
     </View>
   )
 }

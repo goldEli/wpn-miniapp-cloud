@@ -10,7 +10,7 @@ interface IContentProps {
 }
 
 const Content: React.FC<IContentProps> = (props) => {
-  const [list, loading] = useMenuHook()
+  const {list, loading} = useMenuHook()
   const goToLogin = () => {
     Taro.redirectTo({
       url: '/pages/login/login'

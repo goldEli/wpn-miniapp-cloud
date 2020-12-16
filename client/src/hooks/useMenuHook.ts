@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { IMenu } from "../type";
-
-export default function (): [IMenu[], boolean] {
-  const [list, setList] = React.useState<IMenu[]>([])
+type PIMenu = Partial<IMenu>
+export default function (): { 
+  list: PIMenu[], loading: boolean, add: () => void, refresh: () => void 
+} {
+  const [list, setList] = React.useState<PIMenu[]>([])
   const [loading, setLoading] = React.useState(true)
   useEffect(() => {
     Taro.cloud
@@ -24,5 +26,20 @@ export default function (): [IMenu[], boolean] {
 
   }, [])
 
-  return [list, loading]
+  const add = () => {
+    setList(prev => {
+      return [
+        ...prev,
+        {
+          index: 1,
+        }
+      ]
+    })
+  }
+
+  const refresh = () => {
+
+  }
+
+  return { list, loading, add, refresh }
 }
