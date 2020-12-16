@@ -20,12 +20,6 @@ export default class Index extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
-  onShareAppMessage() {
-    console.log(123)
-    Taro.navigateTo({
-      url: '/pages/management/management'
-    })
-  }
 
   render() {
     return (

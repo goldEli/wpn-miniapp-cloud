@@ -1,7 +1,7 @@
 export default {
   pages: [
     'pages/index/index',
-    'pages/management/management'
+    'pages/menuMngmt/menuMngmt'
   ],
   window: {
     backgroundTextStyle: 'light',

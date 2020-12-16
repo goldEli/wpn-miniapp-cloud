@@ -1,23 +1,27 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image, ScrollView } from '@tarojs/components'
-import { AtIcon } from "taro-ui";
 import "taro-ui/dist/style/components/icon.scss"
 
 interface IContentProps {
   list?: {
-    id: string,
+    _id: string,
     index: number,
     price: number,
     unit: string,
     net?: number,
     netUnit?: string,
     title: string,
-    img: string,
+    imgSrc: string,
   }[]
 }
 
 const Content: React.FC<IContentProps> = (props) => {
+  const goToMenuMngmt = () => {
+    Taro.navigateTo({
+      url: '/pages/menuMngmt/menuMngmt'
+    })
+  }
   return (
     <ScrollView
       scrollY
@@ -26,8 +30,8 @@ const Content: React.FC<IContentProps> = (props) => {
       <View className="content">
         {
           props?.list?.map((item, idx) => (
-            <View key={item.id} className="item">
-              <Image className="img" mode="widthFix" src={item.img}></Image>
+            <View key={item._id} className="item">
+              <Image onLongPress={goToMenuMngmt} className="img" mode="widthFix" src={item.imgSrc}></Image>
               <View className="title">{item.title}</View>
               <View className="price">{`￥${item.price}/${item.unit}${item.netUnit ? '/' + item.net + item.netUnit : ""}`}</View>
               <View className="action">
@@ -59,17 +63,9 @@ Content.defaultProps = {
       net: 200,
       netUnit: "g",
       index: 1,
-      id: "1",
-      img: "https://wx4.sinaimg.cn/mw690/671cf50fgy1gloqtxr025j20500500sm.jpg",
+      _id: "1",
+      imgSrc: "https://wx4.sinaimg.cn/mw690/671cf50fgy1gloqtxr025j20500500sm.jpg",
     },
-    {
-      title: "chicken",
-      price: 25,
-      unit: "kebab",
-      index: 2,
-      id: "2",
-      img: "https://wx4.sinaimg.cn/mw690/671cf50fgy1gloqtxr025j20500500sm.jpg",
-    }
   ]
 }
 
