@@ -14,6 +14,16 @@ const Login: React.FC<ILoginProps> = (props) => {
 
     console.log(nameVal, pwdVal)
     console.log(e)
+    Taro.cloud
+      .callFunction({
+        name: "user",
+        data: {
+          action: "checkUser"
+        }
+      })
+      .then(res => {
+        console.log(res,123)
+      })
   }
   return (
     <View className="wme-login">
@@ -23,7 +33,7 @@ const Login: React.FC<ILoginProps> = (props) => {
         type='text'
         placeholder='输入账号'
         value={nameVal}
-        onChange={(value) => { setNameVal(value) }}
+        onChange={(value) => { setNameVal(value as string) }}
       />
       <AtInput
         name='pwd'
@@ -31,7 +41,7 @@ const Login: React.FC<ILoginProps> = (props) => {
         type="password"
         placeholder='输入密码'
         value={pwdVal}
-        onChange={(value) => { setPwdVal(value) }}
+        onChange={(value) => { setPwdVal(value as string) }}
       />
       <AtButton type="primary" onClick={onSubmit}>登录</AtButton>
     </View>
