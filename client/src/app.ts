@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 
 import './app.less'
+import "./index.scss"
 
 class App extends Component {
 

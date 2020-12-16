@@ -2,7 +2,6 @@ import React from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtInput, AtButton, AtMessage } from 'taro-ui'
-import "./index.scss"
 import './index.less'
 
 interface ILoginProps { }
