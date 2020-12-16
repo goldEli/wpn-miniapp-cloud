@@ -21,15 +21,13 @@ const Item: React.FC<IItemProps> = (props) => {
 
   const onSubmit = (event) => {
     console.log(data)
-    for (let key in data) {
-      if (["imgSrc", "index", "unit", "title", "price"].includes(key as never) && (data[key] === void 0 || data[key] === "")) {
+    if (["imgSrc", "index", "unit", "title", "price"].some(key => data[key] === void 0 || data[key] === "")) {
 
-        Taro.atMessage({
-          'message': '除净重和净重单位外都需要填写',
-          'type': "error",
-        })
-        return
-      }
+      Taro.atMessage({
+        'message': '除净重和净重单位外都需要填写',
+        'type': "error",
+      })
+      return
     }
     // if (Object)
     Taro.atMessage({
