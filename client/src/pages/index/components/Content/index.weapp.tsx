@@ -1,31 +1,34 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
-import { View, Image, ScrollView, Button } from '@tarojs/components'
+import { View, Image, ScrollView } from '@tarojs/components'
 import "taro-ui/dist/style/components/icon.scss"
+import { IMenu } from "../../../../type"
 
 interface IContentProps {
-  list?: {
-    _id: string,
-    index: number,
-    price: number,
-    unit: string,
-    net?: number,
-    netUnit?: string,
-    title: string,
-    imgSrc: string,
-  }[]
+
 }
 
 const Content: React.FC<IContentProps> = (props) => {
+  const [list, setList] = React.useState<IMenu[]>([])
+  useEffect(() => {
+    Taro.cloud
+      .callFunction({
+        name: "menu",
+        data: {
+          action: "getAll"
+        }
+      })
+      .then((res: any) => {
+        console.log(res)
+        const { result } = res
+        const { data } = result || {}
+        if (data instanceof Array) {
+          setList(data)
+        }
+      })
+
+  }, [])
   const goToLogin = () => {
-    // Taro.cloud
-    //   .callFunction({
-    //     name: "login",
-    //     data: {}
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //   })
     Taro.redirectTo({
       url: '/pages/login/login'
     })
@@ -37,7 +40,7 @@ const Content: React.FC<IContentProps> = (props) => {
     >
       <View className="content">
         {
-          props?.list?.map((item, idx) => (
+          list.map((item, idx) => (
             <View key={item._id} className="item">
               <Image onLongPress={goToLogin} className="img" mode="widthFix" src={item.imgSrc}></Image>
               <View className="title">{item.title}</View>
@@ -62,20 +65,6 @@ const Content: React.FC<IContentProps> = (props) => {
   )
 }
 
-Content.defaultProps = {
-  list: [
-    {
-      title: "fish",
-      price: 15,
-      unit: "kebab",
-      net: 200,
-      netUnit: "g",
-      index: 1,
-      _id: "1",
-      imgSrc: "https://wx4.sinaimg.cn/mw690/671cf50fgy1gloqtxr025j20500500sm.jpg",
-    },
-  ]
-}
 
 export default Content
 

@@ -10,12 +10,12 @@ const db = cloud.database();
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext();
+  // const wxContext = cloud.getWXContext();
   const model = db.collection("menu");
 
-  switch (event.anction) {
+  switch (event.action) {
     case "getAll":
-      return await model.get();
+      return await db.collection("menu").get();
     case "add":
       return await model.add({
         data,
