@@ -11,6 +11,7 @@ interface IContentProps {
 
 const Content: React.FC<IContentProps> = (props) => {
   const [list, setList] = React.useState<IMenu[]>([])
+  const [loading, setLoading] = React.useState(true)
   useEffect(() => {
     Taro.cloud
       .callFunction({
@@ -25,6 +26,7 @@ const Content: React.FC<IContentProps> = (props) => {
         const { data } = result || {}
         if (data instanceof Array) {
           setList(data)
+          setLoading(false)
         }
       })
 
@@ -36,15 +38,13 @@ const Content: React.FC<IContentProps> = (props) => {
   }
   return (
     <>
-      {/* <Skeletons /> */}
       <ScrollView
         scrollY
         scrollWithAnimation
         className="content"
       >
-        {/* <View className="content"> */}
         {
-          list.map((item, idx) => (
+          loading ? <Skeletons /> : list.map((item, idx) => (
             <View key={item._id} className="item">
               <Image onLongPress={goToLogin} className="img" mode="widthFix" src={item.imgSrc}></Image>
               <View className="title">{item.title}</View>
@@ -63,7 +63,6 @@ const Content: React.FC<IContentProps> = (props) => {
             </View>
           ))
         }
-        {/* </View> */}
       </ScrollView>
     </>
   )
