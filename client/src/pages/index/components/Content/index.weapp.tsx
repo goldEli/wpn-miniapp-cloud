@@ -2,35 +2,15 @@ import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image, ScrollView } from '@tarojs/components'
 import "taro-ui/dist/style/components/icon.scss"
-import { IMenu } from "../../../../type"
 import Skeletons from "../../../../components/skeletons/index.skeletions"
+import useMenuHook from "../../../../hooks/useMenuHook";
 
 interface IContentProps {
 
 }
 
 const Content: React.FC<IContentProps> = (props) => {
-  const [list, setList] = React.useState<IMenu[]>([])
-  const [loading, setLoading] = React.useState(true)
-  useEffect(() => {
-    Taro.cloud
-      .callFunction({
-        name: "menu",
-        data: {
-          action: "getAll"
-        }
-      })
-      .then((res: any) => {
-        console.log(res)
-        const { result } = res
-        const { data } = result || {}
-        if (data instanceof Array) {
-          setList(data)
-          setLoading(false)
-        }
-      })
-
-  }, [])
+  const [list, loading] = useMenuHook()
   const goToLogin = () => {
     Taro.redirectTo({
       url: '/pages/login/login'
