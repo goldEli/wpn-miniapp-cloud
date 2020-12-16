@@ -53,9 +53,9 @@ const Content: React.FC<IContentProps> = (props) => {
 Content.defaultProps = {
   list: [
     {
-      title: "羊肉串",
+      title: "fish",
       price: 15,
-      unit: "串",
+      unit: "kebab",
       net: 200,
       netUnit: "g",
       index: 1,
@@ -63,9 +63,9 @@ Content.defaultProps = {
       img: "https://wx4.sinaimg.cn/mw690/671cf50fgy1gloqtxr025j20500500sm.jpg",
     },
     {
-      title: "牛肉串",
+      title: "chicken",
       price: 25,
-      unit: "串",
+      unit: "kebab",
       index: 2,
       id: "2",
       img: "https://wx4.sinaimg.cn/mw690/671cf50fgy1gloqtxr025j20500500sm.jpg",
