@@ -26,7 +26,7 @@ const Content: React.FC<IContentProps> = (props) => {
     //   .then(res => {
     //     console.log(res)
     //   })
-    Taro.navigateTo({
+    Taro.redirectTo({
       url: '/pages/login/login'
     })
   }
