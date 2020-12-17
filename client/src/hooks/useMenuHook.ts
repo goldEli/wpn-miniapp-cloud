@@ -49,7 +49,12 @@ export default function (): {
   }
 
   const deleteItem = (_id: string) => {
-    if (!_id) return
+    if (!_id) {
+      setList(prev => {
+        return prev.filter(item => item?._id)
+      })
+      return
+    }
     Taro.cloud
       .callFunction({
         name: "menu",
