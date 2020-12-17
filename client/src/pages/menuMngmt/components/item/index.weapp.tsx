@@ -1,7 +1,7 @@
 import React from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtInput, AtButton } from 'taro-ui'
+import { AtInput, AtButton, AtSwitch, message } from 'taro-ui'
 import { IMenu } from "@/type/index";
 import { IMenuAction } from "@/hooks/useMenuHook"
 
@@ -96,6 +96,7 @@ const Item: React.FC<IItemProps> = (props) => {
         value={data?.netUnit}
         onChange={onInputChange}
       />
+      <AtSwitch title='是否上架销售' checked={data.onSale} onChange={(value) => setData(prev => ({...prev, onSale: value}))} />
       <View className="button-box">
         <AtButton onClick={() => props.action.deleteItem(data?._id || "")} type="secondary">删除</AtButton>
         <AtButton onClick={onSubmit} type="primary">修改</AtButton>

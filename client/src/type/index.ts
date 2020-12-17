@@ -7,6 +7,7 @@ export interface IMenu {
   netUnit?: string,
   title: string,
   imgSrc: string,
+  onSale: boolean,
 }
 
 export type IMenuWithNum = Partial<IMenu> & {number: number}

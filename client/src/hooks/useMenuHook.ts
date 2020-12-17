@@ -39,6 +39,7 @@ export default function (): {
         ...prev,
         {
           index: 1,
+          onSale: true,
         }
       ]
     })

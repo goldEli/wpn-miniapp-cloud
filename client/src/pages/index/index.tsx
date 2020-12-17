@@ -17,7 +17,7 @@ const Index: React.FC<IIndexProps> = (props) => {
 
   React.useEffect(() => {
     if (list) {
-      setData(list.map(item => ({ ...item, number: 0 })))
+      setData(list.filter(item => item.onSale).map(item => ({ ...item, number: 0 })))
     }
 
   }, [list])
