@@ -25,7 +25,7 @@ const Item: React.FC<IItemProps> = (props) => {
         </View>
         <View className="text">
           0
-                  </View>
+        </View>
         <View className="button-icon-add">
           <View className='at-icon at-icon-add'></View>
         </View>
