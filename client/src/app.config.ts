@@ -1,7 +1,7 @@
 export default {
   pages: [
-    'pages/index/index',
     'pages/menuMngmt/menuMngmt',
+    'pages/index/index',
     'pages/login/login',
   ],
   window: {

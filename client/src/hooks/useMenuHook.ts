@@ -36,6 +36,7 @@ export default function (): {
 
   const add = () => {
     setList(prev => {
+      if (prev.some(item => !item._id)) return prev
       return [
         ...prev,
         {
