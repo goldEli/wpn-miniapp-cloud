@@ -1,14 +1,16 @@
 import React from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { IMenu } from "@/type";
+import { IMenuWithNum } from "@/type";
+import { MenuContext } from "../../MenuContext"
 
 interface IItemProps {
-  data: Partial<IMenu>
+  data: IMenuWithNum
 }
 
 const Item: React.FC<IItemProps> = (props) => {
   const { data } = props
+  const { action } = React.useContext(MenuContext) as any
   const goToLogin = () => {
     Taro.redirectTo({
       url: '/pages/login/login'
@@ -20,13 +22,19 @@ const Item: React.FC<IItemProps> = (props) => {
       <View className="title">{data.title}</View>
       <View className="price">{`￥${data.price}/${data.unit}${data.netUnit ? '/' + data.net + data.netUnit : ""}`}</View>
       <View className="action">
-        <View className="button-icon-sub">
-          <View className='at-icon at-icon-subtract'></View>
-        </View>
-        <View className="text">
-          0
-        </View>
-        <View className="button-icon-add">
+        {
+          data.number > 0 && (
+            <>
+              <View onClick={() => action.sub(data._id)} className="button-icon-sub">
+                <View className='at-icon at-icon-subtract'></View>
+              </View>
+              <View className="text">
+                {data.number}
+              </View>
+            </>
+          )
+        }
+        <View onClick={() => action.plus(data._id)} className="button-icon-add">
           <View className='at-icon at-icon-add'></View>
         </View>
       </View>

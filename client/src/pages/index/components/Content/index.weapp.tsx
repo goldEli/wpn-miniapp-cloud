@@ -3,15 +3,17 @@ import Taro, { Config } from '@tarojs/taro'
 import { View, Image, ScrollView } from '@tarojs/components'
 import "taro-ui/dist/style/components/icon.scss"
 import Skeletons from "@/components/skeletons/index.skeletions"
-import useMenuHook from "@/hooks/useMenuHook";
+// import useMenuHook from "@/hooks/useMenuHook";
 import Item from "./item.weapp";
+import { MenuContext } from "../../MenuContext"
 
 interface IContentProps {
 
 }
 
 const Content: React.FC<IContentProps> = (props) => {
-  const { list, loading } = useMenuHook()
+  // const { list, loading } = useMenuHook()
+  const { data, loading } = React.useContext(MenuContext) as any
   return (
     <>
       <ScrollView
@@ -20,7 +22,7 @@ const Content: React.FC<IContentProps> = (props) => {
         className="content"
       >
         {
-          loading ? <Skeletons /> : list.map((item, idx) => (
+          loading ? <Skeletons /> : data.map((item, idx) => (
             <Item data={item} />
           ))
         }

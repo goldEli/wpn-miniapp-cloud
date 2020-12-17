@@ -8,3 +8,5 @@ export interface IMenu {
   title: string,
   imgSrc: string,
 }
+
+export type IMenuWithNum = Partial<IMenu> & {number: number}
