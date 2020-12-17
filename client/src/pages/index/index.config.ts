@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: 'xxx'
+  navigationBarTitleText: '菜单'
 }

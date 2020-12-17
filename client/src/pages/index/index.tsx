@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View} from '@tarojs/components'
-import Content from "./components/Content";
-import Footer from "./components/Footer";
+import Content from "./components/Content/index.weapp";
+import Footer from "./components/Footer/index.weapp";
 import './index.less'
 
 // import Login from '../../components/login/index'
