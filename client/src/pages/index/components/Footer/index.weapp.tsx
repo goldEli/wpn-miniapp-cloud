@@ -27,7 +27,7 @@ const Footer: React.FC<IFooterProps> = (props) => {
     <View className='footer'>
       <View className="inner">
         <View onLongPress={goToLogin} className="price">{` ￥${sum} 元`}</View>
-        <Button openType="share" data-text={getText()}  className="button">点我，发给老板</Button>
+        <Button openType="share" data-sum={sum} data-text={getText()} className="button">点我，发给老板</Button>
       </View>
     </View>
   )

@@ -10,9 +10,10 @@ export default class Index extends Component {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
+      const {sum, text} = res?.target?.dataset || {}
       return {
-        title: '我的订单',
-        path: `pages/order/index?text=${res?.target?.dataset?.text}`
+        title: `我的订单(共计${sum}元)`,
+        path: `pages/order/index?text=${text}`
       }
     }
     return {
