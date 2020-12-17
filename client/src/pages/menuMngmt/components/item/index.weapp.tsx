@@ -96,7 +96,8 @@ const Item: React.FC<IItemProps> = (props) => {
         value={data?.netUnit}
         onChange={(value) => onInputChange(value, "netUnit")}
       />
-      <AtSwitch title='是否上架销售' checked={data.onSale} onChange={(value) => onInputChange(value, "inSale")} />
+      <AtSwitch title='是否上架销售' checked={data.onSale} onChange={(value) => onInputChange(value, "onSale")} />
+
       <View className="button-box">
         <AtButton onClick={() => props.action.deleteItem(data?._id || "")} type="secondary">删除</AtButton>
         <AtButton onClick={() => onSubmit(data)} type="primary">修改</AtButton>

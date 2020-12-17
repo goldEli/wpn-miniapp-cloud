@@ -1,15 +1,32 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Button } from '@tarojs/components'
+import { MenuContext } from "../../MenuContext"
 
 interface IFooterProps { }
 
 const Footer: React.FC<IFooterProps> = (props) => {
+  const { data } = React.useContext(MenuContext) as any
+  console.log(data)
+  const sum = data.reduce((prev, item) => prev+ (item.number*item.price || 0), 0)
+  const handleClick = () => {
+    let start = `へ订单信息へ\n`
+    let mid = ""
+    let end = `共计：${sum} 元（不含运费）`
+    data.forEach(item => {
+      if (item.number > 0) {
+        mid += `${item.title}：${item.number}x${item.price} = ${item.number * item.price}\n`
+      }
+    })
+
+    let content = start + mid + end
+    console.log(content)
+  }
   return (
     <View className='footer'>
       <View className="inner">
-        <View onLongPress={goToLogin} className="price">￥123元</View>
-        <View className="button">选好了，发给老板</View>
+        <View onLongPress={goToLogin} className="price">{` ￥${sum} 元`}</View>
+        <Button  onClick={handleClick} className="button">复制订单</Button>
       </View>
     </View>
   )
