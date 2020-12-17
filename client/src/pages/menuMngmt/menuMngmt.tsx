@@ -23,7 +23,9 @@ const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
         })
 
       }
-      {!loading && <AtButton onClick={action.add} type="secondary">新增</AtButton>}
+      <View className="add-button">
+        {!loading && <AtButton onClick={action.add} type="secondary">新增</AtButton>}
+      </View>
     </View>
   )
 }

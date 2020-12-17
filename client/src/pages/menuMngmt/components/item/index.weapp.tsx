@@ -50,7 +50,7 @@ const Item: React.FC<IItemProps> = (props) => {
       <AtInput
         name={`index-${data._id}`}
         title='展示的位置'
-        type='number'
+        type='text'
         value={data?.index?.toString()}
         onChange={(value) => onInputChange(value, "index")}
       />
@@ -71,7 +71,7 @@ const Item: React.FC<IItemProps> = (props) => {
       <AtInput
         name={`price-${data._id}`}
         title='价格'
-        type="number"
+        type="text"
         value={data?.price?.toString()}
         onChange={(value) => onInputChange(value, "price")}
       />
@@ -85,7 +85,7 @@ const Item: React.FC<IItemProps> = (props) => {
       <AtInput
         name={`net-${data._id}`}
         title='净重'
-        type="number"
+        type="text"
         value={data?.net?.toString()}
         onChange={(value) => onInputChange(value, "net")}
       />
