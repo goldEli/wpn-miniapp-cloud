@@ -1,62 +1,29 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import Content from "./components/Content/index.weapp";
-import Footer from "./components/Footer/index.weapp";
-import useMenuHook from "@/hooks/useMenuHook";
-import './index.less'
-import { IMenuWithNum } from "@/type";
-import { MenuContext } from "./MenuContext";
+import Home from "./home";
 
-interface IIndexProps { }
+export default class Index extends Component {
 
 
-const Index: React.FC<IIndexProps> = (props) => {
-  const { list, loading } = useMenuHook()
-  const [data, setData] = React.useState<IMenuWithNum[]>([])
-
-  React.useEffect(() => {
-    if (list) {
-      setData(list.filter(item => item.onSale).map(item => ({ ...item, number: 0 })))
+  onShareAppMessage(res) { //放在父组件上执行，子组件上不被执行！
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+      return {
+        title: '我的订单',
+        path: `pages/order/index?text=${res?.target?.dataset?.text}`
+      }
     }
-
-  }, [list])
-
-  const action = {
-    plus: (_id: string) => {
-      setData(prev => {
-        return prev.map(item => {
-          if (item._id === _id) {
-            return { ...item, number: item.number + 1 }
-          }
-          return item
-        })
-      })
-    },
-    sub: (_id: string) => {
-      setData(prev => {
-        return prev.map(item => {
-          if (item._id === _id && item.number > 0) {
-            return { ...item, number: item.number - 1 }
-          }
-          return item
-        })
-      })
-
+    return {
+      title: '点击进入菜单',
+      path: 'pages/index/index'
     }
   }
 
-  return (
-    <MenuContext.Provider value={{ data, loading, action }}>
-      <View className='wme-index'>
-        {/* content */}
-        <Content />
-        {/* footer */}
-        <Footer />
-        {/* <Button onClick={this.onShareAppMessage}>go management</Button> */}
-      </View>
-    </MenuContext.Provider>
-  )
+  render() {
+    return (
+      <Home />
+    )
+  }
 }
-
-export default Index

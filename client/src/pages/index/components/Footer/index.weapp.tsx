@@ -9,7 +9,7 @@ const Footer: React.FC<IFooterProps> = (props) => {
   const { data } = React.useContext(MenuContext) as any
   console.log(data)
   const sum = data.reduce((prev, item) => prev + (item.number * item.price || 0), 0)
-  const handleClick = () => {
+  const getText = () => {
     let start = `へ订单信息へ\n`
     let mid = ""
     let end = `共计：${sum} 元（不含运费）`
@@ -21,16 +21,13 @@ const Footer: React.FC<IFooterProps> = (props) => {
 
     let content = start + mid + end
     console.log(content)
-    return {
-      title: '我的订单',
-      path: `pages/order/index?text=${content}`
-    }
+    return content
   }
   return (
     <View className='footer'>
       <View className="inner">
         <View onLongPress={goToLogin} className="price">{` ￥${sum} 元`}</View>
-        <Button openType="share" onClick={handleClick} className="button">点我，发给老板</Button>
+        <Button openType="share" data-text={getText()}  className="button">点我，发给老板</Button>
       </View>
     </View>
   )

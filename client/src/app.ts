@@ -6,7 +6,7 @@ import "./index.scss"
 
 class App extends Component {
 
-  componentDidMount () {
+  componentDidMount() {
     if (process.env.TARO_ENV === 'weapp') {
       Taro.cloud.init({
         // env 参数说明：
@@ -19,14 +19,15 @@ class App extends Component {
     }
   }
 
-  componentDidShow () {}
+  componentDidShow() { }
 
-  componentDidHide () {}
+  componentDidHide() { }
 
-  componentDidCatchError () {}
+  componentDidCatchError() { }
+
 
   // this.props.children 是将要会渲染的页面
-  render () {
+  render() {
     return this.props.children
   }
 }
