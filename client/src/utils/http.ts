@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro'
-import { reject } from 'lodash'
+
 const http = (name: string, data: any = {}, options?: {
   sucMsg?: string
 }) => {
-  return new Promise((resolve, eject) => {
+  return new Promise((resolve, reject) => {
     Taro.cloud
       .callFunction({
         name,
@@ -28,9 +28,9 @@ const http = (name: string, data: any = {}, options?: {
         })
         reject(error)
       })
-      .finally(() => {
+      // .finally(() => {
 
-      })
+      // })
   })
 
 }
