@@ -1,13 +1,14 @@
 import React from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtInput, AtButton } from 'taro-ui'
+import { AtInput, AtButton, AtActionSheet } from 'taro-ui'
 import { IMenu } from "../../../../type/index";
+import { IMenuAction } from "../../../../hooks/useMenuHook"
 
 
 interface IItemProps {
   data?: Partial<IMenu>,
-  update: (data: IMenu) => void
+  action: IMenuAction
 }
 
 const Item: React.FC<IItemProps> = (props) => {
@@ -30,7 +31,7 @@ const Item: React.FC<IItemProps> = (props) => {
       })
       return
     }
-    props.update(data as IMenu)
+    props.action.update(data as IMenu)
     // if (Object)
     // Taro.atMessage({
     //   'message': '修改成功',
@@ -102,7 +103,7 @@ const Item: React.FC<IItemProps> = (props) => {
         onChange={onInputChange}
       />
       <View className="button-box">
-        <AtButton onClick={onSubmit} type="secondary">删除</AtButton>
+        <AtButton onClick={() => props.action.deleteItem(data?._id || "")} type="secondary">删除</AtButton>
         <AtButton onClick={onSubmit} type="primary">修改</AtButton>
       </View>
     </View>

@@ -12,19 +12,7 @@ import { IMenu } from "../../type";
 interface IMenuMngmtProps { }
 
 const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
-  const {list, loading, add, update} = useMenuHook()
-
-  const handleChange = (data:IMenu) => {
-    // update
-    // if (data._id) {
-
-    // } else {
-    // // add
-    // add(data)  
-    // }
-  }
-
-
+  const { list, loading, action } = useMenuHook()
 
   return (
     <View className="wme-menu-mngmt">
@@ -32,11 +20,11 @@ const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
 
       {
         loading ? <Skeletons /> : list?.map(item => {
-          return <Item update={update} key={item?._id} data={item} />
+          return <Item action={action} key={item?._id} data={item} />
         })
 
       }
-      {!loading && <AtButton onClick={add} type="secondary">新增</AtButton>}
+      {!loading && <AtButton onClick={action.add} type="secondary">新增</AtButton>}
     </View>
   )
 }

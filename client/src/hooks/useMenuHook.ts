@@ -2,12 +2,18 @@ import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { IMenu } from "../type";
 type PIMenu = Partial<IMenu>
+
+export interface IMenuAction {
+  add: () => void,
+  refresh: () => void,
+  update: (data: IMenu) => void,
+  deleteItem: (_id: string) => void
+}
+
 export default function (): {
   list: PIMenu[],
   loading: boolean,
-  add: () => void,
-  refresh: () => void,
-  update: (data: IMenu) => void
+  action: IMenuAction
 } {
   const [list, setList] = React.useState<PIMenu[]>([])
   const [loading, setLoading] = React.useState(true)
@@ -40,6 +46,35 @@ export default function (): {
         }
       ]
     })
+  }
+
+  const deleteItem = (_id: string) => {
+    if (!_id) return
+    Taro.cloud
+      .callFunction({
+        name: "menu",
+        data: {
+          action: "delete",
+          _id: _id,
+        }
+      })
+      .then((res: any) => {
+        Taro.showToast({
+          title: '删除成功',
+          icon: 'success',
+          duration: 2000
+        })
+        refresh()
+        // console.log(res)
+      })
+      .catch((error) => {
+        Taro.showToast({
+          title: error,
+          icon: "none",
+          duration: 2000
+        })
+      })
+
   }
 
   const update = (data: IMenu) => {
@@ -100,7 +135,7 @@ export default function (): {
     setRefreshNum(prev => prev + 1)
   }
 
-  return { list, loading, add, refresh, update }
+  return { list, loading, action: { add, refresh, update, deleteItem } }
 }
 
 function handleData(data: PIMenu) {
