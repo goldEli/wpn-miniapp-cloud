@@ -1,6 +1,7 @@
 export default {
   pages: [
     'pages/index/index',
+    'pages/order/index',
     'pages/menuMngmt/menuMngmt',
     'pages/login/login',
   ],
