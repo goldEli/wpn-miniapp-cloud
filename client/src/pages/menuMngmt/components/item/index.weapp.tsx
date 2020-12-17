@@ -32,17 +32,11 @@ const Item: React.FC<IItemProps> = (props) => {
       return
     }
     props.action.update(data as IMenu)
-    // if (Object)
-    // Taro.atMessage({
-    //   'message': '修改成功',
-    //   'type': "success",
-    // })
   }
   const onInputChange = (value, event) => {
     const name = event?.mpEvent?.currentTarget?.id
     if (!name) return
     if (data[name] === value) return
-    console.log(name)
     setData(prev => {
       return {
         ...prev,

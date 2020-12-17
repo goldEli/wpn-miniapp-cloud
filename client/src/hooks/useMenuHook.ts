@@ -57,7 +57,9 @@ export default function (): {
         action: "delete",
         _id: _id,
       },
-      { sucMsg: "删除成功" })
+      { sucMsg: "删除成功" }
+    )
+
     refresh()
 
   }
