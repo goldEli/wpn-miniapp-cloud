@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { IMenu } from "../type";
+import { http } from "@/utils";
 type PIMenu = Partial<IMenu>
 
 export interface IMenuAction {
@@ -19,21 +20,16 @@ export default function (): {
   const [loading, setLoading] = React.useState(true)
   const [refreshNum, setRefreshNum] = React.useState(1)
   useEffect(() => {
-    Taro.cloud
-      .callFunction({
-        name: "menu",
-        data: {
-          action: "getAll"
-        }
+    async function func() {
+      const data = await http("menu", {
+        action: "getAll"
       })
-      .then((res: any) => {
-        const { result } = res
-        const { data } = result || {}
-        if (data instanceof Array) {
-          setList(data)
-          setLoading(false)
-        }
-      })
+      if (data instanceof Array) {
+        setList(data)
+        setLoading(false)
+      }
+    }
+    func()
 
   }, [refreshNum])
 
@@ -48,92 +44,48 @@ export default function (): {
     })
   }
 
-  const deleteItem = (_id: string) => {
+  const deleteItem = async (_id: string) => {
     if (!_id) {
       setList(prev => {
         return prev.filter(item => item?._id)
       })
       return
     }
-    Taro.cloud
-      .callFunction({
-        name: "menu",
-        data: {
-          action: "delete",
-          _id: _id,
-        }
-      })
-      .then((res: any) => {
-        Taro.showToast({
-          title: '删除成功',
-          icon: 'success',
-          duration: 2000
-        })
-        refresh()
-        // console.log(res)
-      })
-      .catch((error) => {
-        Taro.showToast({
-          title: error,
-          icon: "none",
-          duration: 2000
-        })
-      })
+    await http(
+      "menu",
+      {
+        action: "delete",
+        _id: _id,
+      },
+      { sucMsg: "删除成功" })
+    refresh()
 
   }
 
-  const update = (data: IMenu) => {
+  const update = async (data: IMenu) => {
     if (data._id) {
-      Taro.cloud
-        .callFunction({
-          name: "menu",
-          data: {
-            action: "update",
-            _id: data._id,
-            data: handleData(data)
-          }
-        })
-        .then((res: any) => {
-          Taro.showToast({
-            title: '修改成功',
-            icon: 'success',
-            duration: 2000
-          })
-          // console.log(res)
-        })
-        .catch((error) => {
-          Taro.showToast({
-            title: error,
-            icon: "none",
-            duration: 2000
-          })
+      await http(
+        "menu",
+        {
+          action: "update",
+          _id: data._id,
+          data: handleData(data)
+        },
+        {
+          sucMsg: "修改成功"
         })
       return
     }
-    Taro.cloud
-      .callFunction({
-        name: "menu",
-        data: {
-          action: "add",
-          data
-        }
+    await http(
+      "menu",
+      {
+        action: "add",
+        data: handleData(data)
+      },
+      {
+        sucMsg: "修改成功"
       })
-      .then((res: any) => {
-        Taro.showToast({
-          title: '修改成功',
-          icon: 'success',
-          duration: 2000
-        })
-        refresh()
-        // console.log(res)
-      })
-      .catch((error) => {
-        Taro.showToast({
-          title: error,
-          icon: "none",
-          duration: 2000
-        })
-      })
+    refresh()
   }
 
   const refresh = () => {
