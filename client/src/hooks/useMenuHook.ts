@@ -25,6 +25,7 @@ export default function (): {
         action: "getAll"
       })
       if (data instanceof Array) {
+        data.sort((a,b) => a.index - b.index )
         setList(data)
         setLoading(false)
       }
