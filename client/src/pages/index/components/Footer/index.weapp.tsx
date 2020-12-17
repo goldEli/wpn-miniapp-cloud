@@ -8,14 +8,14 @@ interface IFooterProps { }
 const Footer: React.FC<IFooterProps> = (props) => {
   const { data } = React.useContext(MenuContext) as any
   console.log(data)
-  const sum = data.reduce((prev, item) => prev + (item.number * item.price || 0), 0)
+  const sum = data.reduce((prev, item) => prev + (item.number * item.price || 0), 0).toFixed(2)
   const getText = () => {
     let start = `へ订单信息へ\n`
     let mid = ""
     let end = `共计：${sum} 元（不含运费）`
     data.forEach(item => {
       if (item.number > 0) {
-        mid += `${item.title}：${item.number}x${item.price} = ${item.number * item.price}\n`
+        mid += `${item.title}：${item.number}x${item.price} = ${(item.number * item.price).toFixed(2)}\n`
       }
     })
 
