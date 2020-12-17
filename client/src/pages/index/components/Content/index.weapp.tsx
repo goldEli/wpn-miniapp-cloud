@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image, ScrollView } from '@tarojs/components'
 import "taro-ui/dist/style/components/icon.scss"
-import Skeletons from "../../../../components/skeletons/index.skeletions"
-import useMenuHook from "../../../../hooks/useMenuHook";
+import Skeletons from "@/components/skeletons/index.skeletions"
+import useMenuHook from "@/hooks/useMenuHook";
 
 interface IContentProps {
 
@@ -26,7 +26,7 @@ const Content: React.FC<IContentProps> = (props) => {
         {
           loading ? <Skeletons /> : list.map((item, idx) => (
             <View key={item._id} className="item">
-              <Image onLongPress={goToLogin} className="img" mode="widthFix" src={item.imgSrc}></Image>
+              <Image onLongPress={goToLogin} className="img" mode="widthFix" src={item.imgSrc as string}></Image>
               <View className="title">{item.title}</View>
               <View className="price">{`￥${item.price}/${item.unit}${item.netUnit ? '/' + item.net + item.netUnit : ""}`}</View>
               <View className="action">

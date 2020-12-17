@@ -13,24 +13,11 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/components/*": [
-        "./src/components/*"
-      ],
-      "@/utils/*": [
-        "./src/utils/*"
-      ],
-      "@/hooks/*": [
-        "./src/hooks/*"
-      ],
-      "@/style/*": [
-        "./src/style/*"
-      ],
-      "@/type/*": [
-        "./src/type/*"
-      ],
+      "@/*": [
+        "src/*"
+      ]
     },
     "jsx": "preserve",
     "jsxFactory": "Taro.createElement",

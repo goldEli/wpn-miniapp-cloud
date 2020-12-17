@@ -1,9 +1,9 @@
 import React from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtInput, AtButton, AtActionSheet } from 'taro-ui'
-import { IMenu } from "../../../../type/index";
-import { IMenuAction } from "../../../../hooks/useMenuHook"
+import { AtInput, AtButton } from 'taro-ui'
+import { IMenu } from "@/type/index";
+import { IMenuAction } from "@/hooks/useMenuHook"
 
 
 interface IItemProps {
@@ -52,7 +52,7 @@ const Item: React.FC<IItemProps> = (props) => {
   }
   return (
     <View className="item">
-      <Image className="img" mode="widthFix" src={data?.imgSrc}></Image>
+      <Image className="img" mode="widthFix" src={data?.imgSrc as string}></Image>
       <AtInput
         name='index'
         title='展示的位置'

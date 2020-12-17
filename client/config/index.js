@@ -3,11 +3,12 @@ const config = {
   projectName: "menu",
   date: "2020-12-15",
   alias: {
-    "@/components": path.resolve(__dirname, "..", "src/components"),
-    "@/utils": path.resolve(__dirname, "..", "src/utils"),
-    "@/hooks": path.resolve(__dirname, "..", "src/hooks"),
-    "@/style": path.resolve(__dirname, "..", "src/style"),
-    "@/type": path.resolve(__dirname, "..", "src/type"),
+    "@": path.resolve(__dirname, "..", "src") 
+    // "@/components": path.resolve(__dirname, "..", "src/components"),
+    // "@/utils": path.resolve(__dirname, "..", "src/utils"),
+    // "@/hooks": path.resolve(__dirname, "..", "src/hooks"),
+    // "@/style": path.resolve(__dirname, "..", "src/style"),
+    // "@/type": path.resolve(__dirname, "..", "src/type"),
   },
   designWidth: 750,
   deviceRatio: {

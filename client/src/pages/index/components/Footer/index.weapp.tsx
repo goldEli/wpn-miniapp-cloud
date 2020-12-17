@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Taro, { Config } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import { View } from '@tarojs/components'
 export default class Footer extends Component {
   componentWillMount() { }
   componentDidMount() { }

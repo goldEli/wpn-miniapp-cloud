@@ -2,12 +2,11 @@
 import React, { Component } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import Item from "./components/item"
+import Item from "./components/item/index.weapp"
 import { AtMessage, AtButton } from 'taro-ui'
 import './index.less'
-import useMenuHook from "../../hooks/useMenuHook"
+import useMenuHook from "@/hooks/useMenuHook"
 import Skeletons from "@/components/skeletons/index.skeletions";
-import { IMenu } from "../../type";
 
 interface IMenuMngmtProps { }
 
