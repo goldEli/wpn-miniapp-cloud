@@ -6,7 +6,8 @@ import { IMenu } from "../../../../type/index";
 
 
 interface IItemProps {
-  data?: Partial<IMenu>
+  data?: Partial<IMenu>,
+  update: (data: IMenu) => void
 }
 
 const Item: React.FC<IItemProps> = (props) => {
@@ -29,11 +30,12 @@ const Item: React.FC<IItemProps> = (props) => {
       })
       return
     }
+    props.update(data as IMenu)
     // if (Object)
-    Taro.atMessage({
-      'message': '修改成功',
-      'type': "success",
-    })
+    // Taro.atMessage({
+    //   'message': '修改成功',
+    //   'type': "success",
+    // })
   }
   const onInputChange = (value, event) => {
     const name = event?.mpEvent?.currentTarget?.id

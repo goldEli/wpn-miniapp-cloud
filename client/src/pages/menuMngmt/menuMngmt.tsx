@@ -7,15 +7,21 @@ import { AtMessage, AtButton } from 'taro-ui'
 import './index.less'
 import useMenuHook from "../../hooks/useMenuHook"
 import Skeletons from "@/components/skeletons/index.skeletions";
-import { IMenu } from "@/type/index";
+import { IMenu } from "../../type";
 
 interface IMenuMngmtProps { }
 
 const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
-  const {list, loading, add} = useMenuHook()
+  const {list, loading, add, update} = useMenuHook()
 
   const handleChange = (data:IMenu) => {
+    // update
+    // if (data._id) {
 
+    // } else {
+    // // add
+    // add(data)  
+    // }
   }
 
 
@@ -26,7 +32,7 @@ const MenuMngmt: React.FC<IMenuMngmtProps> = (props) => {
 
       {
         loading ? <Skeletons /> : list?.map(item => {
-          return <Item key={item?._id} data={item} />
+          return <Item update={update} key={item?._id} data={item} />
         })
 
       }

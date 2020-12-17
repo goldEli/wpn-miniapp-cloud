@@ -12,7 +12,7 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext();
   const model = db.collection("menu");
-
+  const {data, _id} = event
   switch (event.action) {
     case "getAll":
       return await db.collection("menu").get();
@@ -21,9 +21,9 @@ exports.main = async (event, context) => {
         data,
       });
     case "delete":
-      return await model.where({ _id: data._id }).remove();
+      return await model.where({ _id }).remove();
     case "update":
-      return await model.where({ _id: data._id }).add({
+      return await model.where({ _id }).update({
         data,
       });
     default:
