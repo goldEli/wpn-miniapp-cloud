@@ -8,13 +8,17 @@ import useMenuHook from "@/hooks/useMenuHook";
 import './index.less'
 import { IMenuWithNum } from "@/type";
 import { MenuContext } from "./MenuContext";
+import ShowOrder from "@/components/showOrder/index.weapp"
 
-interface IIndexProps { }
+interface IIndexProps {
+  showOrder: boolean
+}
 
 
 const Index: React.FC<IIndexProps> = (props) => {
   const { list, loading } = useMenuHook()
   const [data, setData] = React.useState<IMenuWithNum[]>([])
+  console.log(props)
 
   React.useEffect(() => {
     if (list) {
@@ -46,28 +50,36 @@ const Index: React.FC<IIndexProps> = (props) => {
 
     }
   }
+  const sum = data.reduce((prev, item) => prev + (item.number * (item.price as number) || 0), 0).toFixed(2)
+  const getText = () => {
+    let start = `へ订单信息へ\n`
+    let mid = ""
+    let end = `共计：${sum} 元（不含运费）`
+    data.forEach(item => {
+      if (item.number > 0) {
+        mid += `${item.title}：${item.number}x${item.price} = ${(item.number * (item.price as number)).toFixed(2)}\n`
+      }
+    })
 
-
-  const onShareAppMessage = (res) => {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-    return {
-      title: '自定义转发标题',
-      path: '/page/index/index'
-    }
+    let content = start + mid + end
+    return content
   }
+
+  const text = getText()
 
   return (
     <MenuContext.Provider value={{ data, loading, action }}>
-      <View className='wme-index'>
-        {/* content */}
-        <Content />
-        {/* footer */}
-        <Footer />
-        {/* <Button onClick={this.onShareAppMessage}>go management</Button> */}
-      </View>
+      {
+        props.showOrder ? <ShowOrder text={text} /> : (
+          <View className='wme-index'>
+            {/* content */}
+            <Content />
+            {/* footer */}
+            <Footer sum={sum} text={text} />
+            {/* <Button onClick={this.onShareAppMessage}>go management</Button> */}
+          </View>
+        )
+      }
     </MenuContext.Provider>
   )
 }

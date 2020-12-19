@@ -1,14 +1,20 @@
 import React from 'react'
 import Taro, { Config, getCurrentInstance } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
-import "./index.less"
+import { Button } from '@tarojs/components'
+import ShowOrder from "@/components/showOrder/index.weapp";
 
 interface IOrderProps { }
 
 const Order: React.FC<IOrderProps> = (props) => {
   return (
-    <View className="wme-order"><Text>{getCurrentInstance().router?.params?.text}</Text></View>
-
+    <>
+      <Button onClick={() => {
+        Taro.redirectTo({
+          url: '/pages/index/index',
+        })
+      }} size="mini">返回菜单</Button>
+      <ShowOrder text={getCurrentInstance().router?.params?.text || ""}></ShowOrder>
+    </>
   )
 }
 
