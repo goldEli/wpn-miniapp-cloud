@@ -1,11 +1,16 @@
 # 菜单计算器
 
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
+> taro + taro-ui + 微信云
+### 功能
 
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+- [x] 菜单展示以及操作
+- [x] 菜单已选信息汇总转发好友
+- [x] 菜单管理（长按左下角总金额进入管理页面）
 
-## 参考文档
+### 小程序二维码
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+![](https://raw.githubusercontent.com/goldEli/wmenu/main/assets/gh_b574e9786088_258.jpg)
+
+
+
+
