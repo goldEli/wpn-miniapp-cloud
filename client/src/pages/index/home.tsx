@@ -18,7 +18,8 @@ interface IIndexProps {
 const Index: React.FC<IIndexProps> = (props) => {
   const { list, loading } = useMenuHook()
   const [data, setData] = React.useState<IMenuWithNum[]>([])
-  console.log(props)
+  const [sum, setSum] = React.useState("0")
+  const [text, setText] = React.useState("")
 
   React.useEffect(() => {
     if (list) {
@@ -26,6 +27,12 @@ const Index: React.FC<IIndexProps> = (props) => {
     }
 
   }, [list])
+
+  React.useEffect(() => {
+    const sum = data.reduce((prev, item) => prev + (item.number * (item.price as number) || 0), 0).toFixed(2)
+    setSum(sum)
+    setText(getText(data, sum))
+  }, [data])
 
   const action = {
     plus: (_id: string) => {
@@ -50,22 +57,6 @@ const Index: React.FC<IIndexProps> = (props) => {
 
     }
   }
-  const sum = data.reduce((prev, item) => prev + (item.number * (item.price as number) || 0), 0).toFixed(2)
-  const getText = () => {
-    let start = `へ订单信息へ\n`
-    let mid = ""
-    let end = `共计：${sum} 元（不含运费）`
-    data.forEach(item => {
-      if (item.number > 0) {
-        mid += `${item.title}：${item.number}x${item.price} = ${(item.number * (item.price as number)).toFixed(2)}\n`
-      }
-    })
-
-    let content = start + mid + end
-    return content
-  }
-
-  const text = getText()
 
   return (
     <MenuContext.Provider value={{ data, loading, action }}>
@@ -82,6 +73,19 @@ const Index: React.FC<IIndexProps> = (props) => {
       }
     </MenuContext.Provider>
   )
+}
+const getText = (data: IMenuWithNum[], sum: string) => {
+  let start = `へ订单信息へ\n`
+  let mid = ""
+  let end = `共计：${sum} 元（不含运费）`
+  data.forEach(item => {
+    if (item.number > 0) {
+      mid += `${item.title}：${item.number}x${item.price} = ${(item.number * (item.price as number)).toFixed(2)}\n`
+    }
+  })
+
+  let content = start + mid + end
+  return content
 }
 
 export default Index
