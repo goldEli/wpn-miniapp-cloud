@@ -18,8 +18,8 @@ interface IIndexProps {
 const Index: React.FC<IIndexProps> = (props) => {
   const { list, loading } = useMenuHook()
   const [data, setData] = React.useState<IMenuWithNum[]>([])
-  const [sum, setSum] = React.useState("0")
-  const [text, setText] = React.useState("")
+  // const [sum, setSum] = React.useState("0")
+  // const [text, setText] = React.useState("")
 
   React.useEffect(() => {
     if (list) {
@@ -28,11 +28,11 @@ const Index: React.FC<IIndexProps> = (props) => {
 
   }, [list])
 
-  React.useEffect(() => {
-    const sum = data.reduce((prev, item) => prev + (item.number * (item.price as number) || 0), 0).toFixed(2)
-    setSum(sum)
-    setText(getText(data, sum))
-  }, [data])
+  // React.useEffect(() => {
+  //   const sum = data.reduce((prev, item) => prev + (item.number * (item.price as number) || 0), 0).toFixed(2)
+  //   setSum(sum)
+  //   setText(getText(data, sum))
+  // }, [data])
 
   const action = {
     plus: (_id: string) => {
@@ -57,6 +57,13 @@ const Index: React.FC<IIndexProps> = (props) => {
 
     }
   }
+  const sum = React.useMemo(() => {
+    return data.reduce((prev, item) => prev + (item.number * (item.price as number) || 0), 0).toFixed(2)
+  }, [data])
+
+  const text = React.useMemo(() => {
+    return getText(data, sum)
+  }, [data, sum])
 
   return (
     <MenuContext.Provider value={{ data, loading, action }}>
