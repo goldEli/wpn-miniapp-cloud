@@ -1,8 +1,6 @@
 @import "../../style/minix.less";
 @import "../../style/color.less";
 
-
-
 .wme-index {
   .btnBackgroundColor;
   width: 100%;
@@ -50,19 +48,25 @@
       }
       .action {
         .flex(row, flex-end, center);
-        margin-right: 32px;
+        // margin-right: 32px;
         grid-area: action;
         .button-icon-sub,
         .button-icon-add {
-          .flex(row, center, center);
-          border-radius: 16px;
-          padding: 8px;
+          padding: 32px;
+          .button-icon-add-bg,
+          .button-icon-sub-bg {
+            padding: 8px;
+            border-radius: 16px;
+            .flex(row, center, center);
+          }
         }
-        .button-icon-add {
+        .button-icon-add-bg {
           background-color: @color_brand_dark;
         }
-        .button-icon-sub {
+        .button-icon-sub-bg {
           background-color: @color_brand_light;
+        }
+        .button-icon-bg {
         }
         .text {
           .flex(row, center, center);
