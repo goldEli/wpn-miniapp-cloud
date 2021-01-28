@@ -12,6 +12,12 @@ const Item: React.FC<IItemProps> = props => {
   const { data } = props;
   const { action } = React.useContext(MenuContext) as any;
 
+  const getPrice = () => {
+    return `￥${data.price}${data.unit ? "/" + data.unit : ""}${
+      data.netUnit ? "/" + data.net + data.netUnit : ""
+    }`;
+  };
+
   return (
     <View key={data._id} className="item">
       <Image
@@ -20,9 +26,7 @@ const Item: React.FC<IItemProps> = props => {
         src={data.imgSrc as string}
       ></Image>
       <View className="title">{data.title}</View>
-      <View className="price">{`￥${data.price}/${data.unit}${
-        data.netUnit ? "/" + data.net + data.netUnit : ""
-      }`}</View>
+      <View className="price">{getPrice()}</View>
       <View className="action">
         {data.number > 0 && (
           <>
