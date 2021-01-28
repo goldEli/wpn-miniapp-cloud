@@ -2,7 +2,7 @@
   "miniprogramRoot": "client/dist/",
   "cloudfunctionRoot": "cloud/functions/",
   "projectname": "menu",
-  "description": "菜单计算器",
+  "description": "商城",
   "appid": "wxe954cb2c29be1722",
   "setting": {
     "urlCheck": true,

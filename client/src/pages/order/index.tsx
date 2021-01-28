@@ -12,7 +12,7 @@ const Order: React.FC<IOrderProps> = (props) => {
         Taro.redirectTo({
           url: '/pages/index/index',
         })
-      }} size="mini">返回菜单</Button>
+      }} size="mini">返回首页</Button>
       <ShowOrder text={getCurrentInstance().router?.params?.text || ""}></ShowOrder>
     </>
   )

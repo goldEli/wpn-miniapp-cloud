@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '菜单',
+  navigationBarTitleText: '商城',
 }

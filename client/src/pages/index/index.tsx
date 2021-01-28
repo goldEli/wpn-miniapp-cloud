@@ -23,7 +23,7 @@ export default class Index extends Component {
       }
     }
     return {
-      title: '点击进入菜单',
+      title: '点击进入',
       path: 'pages/index/index'
     }
   }
@@ -31,7 +31,7 @@ export default class Index extends Component {
   render() {
     return (
       <>
-        {this.state.showOrder && <Button onClick={() => this.setState({ showOrder: false })} size="mini">返回菜单</Button>}
+        {this.state.showOrder && <Button onClick={() => this.setState({ showOrder: false })} size="mini">返回首页</Button>}
         <Home showOrder={this.state.showOrder} />
       </>
     )
