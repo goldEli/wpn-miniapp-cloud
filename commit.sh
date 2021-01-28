@@ -1,6 +1,6 @@
 git status &&
 echo -n "Do you want push to github? (y/n)"
-read yesno < /dev/tty
+read yesno
 
 if [ "$yesno" = "y" ] || [ "$yesno" = "" ];then
    echo "yes"
@@ -10,6 +10,6 @@ else
 fi
 git add . &&
 echo -n "Please input your commit message:"
-read commit < /dev/tty
+read commit
 git commit -m "$commit" &&
 git push
