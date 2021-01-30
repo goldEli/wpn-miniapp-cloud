@@ -17,20 +17,25 @@ const Footer: React.FC<IFooterProps> = props => {
       .toFixed(2);
   }, [data]);
 
-  const text = React.useMemo(() => {
-    return getText(data, sum);
-  }, [data, sum]);
+  const text = JSON.stringify(filterData(data));
+
+  const toOrderPage = () => {
+    Taro.navigateTo({
+      url: `/pages/order/index?text=${text}`
+    });
+  };
+  console.log(text);
+
   return (
     <View className="footer">
       <View className="inner">
-        <View
-          onLongPress={goToLogin}
-          className="price"
-        >{` ￥${sum} 元`}</View>
+        <View onLongPress={goToLogin} className="price">{` ￥${sum} 元`}</View>
         <Button
-          openType="share"
-          data-sum={sum}
-          data-text={text}
+          // openType="share"
+
+          onClick={toOrderPage}
+          // data-sum={sum}
+          // data-text={text}
           className="button"
         >
           选好了，点我
@@ -41,20 +46,14 @@ const Footer: React.FC<IFooterProps> = props => {
 };
 
 export default Footer;
-const getText = (data: IMenuWithNum[] = [], sum: string = "0") => {
-  let start = `へ订单信息へ\n`;
-  let mid = "";
-  let end = `共计：${sum} 元（不含运费）`;
-  data.forEach(item => {
-    if (item.number > 0) {
-      mid += `${item.title}：${item.number}x${item.price} = ${(
-        item.number * (item.price as number)
-      ).toFixed(2)}\n`;
-    }
-  });
-
-  let content = start + mid + end;
-  return content;
+const filterData = (data: IMenuWithNum[] = []) => {
+  return data
+    .filter(item => item.number > 0)
+    .map(item => ({
+      title: item.title,
+      number: item.number,
+      price: item.price
+    }));
 };
 
 const goToLogin = () => {

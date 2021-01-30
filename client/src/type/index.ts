@@ -8,6 +8,7 @@ export interface IMenu {
   title: string;
   imgSrc: string;
   onSale: boolean;
+  total?: number;
 }
 
 export interface IFurnitureCategory {
