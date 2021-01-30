@@ -37,9 +37,9 @@
     .item {
       padding: 8px 0;
       display: grid;
-      grid-template-areas: "img title title" "img price price" "img action action";
-      grid-template-columns: 280px 1fr 1fr;
-      grid-template-rows: 120px 30px 100px;
+      grid-template-areas: "img title" "img price" "img action";
+      grid-template-columns: 280px auto;
+      grid-template-rows: auto 40px 60px;
       .img {
         .flex();
         border-radius: 8px;
@@ -47,7 +47,7 @@
         align-items: center;
         grid-area: img;
         width: 250px;
-        height: 300px;
+        // height: 300px;
         // margin-right: 16px;
       }
       // .right {
