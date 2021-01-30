@@ -3,13 +3,13 @@ import Taro, { Config } from "@tarojs/taro";
 import { View, Image, ScrollView } from "@tarojs/components";
 import "taro-ui/dist/style/components/icon.scss";
 import Skeletons from "@/components/skeletons/index.skeletions";
-import { MenuContext } from "../../MenuContext";
+import { MenuContext } from "../../context/MenuContext";
 import ListItem from "../ListItem/index.weapp";
 
 interface IListProps {}
 
 const List: React.FC<IListProps> = props => {
-  const { data, loading } = React.useContext(MenuContext) as any;
+  const { data, loading } = React.useContext(MenuContext);
   console.log(data, loading);
   return (
     <View className="content-list">
@@ -17,7 +17,7 @@ const List: React.FC<IListProps> = props => {
         {loading ? (
           <Skeletons />
         ) : (
-          data.map((item, idx) => <ListItem key={item.id} data={item} />)
+          data?.map((item, idx) => <ListItem key={item._id} data={item} />)
         )}
       </ScrollView>
     </View>
