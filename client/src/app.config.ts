@@ -1,8 +1,8 @@
 export default {
   pages: [
     "pages/index/index",
-    "pages/login/login",
     "pages/order/index",
+    "pages/login/login",
     "pages/menuMngmt/menuMngmt"
   ],
   window: {
