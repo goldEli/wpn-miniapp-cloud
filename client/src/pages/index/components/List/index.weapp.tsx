@@ -1,7 +1,6 @@
 import React from "react";
 import Taro, { Config } from "@tarojs/taro";
 import { View, Image, ScrollView } from "@tarojs/components";
-import "taro-ui/dist/style/components/icon.scss";
 import Skeletons from "@/components/skeletons/index.skeletions";
 import { MenuContext } from "../../context/MenuContext";
 import ListItem from "../ListItem/index.weapp";

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Button } from '@tarojs/components'
-
 export default class Index extends Component {
   state = {
     context: {}
