@@ -2,16 +2,34 @@
 @import "../../style/color.less";
 
 .wme-index {
-  .btnBackgroundColor;
+  // .btnBackgroundColor;
   width: 100%;
   padding: 8px;
   height: 100%;
   box-sizing: border-box;
-
-  // height: 200px;
   .content {
-    border-radius: 8px;
     background-color: @white;
+    .flex(row, flex-start, flex-start);
+  }
+  .content-nav {
+    background-color: @color_brand_light;
+    width: 150px;
+    height: 100%;
+    .flex(column, flex-start, center);
+    .active {
+      background-color: @white;
+    }
+    .btn {
+      width: 100%;
+      padding: 32px 16px;
+      font-size: 0.5em;
+      .flex(row, center, center)
+    }
+  }
+  // height: 200px;
+  .content-list {
+    flex: 1;
+    border-radius: 8px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;

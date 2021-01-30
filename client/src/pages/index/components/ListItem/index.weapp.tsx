@@ -1,3 +1,4 @@
+
 import React from "react";
 import Taro, { Config } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";

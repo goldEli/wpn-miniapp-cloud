@@ -1,37 +1,18 @@
-import React, { useEffect } from 'react'
-import Taro, { Config } from '@tarojs/taro'
-import { View, Image, ScrollView } from '@tarojs/components'
-import "taro-ui/dist/style/components/icon.scss"
-import Skeletons from "@/components/skeletons/index.skeletions"
-// import useMenuHook from "@/hooks/useMenuHook";
-import Item from "./item.weapp";
-import { MenuContext } from "../../MenuContext"
+import React, { useEffect } from "react";
+import Taro, { Config } from "@tarojs/taro";
+import { View, Image, ScrollView } from "@tarojs/components";
+import List from "../List/index.weapp";
+import Nav from "../Nav";
 
-interface IContentProps {
+interface IContentProps {}
 
-}
-
-const Content: React.FC<IContentProps> = (props) => {
-  // const { list, loading } = useMenuHook()
-  const { data, loading } = React.useContext(MenuContext) as any
+const Content: React.FC<IContentProps> = props => {
   return (
-    <>
-      <ScrollView
-        scrollY
-        scrollWithAnimation
-        className="content"
-      >
-        {
-          loading ? <Skeletons /> : data.map((item, idx) => (
-            <Item data={item} />
-          ))
-        }
-      </ScrollView>
-    </>
-  )
-}
+    <View className="content">
+      <Nav />
+      <List />
+    </View>
+  );
+};
 
-
-export default Content
-
-
+export default Content;
