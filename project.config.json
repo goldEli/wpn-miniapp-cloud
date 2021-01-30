@@ -3,7 +3,7 @@
   "cloudfunctionRoot": "cloud/functions/",
   "projectname": "menu",
   "description": "商城",
-  "appid": "wxe954cb2c29be1722",
+  "appid": "wx1a7ec18e522bac32",
   "setting": {
     "urlCheck": true,
     "es6": false,

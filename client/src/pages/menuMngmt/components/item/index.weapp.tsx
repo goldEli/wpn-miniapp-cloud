@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Taro, { Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { AtInput, AtButton, AtSwitch, message } from 'taro-ui'
+import { AtInput, AtButton, AtSwitch, message, AtTextarea } from 'taro-ui'
 import { IMenu } from "@/type/index";
 import { IMenuAction } from "@/hooks/useMenuHook"
 
@@ -54,11 +54,12 @@ const Item: React.FC<IItemProps> = (props) => {
         value={data?.index?.toString()}
         onChange={(value) => onInputChange(value, "index")}
       />
-      <AtInput
+      <div></div>
+      <AtTextarea
         name={`imgSrc-${data._id}`}
         title='图片地址'
         type='text'
-        value={data?.imgSrc}
+        value={data?.imgSrc || ""}
         onChange={(value) => onInputChange(value, "imgSrc")}
       />
       <AtInput
@@ -75,7 +76,7 @@ const Item: React.FC<IItemProps> = (props) => {
         value={data?.price?.toString()}
         onChange={(value) => onInputChange(value, "price")}
       />
-      <AtInput
+      {/* <AtInput
         name={`unit-${data._id}`}
         title='单位'
         type="text"
@@ -95,7 +96,7 @@ const Item: React.FC<IItemProps> = (props) => {
         type="text"
         value={data?.netUnit}
         onChange={(value) => onInputChange(value, "netUnit")}
-      />
+      /> */}
       <AtSwitch title='是否上架销售' checked={data.onSale} onChange={(value) => onInputChange(value, "onSale")} />
 
       <View className="button-box">
