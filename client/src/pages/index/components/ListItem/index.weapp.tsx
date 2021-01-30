@@ -14,9 +14,7 @@ const Item: React.FC<IItemProps> = props => {
   const { action } = React.useContext(MenuContext) as any;
 
   const getPrice = () => {
-    return `￥${data.price}${data.unit ? "/" + data.unit : ""}${
-      data.netUnit ? "/" + data.net + data.netUnit : ""
-    }`;
+    return `￥${data.price}`;
   };
 
   return (

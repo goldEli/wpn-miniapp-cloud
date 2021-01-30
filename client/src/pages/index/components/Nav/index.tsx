@@ -21,8 +21,8 @@ const Nav: React.FC<INavProps> = props => {
   };
 
   return (
-    <ScrollView scrollY scrollWithAnimation>
-      <View className="content-nav">
+    <View className="content-nav">
+      <ScrollView scrollY scrollWithAnimation>
         {data.map(item => {
           const classes = classnames("btn", {
             active: item.id === activeId
@@ -37,8 +37,8 @@ const Nav: React.FC<INavProps> = props => {
             </Text>
           );
         })}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 

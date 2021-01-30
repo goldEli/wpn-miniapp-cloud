@@ -37,17 +37,17 @@
     .item {
       padding: 8px 0;
       display: grid;
-      grid-template-areas: "img title title" "img price action";
-      grid-template-columns: 232px 1fr 1fr;
-      grid-template-rows: 160px 1fr;
+      grid-template-areas: "img title title" "img price price" "img action action";
+      grid-template-columns: 280px 1fr 1fr;
+      grid-template-rows: 120px 30px 100px;
       .img {
         .flex();
         border-radius: 8px;
         justify-content: center;
         align-items: center;
         grid-area: img;
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 300px;
         // margin-right: 16px;
       }
       // .right {
@@ -57,12 +57,15 @@
         font-weight: bold;
         overflow: hidden; //超出的文本隐藏
         grid-area: title;
+        font-size: 0.8em;
       }
       .price {
-        .flex(row, flex-start, center);
-        // font-weight: bold;
+        .flex(row, flex-end, center);
+        padding-right: 32px;
+        color: @red;
+        font-weight: bold;
         grid-area: price;
-        font-size: 80%;
+        font-size: 0.8em;
       }
       .action {
         .flex(row, flex-end, center);
