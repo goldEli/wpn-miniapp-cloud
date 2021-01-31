@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
-import Taro, {
-  Config,
-  getCurrentInstance,
-  useShareAppMessage
-} from "@tarojs/taro";
 import { Button, View, Text } from "@tarojs/components";
 import { AtSwipeAction, AtList, AtListItem, AtButton } from "taro-ui";
 import "./index.less";
-import { IMenuWithNum } from "@/type";
 import Title from "@/components/Title";
+import UpdateCategoryModal, { open } from "./components/UpdateCategoryModal";
 
 interface ISettingProps {}
 const options = [
   {
+    key: "modify",
     text: "修改",
     style: {
       backgroundColor: "#6190E8"
     }
   },
   {
+    key: "delete",
     text: "删除",
     style: {
       backgroundColor: "#FF4949"
@@ -32,24 +29,31 @@ const list = [
 ];
 
 const Setting: React.FC<ISettingProps> = props => {
+  const handleSwipeAction = (event: any) => {
+    console.log(event.key);
+  };
   return (
     <>
       <View className="wme-setting">
         <Title title="系列" />
-        <AtButton type="primary">新增</AtButton>
+        <AtButton onClick={open} type="primary">
+          新增
+        </AtButton>
         <AtList>
           {list.map(item => {
             return (
               <AtSwipeAction
+                onClick={handleSwipeAction}
                 key={item.id}
                 autoClose
                 options={options}
               >
-                <AtListItem arrow='right' title={item.name} />
+                <AtListItem arrow="right" title={item.name} />
               </AtSwipeAction>
             );
           })}
         </AtList>
+        <UpdateCategoryModal />
       </View>
     </>
   );
