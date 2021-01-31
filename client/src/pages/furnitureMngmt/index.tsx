@@ -11,7 +11,7 @@ const FurnitureMngmt: React.FC<IFurnitureMngmtProps> = props => {
   const id = getCurrentInstance().router?.params?.id || "";
   return (
     <View className="wme-forniture-mngmt">
-      <AtButton type="primary" >新增</AtButton>
+      <AtButton>新增</AtButton>
       <Item />
     </View>
   );
