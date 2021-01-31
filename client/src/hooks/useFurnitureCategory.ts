@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { http } from "@/utils";
 import { IFurnitureCategory } from "@/type";
+const furnitureCategory = "furnitureCategory";
 
 export default function useFurnitureCategory() {
   const [categoryList, setCategoryList] = React.useState<IFurnitureCategory[]>(
@@ -9,10 +10,10 @@ export default function useFurnitureCategory() {
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
-    getData();
+    refresh();
   }, []);
-  const getData = async () => {
-    const data = await http("furnitureCategory", {
+  const refresh = async () => {
+    const data = await http(furnitureCategory, {
       action: "getAll"
     });
     if (data instanceof Array) {
@@ -21,6 +22,47 @@ export default function useFurnitureCategory() {
       setLoading(false);
     }
   };
+  const add = async (name: string) => {
+    await http(
+      furnitureCategory,
+      {
+        action: "add",
+        data: { name }
+      },
+      {
+        sucMsg: "新增成功"
+      }
+    );
+    refresh();
+  };
 
-  return { categoryList, loading };
+  const deleteById = async (_id: string) => {
+    await http(
+      furnitureCategory,
+      {
+        action: "delete",
+        _id: _id
+      },
+      { sucMsg: "删除成功" }
+    );
+
+    refresh();
+  };
+
+  const update = async (id: string, name: string) => {
+    await http(
+      furnitureCategory,
+      {
+        action: "update",
+        _id: id,
+        data: { name }
+      },
+      {
+        sucMsg: "修改成功"
+      }
+    );
+    refresh();
+  };
+
+  return { categoryList, loading, refresh, add, deleteById, update };
 }

@@ -1,12 +1,19 @@
 import React, { useEffect } from "react";
 import { Button, View, Text } from "@tarojs/components";
+import Taro from "@tarojs/taro";
 import { AtSwipeAction, AtList, AtListItem, AtButton } from "taro-ui";
 import "./index.less";
 import Title from "@/components/Title";
 import UpdateCategoryModal, { open } from "./components/UpdateCategoryModal";
+import useFurnitureCategory from "@/hooks/useFurnitureCategory";
 
 interface ISettingProps {}
-const options = [
+const options: {
+  id?: string;
+  key: string;
+  text: string;
+  style: any;
+}[] = [
   {
     key: "modify",
     text: "修改",
@@ -22,29 +29,43 @@ const options = [
     }
   }
 ];
-const list = [
-  { id: "1", name: "系列1" },
-  { id: "2", name: "系列2" },
-  { id: "3", name: "系列3" }
-];
 
 const Setting: React.FC<ISettingProps> = props => {
-  const handleSwipeAction = (event: any) => {
-    console.log(event.key);
+  const { categoryList, add, update, deleteById } = useFurnitureCategory();
+  const handleSwipeAction = (key: string, id: string, name: string) => {
+    if (key === "modify") {
+      open(id, name);
+    }
+    if (key === "delete") {
+      Taro.showModal({
+        title: "提示",
+        content: "删除会导致该系列下的所有家具信息被删除！！！",
+        success: function(res) {
+          if (res.confirm) {
+            deleteById(id);
+            console.log("用户点击确定");
+          } else if (res.cancel) {
+            console.log("用户点击取消");
+          }
+        }
+      });
+    }
   };
   return (
     <>
       <View className="wme-setting">
         <Title title="系列" />
-        <AtButton onClick={open} type="primary">
+        <AtButton onClick={() => open()} type="primary">
           新增
         </AtButton>
         <AtList>
-          {list.map(item => {
+          {categoryList.map(item => {
             return (
               <AtSwipeAction
-                onClick={handleSwipeAction}
-                key={item.id}
+                onClick={(value: any) => {
+                  handleSwipeAction(value.key, item._id, item.name);
+                }}
+                key={item._id}
                 autoClose
                 options={options}
               >
@@ -53,7 +74,7 @@ const Setting: React.FC<ISettingProps> = props => {
             );
           })}
         </AtList>
-        <UpdateCategoryModal />
+        <UpdateCategoryModal update={update} add={add}/>
       </View>
     </>
   );

@@ -3,6 +3,7 @@ import Taro from "@tarojs/taro";
 
 export default function useModal(eventName: string) {
   const [visible, setVisible] = React.useState(false);
+  const [modalData, setModalData] = React.useState<any>({})
 
   React.useEffect(() => {
     Taro.eventCenter.on(`${eventName}`, open);
@@ -11,7 +12,8 @@ export default function useModal(eventName: string) {
     };
   }, []);
 
-  const open = () => {
+  const open = (data?: any) => {
+    data && setModalData(data)
     setVisible(true);
   };
 
@@ -19,5 +21,5 @@ export default function useModal(eventName: string) {
     setVisible(false);
   };
 
-  return { visible, open, close };
+  return { visible, open, close, modalData };
 }
