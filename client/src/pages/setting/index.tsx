@@ -55,6 +55,11 @@ const Setting: React.FC<ISettingProps> = props => {
       });
     }
   };
+  const goToFurnitureMngmtPage = (id:string) => {
+    Taro.navigateTo({
+      url: `/pages/furnitureMngmt/index?id=${id}`
+    });
+  };
   return (
     <>
       <View className="wme-setting">
@@ -80,6 +85,7 @@ const Setting: React.FC<ISettingProps> = props => {
                   options={options}
                 >
                   <AtListItem
+                    onClick={() => goToFurnitureMngmtPage(item._id)}
                     arrow="right"
                     title={`${item.index}. ${item.name}`}
                   />

@@ -1,5 +1,6 @@
 export default {
   pages: [
+    "pages/furnitureMngmt/index",
     "pages/setting/index",
     "pages/index/index",
     "pages/order/index",
