@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Taro, { Config, getCurrentInstance } from "@tarojs/taro";
+import Taro, { Config, getCurrentInstance, useShareAppMessage } from "@tarojs/taro";
 import { Button, View, Text } from "@tarojs/components";
 import { AtList, AtListItem, AtInput, AtButton, AtTextarea } from "taro-ui";
 import "./index.less";
@@ -56,6 +56,18 @@ const Order: React.FC<IOrderProps> = props => {
     express: "",
     expressPhone: ""
   });
+  useShareAppMessage(res => {
+    console.log(123,res.target)
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    const text = getCurrentInstance().router?.params?.text || "";
+    return {
+      title: '订单',
+      path: `pages/order/index?text=${text}`
+    }
+  })
   useEffect(() => {
     const text = getCurrentInstance().router?.params?.text || "";
     const data: IMenuWithNum[] = text ? JSON.parse(text) : [];
@@ -180,5 +192,7 @@ const getText = (data: IMenuWithNum[] = [], sum: string = "0") => {
   let content = start + mid + end;
   return content;
 };
+
+Order.enableShareAppMessage= true
 
 export default Order;
