@@ -73,7 +73,8 @@ const Login: React.FC<ILoginProps> = props => {
       });
   };
   const saveToStorage = () => {
-    if (setSelectedList.length > 0) {
+    if (rememberMe()) {
+      console.log("remeberME")
       Taro.setStorage({
         key: "nameVal",
         data: nameVal
@@ -94,7 +95,6 @@ const Login: React.FC<ILoginProps> = props => {
     }
   };
   const restoreFromStorage = () => {
-    if (setSelectedList.length > 0) {
       Taro.getStorage({
         key: "nameVal",
         success: function(res) {
@@ -107,11 +107,13 @@ const Login: React.FC<ILoginProps> = props => {
           res.data && setPwdVal(res.data);
         }
       });
-    }
   };
   const handleChange = (value: string[]) => {
     setSelectedList(value);
   };
+  const rememberMe = () => {
+    return selectedList.length > 0  
+  }
   return (
     <View className="wme-login">
       <AtMessage />
