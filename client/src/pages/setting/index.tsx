@@ -32,9 +32,13 @@ const options: {
 
 const Setting: React.FC<ISettingProps> = props => {
   const { categoryList, add, update, deleteById } = useFurnitureCategory();
-  const handleSwipeAction = (key: string, id: string, name: string) => {
+  const handleSwipeAction = (
+    key: string,
+    id: string,
+    data: { name: string; index: number; id: string }
+  ) => {
     if (key === "modify") {
-      open(id, name);
+      open(data);
     }
     if (key === "delete") {
       Taro.showModal({
@@ -59,22 +63,31 @@ const Setting: React.FC<ISettingProps> = props => {
           新增
         </AtButton>
         <AtList>
-          {categoryList.map(item => {
-            return (
-              <AtSwipeAction
-                onClick={(value: any) => {
-                  handleSwipeAction(value.key, item._id, item.name);
-                }}
-                key={item._id}
-                autoClose
-                options={options}
-              >
-                <AtListItem arrow="right" title={item.name} />
-              </AtSwipeAction>
-            );
-          })}
+          {categoryList
+            .sort((a, b) => a.index - b.index)
+            .map(item => {
+              return (
+                <AtSwipeAction
+                  onClick={(value: any) => {
+                    handleSwipeAction(value.key, item._id, {
+                      id: item._id,
+                      name: item.name,
+                      index: item.index
+                    });
+                  }}
+                  key={item._id}
+                  autoClose
+                  options={options}
+                >
+                  <AtListItem
+                    arrow="right"
+                    title={`${item.index}. ${item.name}`}
+                  />
+                </AtSwipeAction>
+              );
+            })}
         </AtList>
-        <UpdateCategoryModal update={update} add={add}/>
+        <UpdateCategoryModal update={update} add={add} />
       </View>
     </>
   );

@@ -22,12 +22,12 @@ export default function useFurnitureCategory() {
       setLoading(false);
     }
   };
-  const add = async (name: string) => {
+  const add = async (data: { name: string; index: number }) => {
     await http(
       furnitureCategory,
       {
         action: "add",
-        data: { name }
+        data
       },
       {
         sucMsg: "新增成功"
@@ -49,13 +49,13 @@ export default function useFurnitureCategory() {
     refresh();
   };
 
-  const update = async (id: string, name: string) => {
+  const update = async (id: string, data: { name: string; index: number }) => {
     await http(
       furnitureCategory,
       {
         action: "update",
         _id: id,
-        data: { name }
+        data
       },
       {
         sucMsg: "修改成功"
