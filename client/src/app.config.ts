@@ -1,5 +1,6 @@
 export default {
   pages: [
+    "pages/setting/index",
     "pages/index/index",
     "pages/order/index",
     "pages/login/login",
