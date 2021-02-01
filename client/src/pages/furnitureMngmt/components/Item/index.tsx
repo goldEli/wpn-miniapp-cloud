@@ -5,6 +5,7 @@ import { AtCard, AtDivider, AtSwitch, AtButton } from "taro-ui";
 import ImageBox from "../ImageBox";
 import "./index.less"
 import { IFurniture } from "@/type";
+import { open } from "../UpdateFurnitureModal";
 
 interface IItemProps {
   data: IFurniture
@@ -14,9 +15,8 @@ const Item: React.FC<IItemProps> = props => {
   const {data} = props
   
   const edit = () => {
-    console.log("edit");
+    open(data)
   };
-  const onChangeSwitch = () => {};
   const note = `排序${data.index}，￥${data.price}，${data.onSale ? "已上架" : "未上架"}`
   const imageSrcList = data.imgSrc?.split(",").filter(item => item) || []
   return (

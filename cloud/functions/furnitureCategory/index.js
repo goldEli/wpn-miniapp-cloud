@@ -12,7 +12,7 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext();
   const model = db.collection("furnitureCategory");
-  const {data, _id} = event
+  const { data, _id } = event;
   switch (event.action) {
     case "getAll":
       return await db.collection("furnitureCategory").get();

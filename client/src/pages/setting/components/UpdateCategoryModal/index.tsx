@@ -16,20 +16,23 @@ interface IParams {
   index: string;
 }
 const initParsms = {
- index: "0", name: "" 
-}
+  index: "0",
+  name: ""
+};
 
 const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   const { close, visible, modalData } = useModal(updateCategoryModalkey);
   const [params, setParams] = React.useState<IParams>(initParsms);
 
   React.useEffect(() => {
-    if (modalData.id) {
+    if (isAdd()) {
       setParams(modalData);
     } else {
-      setParams(initParsms)
+      setParams(initParsms);
     }
   }, [modalData]);
+
+  const isAdd = () => !!modalData.id;
 
   const onChange = (key: string, value: string) => {
     setParams(prev => ({ ...prev, [key]: value }));
@@ -67,8 +70,9 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
 
     close();
   };
+  const title = isAdd() ? "新增" : "修改";
   return (
-    <AtFloatLayout isOpened={visible} title="新增" onClose={close}>
+    <AtFloatLayout isOpened={visible} title={title} onClose={close}>
       <AtInput
         name="name"
         title="名称"
@@ -92,7 +96,7 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   );
 };
 
-export const open = (data?: {id?: string, name?: string, index?: number}) => {
+export const open = (data?: { id?: string; name?: string; index?: number }) => {
   Taro.eventCenter.trigger(updateCategoryModalkey, data);
 };
 
