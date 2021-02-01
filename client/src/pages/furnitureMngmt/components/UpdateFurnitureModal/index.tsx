@@ -55,7 +55,8 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (data.index === "") {
+    if ( data.index === "") {
+    // if (_.isEmpty(data.index)) {
       Taro.showToast({
         title: "排序未填",
         icon: "none",
@@ -72,6 +73,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       return false;
     }
     if (data.price === "") {
+    // if (_.isEmpty(data.price)) {
       Taro.showToast({
         title: "价格未填",
         icon: "none",
@@ -79,9 +81,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (
-      _.isEmpty(data.title)
-    ) {
+    if (_.isEmpty(data.title)) {
       Taro.showToast({
         title: "名称未填",
         icon: "none",
@@ -146,7 +146,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       <AtSwitch
         title="是否上架"
         checked={data?.onSale}
-        onChange={(value: boolean) => onChange("note", value)}
+        onChange={(value: boolean) => onChange("onSale", value)}
       />
       <AtButton type="primary" onClick={onOk}>
         确定
