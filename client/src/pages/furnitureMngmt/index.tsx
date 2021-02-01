@@ -9,13 +9,13 @@ import useFurnitureList from "@/hooks/useFurnitureList";
 interface IFurnitureMngmtProps {}
 
 const FurnitureMngmt: React.FC<IFurnitureMngmtProps> = props => {
+  const id = getCurrentInstance().router?.params?.id || "3b020ca36014d640019bf0e55a2aa37c";
   const { refresh, furnitureList } = useFurnitureList();
   React.useEffect(() => {
-    const id = getCurrentInstance().router?.params?.id || "";
-    console.log(id, 123)
+    console.log(id)
     if (!id) return;
     refresh(id);
-  }, []);
+  }, [id]);
   return (
     <View className="wme-forniture-mngmt">
       <AtButton>新增</AtButton>
