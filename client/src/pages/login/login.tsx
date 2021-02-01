@@ -61,7 +61,7 @@ const Login: React.FC<ILoginProps> = props => {
             type: "success"
           });
           Taro.redirectTo({
-            url: "/pages/menuMngmt/menuMngmt"
+            url: "/pages/setting/index"
           });
           saveToStorage();
         } else {

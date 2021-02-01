@@ -1,32 +1,56 @@
 import React from "react";
 import Taro from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { AtCard, AtDivider, AtSwitch } from "taro-ui";
+import { AtCard, AtDivider, AtSwitch, AtButton } from "taro-ui";
 import ImageBox from "../ImageBox";
+import "./index.less"
+import { IFurniture } from "@/type";
 
-import Title from "@/components/Title";
-interface IItemProps {}
+interface IItemProps {
+  data: IFurniture
+}
 
 const Item: React.FC<IItemProps> = props => {
+  const {data} = props
+  
   const edit = () => {
     console.log("edit");
   };
   const onChangeSwitch = () => {};
+  const note = `排序${data.index}，￥${data.price}，${data.onSale ? "已上架" : "未上架"}`
+  const imageSrcList = data.imgSrc?.split(",").filter(item => item) || []
   return (
     <View className="furnitureMngomt-item">
-      <AtCard onClick={edit} title="a系列茶几" note="排序1，￥3000">
+      <AtCard onClick={edit} title={data.title} note={note}>
         <ImageBox
-          list={[
-            "https://wx3.sinaimg.cn/mw690/671cf50fgy1glqy60o43jj203e03rmxg.jpg",
-            "https://wx3.sinaimg.cn/mw690/671cf50fgy1glqy64jy84j203203rdg0.jpg"
-          ]}
+          list={imageSrcList}
         />
         <View>
-          规格：C-120(茶)1200*600*465
-          \n配色大胆，符合现今大众审美。油漆符合环保要求，无刺激性气味，板材不易受潮变形，抽屉采用实木，质地耐磨。
+          {data.note}
         </View>
-        <AtDivider />
+        {/* <AtDivider />
         <AtSwitch title="是否上架" checked={true} onChange={onChangeSwitch} />
+        <AtDivider />
+        <View className="item-button-box">
+          <View className="wme-small-btn">
+            <AtButton
+              circle
+              type="secondary"
+              full={false}
+            >
+              删除
+            </AtButton>
+          </View>
+          <View className="wme-small-btn">
+            <AtButton
+              circle
+              type="primary"
+              full={false}
+            >
+              修改
+            </AtButton>
+          </View>
+        </View> */}
       </AtCard>
     </View>
   );

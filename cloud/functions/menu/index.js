@@ -12,7 +12,7 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext();
   const model = db.collection("menu");
-  const {data, _id} = event
+  const {data, _id, furnitureCategoryId} = event
   switch (event.action) {
     case "getAll":
       return await db.collection("menu").get();
@@ -26,6 +26,8 @@ exports.main = async (event, context) => {
       return await model.where({ _id }).update({
         data,
       });
+    case "getByFurnitureCategoryId":
+      return await model.where({furnitureCategoryId}).get();
     default:
       break;
   }
