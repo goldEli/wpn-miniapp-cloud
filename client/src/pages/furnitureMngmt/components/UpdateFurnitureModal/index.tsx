@@ -12,6 +12,7 @@ import useModal from "@/hooks/useModal";
 import { updateFunitureModalkey } from "@/config/modalKey";
 import { IFurniture } from "@/type";
 import Title from "@/components/Title";
+import { isNumber } from "@/utils";
 import _ from "lodash";
 
 interface IUpdateCategoryProps {
@@ -59,7 +60,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (data.price === NaN) {
+    if (!isNumber(data?.price)) {
       // if (_.isEmpty(data.price)) {
       Taro.showToast({
         title: "价格未填",
@@ -68,7 +69,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (data.index === NaN) {
+    if (!isNumber(data?.index)) {
       // if (_.isEmpty(data.index)) {
       Taro.showToast({
         title: "排序未填",
@@ -108,7 +109,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
   };
   const title = isAdd ? "新增" : "修改";
   const handleNumber = (value: number | undefined) => {
-    if (typeof value === "number") {
+    if (typeof value === "number" && !isNaN(value)) {
       return value + "";
     } else {
       return "";

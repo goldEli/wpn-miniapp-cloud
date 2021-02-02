@@ -5,6 +5,7 @@ import { AtFloatLayout, AtInput, AtButton } from "taro-ui";
 import useModal from "@/hooks/useModal";
 import { updateCategoryModalkey } from "@/config/modalKey";
 import { IFurniture, IFurnitureCategory } from "@/type";
+import { isNumber } from "@/utils";
 
 interface IUpdateCategoryProps {
   add: (data: IFurnitureCategory) => void;
@@ -43,17 +44,27 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
 
   const checkValid = () => {
     if (!params.name) {
-      Taro.atMessage({
-        message: "输入名称",
-        type: "error"
+      Taro.showToast({
+        title: "输入名称",
+        icon: "none",
+        duration: 2000
       });
+      // Taro.atMessage({
+      //   message: "输入名称",
+      //   type: "error"
+      // });
       return false;
     }
-    if (!params.index) {
-      Taro.atMessage({
-        message: "输入排序",
-        type: "error"
+    if (!isNumber(params?.index)) {
+      Taro.showToast({
+        title: "输入排序",
+        icon: "none",
+        duration: 2000
       });
+      // Taro.atMessage({
+      //   message: "输入排序",
+      //   type: "error"
+      // });
       return false;
     }
     return true;
