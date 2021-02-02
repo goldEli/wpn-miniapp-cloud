@@ -4,7 +4,7 @@ import { Button, View } from "@tarojs/components";
 import { AtFloatLayout, AtInput, AtButton } from "taro-ui";
 import useModal from "@/hooks/useModal";
 import { updateCategoryModalkey } from "@/config/modalKey";
-import { IFurnitureCategory } from "@/type";
+import { IFurniture, IFurnitureCategory } from "@/type";
 
 interface IUpdateCategoryProps {
   add: (data: IFurnitureCategory) => void;
@@ -23,14 +23,15 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
     updateCategoryModalkey
   );
   const [params, setParams] = React.useState<IFurnitureCategory>(initParsms);
+  console.log(params)
 
   const isAdd = !modalData._id;
 
   React.useEffect(() => {
     if (isAdd) {
-      setParams(modalData);
-    } else {
       setParams(initParsms);
+    } else {
+      setParams(modalData);
     }
   }, [modalData]);
 
@@ -38,6 +39,7 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
     setParams(prev => ({ ...prev, [key]: value }));
   };
   const onChangeForNumber = (key: keyof IFurnitureCategory, value: string) => {
+    console.log(key, value);
     setParams(prev => ({ ...prev, [key]: parseFloat(value) }));
   };
 
@@ -72,7 +74,7 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   const title = isAdd ? "新增" : "修改";
 
   const handleNumber = (value: number | undefined) => {
-    if (typeof value === "number") {
+    if (typeof value === "number" && !isNaN(value)) {
       return value + "";
     } else {
       return "";
@@ -103,7 +105,7 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   );
 };
 
-export const open = (data?: { id?: string; name?: string; index?: number }) => {
+export const open = (data?: IFurniture) => {
   Taro.eventCenter.trigger(updateCategoryModalkey, data);
 };
 

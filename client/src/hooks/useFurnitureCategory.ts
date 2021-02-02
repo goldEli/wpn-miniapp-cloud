@@ -52,6 +52,7 @@ export default function useFurnitureCategory() {
   };
 
   const update = async (data: IFurnitureCategory) => {
+    console.log(_.omit(data, ["_id"]), "upate")
     await http(
       furnitureCategory,
       {

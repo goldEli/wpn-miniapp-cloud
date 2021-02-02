@@ -6,6 +6,7 @@ import "./index.less";
 import Title from "@/components/Title";
 import UpdateCategoryModal, { open } from "./components/UpdateCategoryModal";
 import useFurnitureCategory from "@/hooks/useFurnitureCategory";
+import {IFurniture} from "@/type"
 
 interface ISettingProps {}
 const options: {
@@ -34,8 +35,7 @@ const Setting: React.FC<ISettingProps> = props => {
   const { categoryList, add, update, deleteById } = useFurnitureCategory();
   const handleSwipeAction = (
     key: string,
-    id: string,
-    data: { name: string; index: number; id: string }
+    data: IFurniture
   ) => {
     if (key === "modify") {
       open(data);
@@ -46,7 +46,7 @@ const Setting: React.FC<ISettingProps> = props => {
         content: "删除会导致该系列下的所有家具信息被删除！！！",
         success: function(res) {
           if (res.confirm) {
-            deleteById(id);
+            deleteById(data?._id || "");
             console.log("用户点击确定");
           } else if (res.cancel) {
             console.log("用户点击取消");
@@ -74,18 +74,14 @@ const Setting: React.FC<ISettingProps> = props => {
               return (
                 <AtSwipeAction
                   onClick={(value: any) => {
-                    handleSwipeAction(value.key, item._id, {
-                      id: item._id,
-                      name: item.name,
-                      index: item.index
-                    });
+                    handleSwipeAction(value.key, item);
                   }}
                   key={item._id}
                   autoClose
                   options={options}
                 >
                   <AtListItem
-                    onClick={() => goToFurnitureMngmtPage(item._id)}
+                    onClick={() => goToFurnitureMngmtPage(item._id || "")}
                     arrow="right"
                     title={`${item.index}. ${item.name}`}
                   />
