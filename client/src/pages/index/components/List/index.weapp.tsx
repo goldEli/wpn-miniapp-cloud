@@ -22,6 +22,7 @@ const List: React.FC<IListProps> = props => {
                   <View>{category.name}</View>
                   {data
                     ?.filter(item => item.furnitureCategoryId === category._id)
+                    .sort((a, b) => a.index - b.index)
                     .map(item => (
                       <ListItem key={item._id} data={item} />
                     ))}

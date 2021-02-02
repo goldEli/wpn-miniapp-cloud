@@ -22,7 +22,7 @@ const Item: React.FC<IItemProps> = props => {
       <Image
         className="img"
         mode="widthFix"
-        src={data.imgSrc as string}
+        src={data.imgSrc?.split(",")[0] as string}
       ></Image>
       <View className="title">{data.title}</View>
       <View className="price">{getPrice()}</View>
