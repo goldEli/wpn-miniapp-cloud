@@ -21,7 +21,7 @@ const Footer: React.FC<IFooterProps> = props => {
 
   const toOrderPage = () => {
     Taro.navigateTo({
-      url: `/pages/order/index?text=${text}`
+      url: `/pages/order/index?text=${text}&fromHome=true`
     });
   };
 
