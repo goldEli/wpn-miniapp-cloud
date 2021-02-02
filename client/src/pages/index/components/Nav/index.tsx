@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import Taro, { Config } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 import { View, Text, ScrollView } from "@tarojs/components";
 import classnames from "classnames";
 import { MenuContext } from "@/pages/index/context/MenuContext";
+import { navActiveIdKey } from "@/config/eventCenterKey";
 
 interface INavProps {}
 
@@ -17,14 +18,23 @@ const Nav: React.FC<INavProps> = props => {
   }, [categoryList]);
 
   useEffect(() => {
-    console.log(activeId)
-    Taro.pageScrollTo({
-      duration: 300,
-      selector: "#the-" + activeId,
-    });
-  }, [activeId]);
+    Taro.eventCenter.on(navActiveIdKey, changeNavWithOutScroll);
+    return () => {
+      Taro.eventCenter.on(navActiveIdKey, changeNavWithOutScroll);
+    };
+  }, []);
+
+  // useEffect(() => {
+  // }, [activeId]);
+  const changeNavWithOutScroll = (id: string) => {
+    setActiveId(id);
+  };
 
   const changeNav = (id: string) => {
+    Taro.pageScrollTo({
+      duration: 300,
+      selector: "#the-" + id
+    });
     setActiveId(id);
   };
 

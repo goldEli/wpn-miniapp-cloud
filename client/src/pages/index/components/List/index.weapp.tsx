@@ -4,6 +4,7 @@ import { View, Image, ScrollView } from "@tarojs/components";
 import Skeletons from "@/components/skeletons/index.skeletions";
 import { MenuContext } from "../../context/MenuContext";
 import ListItem from "../ListItem/index.weapp";
+import CategoryTitle from "../CategoryTitle";
 
 interface IListProps {}
 
@@ -19,7 +20,7 @@ const List: React.FC<IListProps> = props => {
           {categoryList?.map(category => {
             return (
               <View>
-                <View id={"the-" + category._id}>{category.name}</View>
+                <CategoryTitle id={category._id} name={category.name}/>
                 {data
                   ?.filter(item => item.furnitureCategoryId === category._id)
                   .sort((a, b) => (a?.index || 0) - (b?.index || 0))
