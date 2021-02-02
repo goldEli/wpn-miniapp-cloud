@@ -4,38 +4,41 @@ import { Button, View } from "@tarojs/components";
 import { AtFloatLayout, AtInput, AtButton } from "taro-ui";
 import useModal from "@/hooks/useModal";
 import { updateCategoryModalkey } from "@/config/modalKey";
+import { IFurnitureCategory } from "@/type";
 
 interface IUpdateCategoryProps {
-  add: (data: { name: string; index: number }) => void;
-  update: (id: string, data: { name: string; index: number }) => void;
+  add: (data: IFurnitureCategory) => void;
+  update: (data: IFurnitureCategory) => void;
 }
 
-interface IParams {
-  id?: string;
-  name: string;
-  index: string;
-}
-const initParsms = {
-  index: "0",
-  name: ""
-};
+// interface IParams {
+//   id?: string;
+//   name: string;
+//   index: string;
+// }
+const initParsms = {};
 
 const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
-  const { close, visible, modalData } = useModal(updateCategoryModalkey);
-  const [params, setParams] = React.useState<IParams>(initParsms);
+  const { close, visible, modalData } = useModal<IFurnitureCategory>(
+    updateCategoryModalkey
+  );
+  const [params, setParams] = React.useState<IFurnitureCategory>(initParsms);
+
+  const isAdd = !modalData._id;
 
   React.useEffect(() => {
-    if (isAdd()) {
+    if (isAdd) {
       setParams(modalData);
     } else {
       setParams(initParsms);
     }
   }, [modalData]);
 
-  const isAdd = () => !!modalData.id;
-
   const onChange = (key: string, value: string) => {
     setParams(prev => ({ ...prev, [key]: value }));
+  };
+  const onChangeForNumber = (key: keyof IFurnitureCategory, value: string) => {
+    setParams(prev => ({ ...prev, [key]: parseFloat(value) }));
   };
 
   const checkValid = () => {
@@ -57,20 +60,24 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   };
 
   const onOk = () => {
-    console.log(params);
     if (!checkValid()) return;
-    if (params.id) {
-      props.update(params.id, {
-        name: params.name,
-        index: Number(params.index)
-      });
+    if (isAdd) {
+      props.add(params);
     } else {
-      props.add({ name: params.name, index: Number(params.index) });
+      props.update(params);
     }
 
     close();
   };
-  const title = isAdd() ? "新增" : "修改";
+  const title = isAdd ? "新增" : "修改";
+
+  const handleNumber = (value: number | undefined) => {
+    if (typeof value === "number") {
+      return value + "";
+    } else {
+      return "";
+    }
+  };
   return (
     <AtFloatLayout isOpened={visible} title={title} onClose={close}>
       <AtInput
@@ -86,8 +93,8 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
         title="排序"
         type="number"
         placeholder="数字越小排在越前面"
-        value={params.index}
-        onChange={(value: string) => onChange("index", value)}
+        value={handleNumber(params.index)}
+        onChange={(value: string) => onChangeForNumber("index", value)}
       />
       <AtButton type="primary" onClick={onOk}>
         确定

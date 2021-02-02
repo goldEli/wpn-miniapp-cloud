@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { http } from "@/utils";
-import { IFurniture, IFurnitureCategory } from "@/type";
+import { IFurniture } from "@/type";
+import { omit } from "lodash";
 const urlKey = "menu";
 
 export default function useFurnitureList() {
@@ -60,7 +61,7 @@ export default function useFurnitureList() {
       {
         action: "update",
         _id: data._id,
-        data: handleData(data)
+        data: omit(data, ["_id"])
       },
       {
         sucMsg: "修改成功"
@@ -78,14 +79,4 @@ export default function useFurnitureList() {
   };
 
   return { furnitureList, loading, refresh, add, deleteById, update };
-}
-function handleData(data: IFurniture) {
-  const ret = { ...data };
-  delete ret._id;
-  for (let key in ret) {
-    if (["price", "index"].includes(key)) {
-      ret[key] = Number(ret[key]);
-    }
-  }
-  return ret;
 }

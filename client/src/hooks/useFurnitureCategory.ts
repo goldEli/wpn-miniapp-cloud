@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { http } from "@/utils";
 import { IFurnitureCategory } from "@/type";
+import _ from "lodash";
 const furnitureCategory = "furnitureCategory";
 
 export default function useFurnitureCategory() {
@@ -22,7 +23,8 @@ export default function useFurnitureCategory() {
       setLoading(false);
     }
   };
-  const add = async (data: { name: string; index: number }) => {
+  const add = async (data: IFurnitureCategory) => {
+    console.log(data, "123")
     await http(
       furnitureCategory,
       {
@@ -49,13 +51,13 @@ export default function useFurnitureCategory() {
     refresh();
   };
 
-  const update = async (id: string, data: { name: string; index: number }) => {
+  const update = async (data: IFurnitureCategory) => {
     await http(
       furnitureCategory,
       {
         action: "update",
-        _id: id,
-        data
+        _id: data._id,
+        data: _.omit(data, ["_id"])
       },
       {
         sucMsg: "修改成功"
