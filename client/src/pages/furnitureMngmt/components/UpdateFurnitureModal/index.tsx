@@ -45,6 +45,9 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
   const onChange = (key: keyof IFurniture, value: string | Boolean) => {
     setData(prev => ({ ...prev, [key]: value }));
   };
+  const onChangeForNumber = (key: keyof IFurniture, value: string) => {
+    setData(prev => ({ ...prev, [key]: parseFloat(value) }));
+  };
 
   const checkValid = () => {
     if (_.isEmpty(data.imgSrc)) {
@@ -55,8 +58,8 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if ( data.index === "") {
-    // if (_.isEmpty(data.index)) {
+    if (data.index === NaN) {
+      // if (_.isEmpty(data.index)) {
       Taro.showToast({
         title: "排序未填",
         icon: "none",
@@ -72,8 +75,8 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (data.price === "") {
-    // if (_.isEmpty(data.price)) {
+    if (data.price === NaN) {
+      // if (_.isEmpty(data.price)) {
       Taro.showToast({
         title: "价格未填",
         icon: "none",
@@ -118,7 +121,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         title="价格"
         type="number"
         placeholder="输入价格"
-        value={data?.price}
+        value={data?.price + ""}
         onChange={(value: string) => onChange("price", value)}
       />
       <AtInput
@@ -126,13 +129,13 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         title="排序"
         type="number"
         placeholder="数字越小排在越前面"
-        value={data?.index}
-        onChange={(value: string) => onChange("index", value)}
+        value={data?.index + ""}
+        onChange={(value: string) => onChangeForNumber("index", value)}
       />
       <Title title="图片地址" />
       <AtTextarea
         value={data?.imgSrc || ""}
-        onChange={(value: string) => onChange("imgSrc", value)}
+        onChange={(value: string) => onChangeForNumber("imgSrc", value)}
         maxLength={200}
         placeholder="图片地址英文逗号分隔"
       />
@@ -151,7 +154,10 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       <AtButton type="primary" onClick={onOk}>
         确定
       </AtButton>
-      <AtButton type="secondary" onClick={() => props.deleteById(data._id)}>
+      <AtButton
+        type="secondary"
+        onClick={() => props.deleteById(data?._id || "")}
+      >
         删除
       </AtButton>
     </AtFloatLayout>
