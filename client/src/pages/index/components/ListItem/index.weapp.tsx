@@ -2,11 +2,11 @@
 import React from "react";
 import Taro, { Config } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-import { IMenuWithNum } from "@/type";
+import { IFurniture } from "@/type";
 import { MenuContext } from "../../context/MenuContext";
 
 interface IItemProps {
-  data: IMenuWithNum;
+  data: IFurniture;
 }
 
 const Item: React.FC<IItemProps> = props => {
@@ -27,7 +27,7 @@ const Item: React.FC<IItemProps> = props => {
       <View className="title">{data.title}</View>
       <View className="price">{getPrice()}</View>
       <View className="action">
-        {data.number > 0 && (
+        {data.number as number > 0 && (
           <>
             <View
               onClick={() => action?.sub(data._id || "")}

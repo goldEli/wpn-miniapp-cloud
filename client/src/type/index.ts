@@ -30,4 +30,5 @@ export interface IFurniture {
   onSale?: boolean;
   price?: number;
   title?: string;
+  number?: number;
 }

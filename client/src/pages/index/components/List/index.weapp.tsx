@@ -8,7 +8,7 @@ import ListItem from "../ListItem/index.weapp";
 interface IListProps {}
 
 const List: React.FC<IListProps> = props => {
-  const { data, loading } = React.useContext(MenuContext);
+  const { data, loading, categoryList } = React.useContext(MenuContext);
   console.log(data, loading);
   return (
     <View className="content-list">
@@ -16,7 +16,20 @@ const List: React.FC<IListProps> = props => {
         {loading ? (
           <Skeletons />
         ) : (
-          data?.map((item, idx) => <ListItem key={item._id} data={item} />)
+          <>
+            {categoryList?.map(category => {
+              return (
+                <View>
+                  <View>{category.name}</View>
+                  {data
+                    ?.filter(item => item.furnitureCategoryId === category._id)
+                    .map(item => (
+                      <ListItem key={item._id} data={item} />
+                    ))}
+                </View>
+              );
+            })}
+          </>
         )}
       </ScrollView>
     </View>

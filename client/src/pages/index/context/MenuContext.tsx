@@ -1,12 +1,12 @@
 import React from "react";
-import { IMenuWithNum, IFurnitureCategory } from "@/type";
+import { IFurniture, IFurnitureCategory } from "@/type";
 import useMenuHook from "@/hooks/useMenuHook";
 import useFurnitureCategory from "@/hooks/useFurnitureCategory";
 
 export const MenuContext = React.createContext<{
   categoryList?: IFurnitureCategory[];
   loading?: boolean;
-  data?: IMenuWithNum[];
+  data?: IFurniture[];
   action?: {
     plus: (_id: string) => void;
     sub: (_id: string) => void;
@@ -16,7 +16,7 @@ export const MenuContext = React.createContext<{
 interface IMenuContextProviderProps {}
 export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props => {
   const { list, loading } = useMenuHook();
-  const [data, setData] = React.useState<IMenuWithNum[]>([]);
+  const [data, setData] = React.useState<IFurniture[]>([]);
   const { categoryList } = useFurnitureCategory();
 
   React.useEffect(() => {

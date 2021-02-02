@@ -6,14 +6,6 @@ import { MenuContext } from "@/pages/index/context/MenuContext";
 
 interface INavProps {}
 
-// const data = [
-//   { id: "1", name: "系列A" },
-//   { id: "2", name: "系列B" },
-//   { id: "3", name: "系发士大夫列C" },
-//   { id: "4", name: "系列D" },
-//   { id: "5", name: "系列E" }
-// ];
-
 const Nav: React.FC<INavProps> = props => {
   const [activeId, setActiveId] = React.useState<string>("");
   const { categoryList } = React.useContext(MenuContext);
