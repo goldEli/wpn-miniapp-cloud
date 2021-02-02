@@ -1,4 +1,3 @@
-
 import React from "react";
 import Taro, { Config } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
@@ -16,9 +15,15 @@ const Item: React.FC<IItemProps> = props => {
   const getPrice = () => {
     return `￥${data.price}`;
   };
+  const goToDetailPage = () => {
+
+    Taro.navigateTo({
+      url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
+    });
+  };
 
   return (
-    <View key={data._id} className="item">
+    <View onClick={goToDetailPage} key={data._id} className="item">
       <Image
         className="img"
         mode="widthFix"
@@ -27,10 +32,13 @@ const Item: React.FC<IItemProps> = props => {
       <View className="title">{data.title}</View>
       <View className="price">{getPrice()}</View>
       <View className="action">
-        {data.number as number > 0 && (
+        {(data.number as number) > 0 && (
           <>
             <View
-              onClick={() => action?.sub(data._id || "")}
+              onClick={(e: Event) => {
+                e.stopPropagation();
+                action?.sub(data._id || "");
+              }}
               className="button-icon-sub"
             >
               <View className="button-icon-sub-bg">
@@ -40,7 +48,13 @@ const Item: React.FC<IItemProps> = props => {
             <View className="text">{data.number}</View>
           </>
         )}
-        <View onClick={() => action?.plus(data._id || "")} className="button-icon-add">
+        <View
+          onClick={(e: Event) => {
+            e.stopPropagation();
+            action?.plus(data._id || "");
+          }}
+          className="button-icon-add"
+        >
           <View className="button-icon-add-bg">
             <View className="at-icon at-icon-add"></View>
           </View>

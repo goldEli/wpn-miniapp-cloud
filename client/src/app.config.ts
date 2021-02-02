@@ -1,6 +1,7 @@
 export default {
   pages: [
     "pages/index/index",
+    "pages/furnitureDetail/index",
     "pages/setting/index",
     "pages/furnitureMngmt/index",
     "pages/login/login",
