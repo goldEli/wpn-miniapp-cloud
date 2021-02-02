@@ -11,7 +11,7 @@ const List: React.FC<IListProps> = props => {
   const { data, loading, categoryList } = React.useContext(MenuContext);
   return (
     <View className="content-list">
-      <ScrollView scrollY scrollWithAnimation>
+      {/* <ScrollView scrollY scrollWithAnimation> */}
         {loading ? (
           <Skeletons />
         ) : (
@@ -19,7 +19,7 @@ const List: React.FC<IListProps> = props => {
             {categoryList?.map(category => {
               return (
                 <View>
-                  <View>{category.name}</View>
+                  <View id={category._id}>{category.name}</View>
                   {data
                     ?.filter(item => item.furnitureCategoryId === category._id)
                     .sort((a, b) => a.index - b.index)
@@ -31,7 +31,7 @@ const List: React.FC<IListProps> = props => {
             })}
           </>
         )}
-      </ScrollView>
+      {/* </ScrollView> */}
     </View>
   );
 };

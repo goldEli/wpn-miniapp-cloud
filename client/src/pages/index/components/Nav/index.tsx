@@ -17,13 +17,19 @@ const Nav: React.FC<INavProps> = props => {
   }, [categoryList]);
 
   const changeNav = (id: string) => {
+    console.log(id, 123)
+    Taro.pageScrollTo({
+      // scrollTop: 0,
+      duration: 300,
+      selector: "#"+id
+    });
     setActiveId(id);
   };
 
   return (
     <View className="content-nav">
       <View className="fix-box">
-        <ScrollView scrollY scrollWithAnimation>
+        {/* <ScrollView scrollY scrollWithAnimation> */}
           {categoryList?.map(item => {
             const classes = classnames("btn", {
               active: item._id === activeId
@@ -38,7 +44,7 @@ const Nav: React.FC<INavProps> = props => {
               </Text>
             );
           })}
-        </ScrollView>
+        {/* </ScrollView> */}
       </View>
     </View>
   );
