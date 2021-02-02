@@ -12,9 +12,9 @@ export interface IMenu {
 }
 
 export interface IFurnitureCategory {
-  _id: string;
-  name: string;
-  index: number;
+  _id?: string;
+  name?: string;
+  index?: number;
 }
 
 export interface IMenuWithNum extends Partial<IMenu> {

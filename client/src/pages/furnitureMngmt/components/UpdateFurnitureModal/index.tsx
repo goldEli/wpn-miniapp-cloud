@@ -114,6 +114,10 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       return "";
     }
   };
+  const onDelete = () => {
+    props.deleteById(data?._id || "");
+    close();
+  };
   return (
     <AtFloatLayout isOpened={visible} title={title} onClose={close}>
       <Title title="基本信息" />
@@ -163,10 +167,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       <AtButton type="primary" onClick={onOk}>
         确定
       </AtButton>
-      <AtButton
-        type="secondary"
-        onClick={() => props.deleteById(data?._id || "")}
-      >
+      <AtButton type="secondary" onClick={onDelete}>
         删除
       </AtButton>
     </AtFloatLayout>
