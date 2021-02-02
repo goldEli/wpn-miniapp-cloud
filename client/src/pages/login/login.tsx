@@ -44,6 +44,9 @@ const Login: React.FC<ILoginProps> = props => {
     if (!checkValid()) {
       return;
     }
+    Taro.showLoading({
+      title: "加载中"
+    });
     Taro.cloud
       .callFunction({
         name: "user",
@@ -56,10 +59,11 @@ const Login: React.FC<ILoginProps> = props => {
       .then((data: any) => {
         const { result: res } = data;
         if (res.isUser) {
-          Taro.atMessage({
-            message: "登录成功",
-            type: "success"
-          });
+          Taro.hideLoading()
+          // Taro.atMessage({
+          //   message: "登录成功",
+          //   type: "success"
+          // });
           Taro.redirectTo({
             url: "/pages/setting/index"
           });
@@ -94,25 +98,25 @@ const Login: React.FC<ILoginProps> = props => {
     }
   };
   const restoreFromStorage = () => {
-      Taro.getStorage({
-        key: "nameVal",
-        success: function(res) {
-          res.data && setNameVal(res.data);
-        }
-      });
-      Taro.getStorage({
-        key: "pwdVal",
-        success: function(res) {
-          res.data && setPwdVal(res.data);
-        }
-      });
+    Taro.getStorage({
+      key: "nameVal",
+      success: function(res) {
+        res.data && setNameVal(res.data);
+      }
+    });
+    Taro.getStorage({
+      key: "pwdVal",
+      success: function(res) {
+        res.data && setPwdVal(res.data);
+      }
+    });
   };
   const handleChange = (value: string[]) => {
     setSelectedList(value);
   };
   const rememberMe = () => {
-    return selectedList.length > 0  
-  }
+    return selectedList.length > 0;
+  };
   return (
     <View className="wme-login">
       <AtMessage />

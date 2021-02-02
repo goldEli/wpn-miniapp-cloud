@@ -34,10 +34,16 @@ const FurnitureMngmt: React.FC<IFurnitureMngmtProps> = props => {
   return (
     <View className="wme-forniture-mngmt">
       <AtButton onClick={onAdd}>新增</AtButton>
-      {furnitureList.map(item => {
-        return <Item data={item} />;
-      })}
-      <UpdateFurnitureModal furnitureCategoryId={id} add={add} deleteById={deleteById} update={update} />
+      {furnitureList?.sort((a, b) => a.index - b.index)
+        ?.map(item => {
+          return <Item data={item} />;
+        })}
+      <UpdateFurnitureModal
+        furnitureCategoryId={id}
+        add={add}
+        deleteById={deleteById}
+        update={update}
+      />
     </View>
   );
 };

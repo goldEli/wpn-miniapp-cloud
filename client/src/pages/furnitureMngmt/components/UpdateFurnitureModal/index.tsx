@@ -99,10 +99,11 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
 
   const onOk = () => {
     if (!checkValid()) return;
+    const newData:IFurniture = {...data, imgSrc: handleImgSrc(data?.imgSrc)}
     if (isAdd) {
-      props.add(data);
+      props.add(newData);
     } else {
-      props.update(data);
+      props.update(newData);
     }
 
     close();
@@ -173,6 +174,14 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       </AtButton>
     </AtFloatLayout>
   );
+};
+
+const handleImgSrc = (value?: string): string => {
+  if (!value) return ""
+  return value
+    .split(",")
+    .filter(item => !!item)
+    .join(",");
 };
 
 export const open = (data?: IFurniture) => {
