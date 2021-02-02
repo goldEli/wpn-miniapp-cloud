@@ -1,8 +1,10 @@
 import React from "react";
-import { IMenuWithNum } from "@/type";
+import { IMenuWithNum, IFurnitureCategory } from "@/type";
 import useMenuHook from "@/hooks/useMenuHook";
+import useFurnitureCategory from "@/hooks/useFurnitureCategory";
 
 export const MenuContext = React.createContext<{
+  categoryList?: IFurnitureCategory[];
   loading?: boolean;
   data?: IMenuWithNum[];
   action?: {
@@ -15,6 +17,7 @@ interface IMenuContextProviderProps {}
 export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props => {
   const { list, loading } = useMenuHook();
   const [data, setData] = React.useState<IMenuWithNum[]>([]);
+  const { categoryList } = useFurnitureCategory();
 
   React.useEffect(() => {
     if (list) {
@@ -48,8 +51,7 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
   };
 
   return (
-    
-    <MenuContext.Provider value={{ data, loading, action }}>
+    <MenuContext.Provider value={{ categoryList, data, loading, action }}>
       {props.children}
     </MenuContext.Provider>
   );
