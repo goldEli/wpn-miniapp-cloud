@@ -33,8 +33,8 @@ const FurnitureMngmt: React.FC<IFurnitureMngmtProps> = props => {
 
   return (
     <View className="wme-forniture-mngmt">
-      <AtButton onClick={onAdd}>新增</AtButton>
-      {furnitureList?.sort((a, b) => a.index - b.index)
+      <AtButton type="secondary" onClick={onAdd}>新增</AtButton>
+      {furnitureList?.sort((a, b) => (a.index || 0) - (b.index || 0))
         ?.map(item => {
           return <Item data={item} />;
         })}

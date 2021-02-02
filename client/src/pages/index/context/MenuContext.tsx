@@ -17,7 +17,7 @@ interface IMenuContextProviderProps {}
 export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props => {
   const { list, loading } = useMenuHook();
   const [data, setData] = React.useState<IFurniture[]>([]);
-  const { categoryList } = useFurnitureCategory();
+  const { loading: categoryListLoading, categoryList } = useFurnitureCategory();
 
   React.useEffect(() => {
     if (list) {
@@ -32,7 +32,7 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
       setData(prev => {
         return prev.map(item => {
           if (item._id === _id) {
-            return { ...item, number: item.number + 1 };
+            return { ...item, number: (item.number || 0) + 1 };
           }
           return item;
         });
@@ -41,8 +41,8 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
     sub: (_id: string) => {
       setData(prev => {
         return prev.map(item => {
-          if (item._id === _id && item.number > 0) {
-            return { ...item, number: item.number - 1 };
+          if (item._id === _id && (item.number || 0) > 0) {
+            return { ...item, number: (item.number || 0) - 1 };
           }
           return item;
         });
@@ -51,7 +51,14 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
   };
 
   return (
-    <MenuContext.Provider value={{ categoryList, data, loading, action }}>
+    <MenuContext.Provider
+      value={{
+        categoryList,
+        data,
+        loading: loading && categoryListLoading,
+        action
+      }}
+    >
       {props.children}
     </MenuContext.Provider>
   );
