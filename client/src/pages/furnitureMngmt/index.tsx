@@ -23,7 +23,6 @@ const FurnitureMngmt: React.FC<IFurnitureMngmtProps> = props => {
     update
   } = useFurnitureList();
   React.useEffect(() => {
-    console.log(id);
     if (!id) return;
     refresh(id);
   }, [id]);

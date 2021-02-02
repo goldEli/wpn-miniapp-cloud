@@ -13,7 +13,6 @@ export default function useFurnitureList() {
   //   refresh();
   // }, []);
   const refresh = async (furnitureCategoryId: string) => {
-    console.log("refresh", furnitureCategoryId);
     setFurnitureCategoryId(furnitureCategoryId);
     const data = await http(urlKey, {
       action: "getByFurnitureCategoryId",

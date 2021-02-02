@@ -9,7 +9,6 @@ interface IListProps {}
 
 const List: React.FC<IListProps> = props => {
   const { data, loading, categoryList } = React.useContext(MenuContext);
-  console.log(data, loading);
   return (
     <View className="content-list">
       <ScrollView scrollY scrollWithAnimation>

@@ -24,7 +24,6 @@ export default function useFurnitureCategory() {
     }
   };
   const add = async (data: IFurnitureCategory) => {
-    console.log(data, "123")
     await http(
       furnitureCategory,
       {
@@ -52,7 +51,6 @@ export default function useFurnitureCategory() {
   };
 
   const update = async (data: IFurnitureCategory) => {
-    console.log(_.omit(data, ["_id"]), "upate")
     await http(
       furnitureCategory,
       {

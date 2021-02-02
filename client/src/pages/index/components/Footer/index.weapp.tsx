@@ -24,7 +24,6 @@ const Footer: React.FC<IFooterProps> = props => {
       url: `/pages/order/index?text=${text}`
     });
   };
-  console.log(text);
 
   return (
     <View className="footer">

@@ -23,7 +23,6 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
     updateCategoryModalkey
   );
   const [params, setParams] = React.useState<IFurnitureCategory>(initParsms);
-  console.log(params)
 
   const isAdd = !modalData._id;
 
@@ -39,7 +38,6 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
     setParams(prev => ({ ...prev, [key]: value }));
   };
   const onChangeForNumber = (key: keyof IFurnitureCategory, value: string) => {
-    console.log(key, value);
     setParams(prev => ({ ...prev, [key]: parseFloat(value) }));
   };
 

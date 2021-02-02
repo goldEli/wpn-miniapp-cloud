@@ -13,7 +13,6 @@ interface IItemProps {
 
 const Item: React.FC<IItemProps> = (props) => {
   const [data, setData] = React.useState<Partial<IMenu>>({})
-  console.log(data)
 
   React.useEffect(() => {
     if (props.data) {
@@ -23,7 +22,6 @@ const Item: React.FC<IItemProps> = (props) => {
   }, [props.data])
 
   const onSubmit = (data: any) => {
-    console.log(data)
     if (["imgSrc", "index", "unit", "title", "price"].some(key => data[key] === void 0 || data[key] === "")) {
 
       Taro.atMessage({

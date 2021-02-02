@@ -18,7 +18,6 @@ const http = (name: string, data: any = {}, options?: {
         const { result } = res
         const { data } = result || {}
         resolve(data)
-        // console.log(res)
       })
       .catch((error) => {
         Taro.showToast({

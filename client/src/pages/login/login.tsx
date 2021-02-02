@@ -74,7 +74,6 @@ const Login: React.FC<ILoginProps> = props => {
   };
   const saveToStorage = () => {
     if (rememberMe()) {
-      console.log("remeberME")
       Taro.setStorage({
         key: "nameVal",
         data: nameVal
