@@ -31,4 +31,13 @@ export interface IFurniture {
   price?: number;
   title?: string;
   number?: number;
+  total?: number;
+}
+
+export interface IExpress {
+  name: string;
+  phone: string;
+  address: string;
+  express: string;
+  expressPhone: string;
 }

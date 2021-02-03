@@ -7,16 +7,15 @@ import Taro, {
 import { Button, View, Text } from "@tarojs/components";
 import { AtList, AtListItem, AtInput, AtButton, AtTextarea } from "taro-ui";
 import "./index.less";
-import { IMenuWithNum } from "@/type";
+import { IFurniture, IExpress } from "@/type";
 import Title from "@/components/Title";
+import ExpressArea from "./components/ExpressArea";
 
 interface IOrderProps {}
 
-type NameKey = "name" | "phone" | "address" | "express" | "expressPhone";
-
 const Order: React.FC<IOrderProps> = props => {
-  const [orderData, setOrderData] = React.useState<IMenuWithNum[]>([]);
-  const [expressInfo, setExpressInfo] = React.useState({
+  const [orderData, setOrderData] = React.useState<IFurniture[]>([]);
+  const [expressInfo, setExpressInfo] = React.useState<IExpress>({
     name: "",
     phone: "",
     address: "",
@@ -25,15 +24,14 @@ const Order: React.FC<IOrderProps> = props => {
   });
   const fromHome = getCurrentInstance().router?.params?.fromHome as string;
 
-  const sum = orderData.reduce((prev, item) => prev + (item.total || 0), 0);
+  const sum = React.useMemo(
+    () => orderData.reduce((prev, item) => prev + (item.total || 0), 0),
+    [orderData]
+  );
 
   const editable = fromHome === "true";
 
   useShareAppMessage(res => {
-    if (res.from === "button") {
-      // 来自页面内转发按钮
-      console.log(res.target);
-    }
     const text = getCurrentInstance().router?.params?.text || "";
     return {
       title: `订单(共计：￥${sum})`,
@@ -43,46 +41,59 @@ const Order: React.FC<IOrderProps> = props => {
     };
   });
   useEffect(() => {
+    handleOrderData();
+  }, []);
+
+  useEffect(() => {
+    if (editable) {
+      setExpressInfoFromStorage();
+    } else {
+      setExpressInfoFromUrl();
+    }
+  }, [editable]);
+
+  const handleOrderData = () => {
     const text = getCurrentInstance().router?.params?.text || "";
-    const data: IMenuWithNum[] = text ? JSON.parse(text) : [];
+    const data: IFurniture[] = text ? JSON.parse(text) : [];
     setOrderData(
       data.map(item => {
-        const total = parseFloat((item.number * (item.price || 0)).toFixed(2));
+        const total = parseFloat(
+          ((item.number || 0) * (item.price || 0)).toFixed(2)
+        );
         return {
           ...item,
           total: total
         };
       })
     );
-  }, []);
+  };
 
-  useEffect(() => {
-    if (editable) {
-      for (const key in expressInfo) {
-        Taro.getStorage({
-          key,
-          success: function(res) {
-            console.log(res.data, key, "res");
-            res.data &&
-              setExpressInfo(prev => {
-                return { ...prev, [key]: res.data };
-              });
-          }
-        });
-      }
-    } else {
-      const expressInfoStrFromUrl = getCurrentInstance().router?.params
-        ?.expressInfo as string;
-      const expressInfoFromUrl = JSON.parse(expressInfoStrFromUrl);
-      for (const key in expressInfo) {
-        setExpressInfo(prev => {
-          return { ...prev, [key]: expressInfoFromUrl[key] };
-        });
-      }
+  const setExpressInfoFromStorage = () => {
+    for (const key in expressInfo) {
+      Taro.getStorage({
+        key,
+        success: function(res) {
+          console.log(res.data, key, "res");
+          res.data &&
+            setExpressInfo(prev => {
+              return { ...prev, [key]: res.data };
+            });
+        }
+      });
     }
-  }, [editable]);
+  };
+  const setExpressInfoFromUrl = () => {
+    const expressInfoStrFromUrl = getCurrentInstance().router?.params
+      ?.expressInfo as string;
+    const expressInfoFromUrl = JSON.parse(expressInfoStrFromUrl);
+    for (const key in expressInfo) {
+      setExpressInfo(prev => {
+        return { ...prev, [key]: expressInfoFromUrl[key] };
+      });
+    }
+  };
 
-  const onInputChange = (name: NameKey, value: any) => {
+  const onInputChange = (name: keyof IExpress, value: any) => {
     console.log(name, value);
     Taro.setStorage({
       key: name,
@@ -108,50 +119,10 @@ const Order: React.FC<IOrderProps> = props => {
         </AtList>
         <AtListItem title="共计" note={`${sum} 元`} />
         <Title title="物流信息" />
-        <AtInput
+        <ExpressArea
           editable={editable}
-          title="收货人名称"
-          name="name"
-          type="text"
-          placeholder={"请输入收货人名称"}
-          value={expressInfo.name}
-          onChange={value => onInputChange("name", value)}
-        />
-        <AtInput
-          editable={editable}
-          title="收货人电话"
-          name="phone"
-          type="phone"
-          placeholder={"请输入收货人电话"}
-          value={expressInfo.phone}
-          onChange={value => onInputChange("phone", value)}
-        />
-        <View className="form-textarea">
-          <View className="label">收货人地址</View>
-          <AtTextarea
-            disabled={!editable}
-            placeholder={"请输入收货人地址"}
-            value={expressInfo.address}
-            onChange={value => onInputChange("address", value)}
-          />
-        </View>
-        <AtInput
-          editable={editable}
-          title="货运部"
-          name="express"
-          type="text"
-          placeholder={"请输入货运部名称"}
-          value={expressInfo.express}
-          onChange={value => onInputChange("express", value)}
-        />
-        <AtInput
-          editable={editable}
-          title="货运部电话"
-          name="expressPhone"
-          type="phone"
-          placeholder={"请输入货运部电话"}
-          value={expressInfo.expressPhone}
-          onChange={value => onInputChange("expressPhone", value)}
+          onInputChange={onInputChange}
+          expressInfo={expressInfo}
         />
         <AtButton openType="share" type="primary">
           点我发送
