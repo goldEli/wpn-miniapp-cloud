@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '商城',
+  navigationBarTitleText: '艾菲特家私',
 }

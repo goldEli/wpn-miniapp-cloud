@@ -14,7 +14,7 @@ const ExpressAreaReadOnly: React.FC<IExpressAreaReadOnlyProps> = props => {
       {Object.keys(props.expressInfo).map(key => {
         return (
           <View key={key}>
-            <Text>{`${CHINESE_KEY[key]}: ${props.expressInfo[key] || "未填写"}`}</Text>
+            <Text>{`${CHINESE_KEY[key]}：${props.expressInfo[key] || "未填写"}`}</Text>
           </View>
         );
       })}
