@@ -27,13 +27,15 @@ export default class CategoryTitle extends React.Component<
       this.io
         .relativeToViewport({ bottom: 0 })
         .observe(".class-" + this.props.id, res => {
+          console.log(this.props.name, res)
+          if (res.intersectionRatio !== 1) return
           clearTimeout(timer);
           timer = setTimeout(() => {
             Taro.eventCenter.trigger(
               navActiveIdKey,
               res?.id.replace("the-", "")
             );
-          }, 1000);
+          }, 200);
         });
     });
   }
