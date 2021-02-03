@@ -10,6 +10,7 @@ import "./index.less";
 import { IFurniture, IExpress } from "@/type";
 import Title from "@/components/Title";
 import ExpressArea from "./components/ExpressArea";
+import ExpressAreaReadOnly from "./components/ExpressAreaReadOnly";
 
 interface IOrderProps {}
 
@@ -119,11 +120,14 @@ const Order: React.FC<IOrderProps> = props => {
         </AtList>
         <AtListItem title="共计" note={`${sum} 元`} />
         <Title title="物流信息" />
-        <ExpressArea
-          editable={editable}
-          onInputChange={onInputChange}
-          expressInfo={expressInfo}
-        />
+        {editable ? (
+          <ExpressArea
+            onInputChange={onInputChange}
+            expressInfo={expressInfo}
+          />
+        ) : (
+          <ExpressAreaReadOnly expressInfo={expressInfo} />
+        )}
         <AtButton openType="share" type="primary">
           点我发送
         </AtButton>
