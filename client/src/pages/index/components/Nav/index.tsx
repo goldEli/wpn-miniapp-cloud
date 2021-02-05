@@ -40,24 +40,27 @@ const Nav: React.FC<INavProps> = props => {
 
   return (
     <View className="content-nav">
-      <View className="fix-box">
-        {/* <ScrollView scrollY scrollWithAnimation> */}
-        {categoryList?.map(item => {
-          const classes = classnames("btn", {
-            active: item._id === activeId
-          });
-          return (
-            <Text
-              onClick={() => changeNav(item._id || "")}
-              key={item._id}
-              className={classes}
-            >
-              {item.name}
-            </Text>
-          );
-        })}
-        {/* </ScrollView> */}
-      </View>
+      {/* <ScrollView scrollY scrollWithAnimation> */}
+        <View className="fix-box">
+          <>
+          {categoryList?.map(item => {
+            const classes = classnames("btn", {
+              active: item._id === activeId
+            });
+            return (
+              <Text
+                onClick={() => changeNav(item._id || "")}
+                key={item._id}
+                className={classes}
+              >
+                {item.name}
+              </Text>
+            );
+          })}
+          </>
+          <View className="spacer"></View>
+        </View>
+      {/* </ScrollView> */}
     </View>
   );
 };
