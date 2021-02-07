@@ -16,7 +16,6 @@ const Item: React.FC<IItemProps> = props => {
     return `￥${data.price}`;
   };
   const goToDetailPage = () => {
-
     Taro.navigateTo({
       url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
     });
@@ -24,11 +23,13 @@ const Item: React.FC<IItemProps> = props => {
 
   return (
     <View onClick={goToDetailPage} key={data._id} className="item">
-      <Image
-        className="img"
-        mode="widthFix"
-        src={data.imgSrc?.split(",")[0] as string}
-      ></Image>
+      <View className="img-box">
+        <Image
+          className="img"
+          mode="widthFix"
+          src={data.imgSrc?.split(",")[0] as string}
+        ></Image>
+      </View>
       <View className="title">{data.title}</View>
       <View className="price">{getPrice()}</View>
       <View className="action">
