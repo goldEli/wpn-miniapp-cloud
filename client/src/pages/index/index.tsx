@@ -5,7 +5,8 @@ import Content from "./components/Content/index.weapp";
 import Footer from "./components/Footer/index.weapp";
 import "./index.less";
 import { MenuContextProvider } from "./context/MenuContext";
-import { AtTag, AtDivider } from "taro-ui";
+import { Picker } from "@tarojs/components";
+import { AtList, AtListItem, AtTag } from "taro-ui";
 
 interface IIndexProps {}
 
@@ -21,6 +22,15 @@ const Index: React.FC<IIndexProps> = props => {
   return (
     <MenuContextProvider>
       <View className="wme-index">
+        <View className="tag-box">
+          <Picker
+            mode="selector"
+            range={['火烧石', '大理石', '玻璃', '岩板', "金刚石", "石木面"]}
+            onChange={() => {}}
+          >
+           <AtTag type='primary' circle>材质(全部)</AtTag>
+          </Picker>
+        </View>
         <Content />
         <Footer />
       </View>

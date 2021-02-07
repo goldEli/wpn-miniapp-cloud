@@ -41,7 +41,7 @@ const Nav: React.FC<INavProps> = props => {
   return (
     <View className="content-nav">
       {/* <ScrollView scrollY scrollWithAnimation> */}
-        <View className="fix-box">
+        <View className="fix-box at-tag--primary">
           <>
           {categoryList?.map(item => {
             const classes = classnames("btn", {
