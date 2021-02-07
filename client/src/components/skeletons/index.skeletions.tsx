@@ -6,7 +6,7 @@ import "./index.less";
 interface ISkeletionsProps { }
 
 const Skeletions: React.FC<ISkeletionsProps> = (props) => {
-  const [state, setState] = React.useState(Array(3).fill(1));
+  const [state, setState] = React.useState(Array(10).fill(1));
 
 
   return (
