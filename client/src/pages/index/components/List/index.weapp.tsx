@@ -17,6 +17,7 @@ const List: React.FC<IListProps> = props => {
       funitureList: IFurniture[];
     }[]
   >([]);
+  const [showSkeletions, setShowSkeletions] = React.useState(true);
 
   useEffect(() => {
     if (categoryList?.length && data?.length) {
@@ -33,9 +34,15 @@ const List: React.FC<IListProps> = props => {
     }
   }, [data, categoryList]);
 
+  useEffect(() => {
+    if (list.length && !loading) {
+      setShowSkeletions(false);
+    }
+  }, [loading, list]);
+
   return (
     <View className="content-list">
-      {loading ? (
+      {showSkeletions ? (
         <Skeletons />
       ) : (
         <>
