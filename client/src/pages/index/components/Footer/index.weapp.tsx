@@ -56,7 +56,7 @@ const filterData = (data: IMenuWithNum[] = []) => {
 };
 
 const goToLogin = () => {
-  Taro.navigateTo({
+  Taro.redirectTo({
     url: "/pages/login/login"
   });
 };
