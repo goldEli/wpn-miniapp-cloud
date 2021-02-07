@@ -15,9 +15,20 @@ export default class CategoryTitle extends React.Component<
 > {
   current = Taro.getCurrentInstance();
   io: Taro.IntersectionObserver;
-  componentDidUpdate() {
+  // componentDidUpdate() {
+  //   this.handleScroll()
+  // }
+  componentDidMount() {
+    this.handleScroll()
+  }
+  componentWillUnmount() {
+    clearTimeout(timer);
+    this.io.disconnect();
+  }
+
+  handleScroll = () => {
     Taro.nextTick(() => {
-      // console.log("didMount", this.current);
+      console.log("didMount", this.current);
       // @ts-ignore
       this.io = Taro.createIntersectionObserver(this.current.page, {
         thresholds: [1],
@@ -27,8 +38,8 @@ export default class CategoryTitle extends React.Component<
       this.io
         .relativeToViewport({ bottom: 0 })
         .observe(".class-" + this.props.id, res => {
-          console.log(this.props.name, res)
-          if (res.intersectionRatio !== 1) return
+          console.log(this.props.name, res);
+          if (res.intersectionRatio !== 1) return;
           clearTimeout(timer);
           timer = setTimeout(() => {
             Taro.eventCenter.trigger(
@@ -38,11 +49,7 @@ export default class CategoryTitle extends React.Component<
           }, 200);
         });
     });
-  }
-  componentWillUnmount() {
-    clearTimeout(timer);
-    this.io.disconnect();
-  }
+  };
 
   render() {
     return (
