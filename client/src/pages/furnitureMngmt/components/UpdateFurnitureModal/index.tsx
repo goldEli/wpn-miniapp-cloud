@@ -152,14 +152,14 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         value={data?.imgSrc || ""}
         onChange={(value: string) => onChange("imgSrc", value)}
         maxLength={1000}
-        placeholder="图片地址英文逗号分隔"
+        placeholder="多张图片地址用英文逗号分隔，第一张图片会用作封面，必须为正方形"
       />
       <Title title="介绍" />
       <AtTextarea
         value={data?.note || ""}
         onChange={(value: string) => onChange("note", value)}
         maxLength={1000}
-        placeholder="输入家具详情"
+        placeholder="输入家具介绍"
       />
       <AtSwitch
         title="是否上架"
