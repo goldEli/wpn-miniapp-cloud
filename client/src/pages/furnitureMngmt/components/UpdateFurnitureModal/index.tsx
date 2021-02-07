@@ -1,6 +1,5 @@
 import React from "react";
 import Taro from "@tarojs/taro";
-import { Button, View } from "@tarojs/components";
 import {
   AtSwitch,
   AtFloatLayout,
@@ -14,6 +13,7 @@ import { IFurniture } from "@/type";
 import Title from "@/components/Title";
 import { isNumber } from "@/utils";
 import _ from "lodash";
+import InputNumber from "@/components/InputNumber";
 
 interface IUpdateCategoryProps {
   add: (data: IFurniture) => void;
@@ -44,11 +44,8 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
     }
   }, [modalData, visible]);
 
-  const onChange = (key: keyof IFurniture, value: string | Boolean) => {
+  const onChange = (key: keyof IFurniture, value: string | Boolean | number) => {
     setData(prev => ({ ...prev, [key]: value }));
-  };
-  const onChangeForNumber = (key: keyof IFurniture, value: string) => {
-    setData(prev => ({ ...prev, [key]: parseFloat(value) }));
   };
 
   const checkValid = () => {
@@ -131,21 +128,21 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         value={data?.title || ""}
         onChange={(value: string) => onChange("title", value)}
       />
-      <AtInput
+      <InputNumber
         name="price"
         title="价格"
         type="number"
         placeholder="输入价格"
-        value={handleNumber(data?.price)}
-        onChange={(value: string) => onChangeForNumber("price", value)}
+        value={data?.price}
+        handleChange={onChange}
       />
-      <AtInput
+      <InputNumber
         name="index"
         title="排序"
         type="number"
         placeholder="数字越小排在越前面"
-        value={handleNumber(data?.index)}
-        onChange={(value: string) => onChangeForNumber("index", value)}
+        value={data?.index}
+        handleChange={onChange}
       />
       <Title title="图片地址" />
       <AtTextarea

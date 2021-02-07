@@ -6,6 +6,7 @@ import useModal from "@/hooks/useModal";
 import { updateCategoryModalkey } from "@/config/modalKey";
 import { IFurniture, IFurnitureCategory } from "@/type";
 import { isNumber } from "@/utils";
+import InputNumber from "@/components/InputNumber";
 
 interface IUpdateCategoryProps {
   add: (data: IFurnitureCategory) => void;
@@ -38,9 +39,6 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   const onChange = (key: string, value: string) => {
     setParams(prev => ({ ...prev, [key]: value }));
   };
-  const onChangeForNumber = (key: keyof IFurnitureCategory, value: string) => {
-    setParams(prev => ({ ...prev, [key]: parseFloat(value) }));
-  };
 
   const checkValid = () => {
     if (!params.name) {
@@ -49,10 +47,6 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
         icon: "none",
         duration: 2000
       });
-      // Taro.atMessage({
-      //   message: "输入名称",
-      //   type: "error"
-      // });
       return false;
     }
     if (!isNumber(params?.index)) {
@@ -61,10 +55,6 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
         icon: "none",
         duration: 2000
       });
-      // Taro.atMessage({
-      //   message: "输入排序",
-      //   type: "error"
-      // });
       return false;
     }
     return true;
@@ -82,13 +72,6 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   };
   const title = isAdd ? "新增" : "修改";
 
-  const handleNumber = (value: number | undefined) => {
-    if (typeof value === "number" && !isNaN(value)) {
-      return value + "";
-    } else {
-      return "";
-    }
-  };
   return (
     <AtFloatLayout isOpened={visible} title={title} onClose={close}>
       <AtInput
@@ -99,13 +82,13 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
         value={params.name || ""}
         onChange={(value: string) => onChange("name", value)}
       />
-      <AtInput
+      <InputNumber
         name="index"
         title="排序"
         type="number"
         placeholder="数字越小排在越前面"
-        value={handleNumber(params.index)}
-        onChange={(value: string) => onChangeForNumber("index", value)}
+        value={params.index}
+        handleChange={onChange}
       />
       <AtButton type="primary" onClick={onOk}>
         确定
