@@ -64,7 +64,7 @@ const Login: React.FC<ILoginProps> = props => {
           //   message: "登录成功",
           //   type: "success"
           // });
-          Taro.redirectTo({
+          Taro.navigateTo({
             url: "/pages/setting/index"
           });
           saveToStorage();
