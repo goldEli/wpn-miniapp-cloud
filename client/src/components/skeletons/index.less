@@ -43,24 +43,38 @@
     width: 100%;
     box-sizing: border-box;
     .left {
-      width: 120px;
-      height: 80px;
+      width: 200px;
+      height: 200px;
     }
     .center {
       flex: 1;
       margin: 0 12px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .title {
+        margin: 12px 0;
+        height: 30px;
+      }
+      .title1 {
+        margin: 12px 0;
+        height: 30px;
+        width: 100px;
+      }
       .price {
         margin: 12px 0;
-        width: 50px;
+        height: 30px;
+        width: 200px;
       }
-      .time {
-        width: 120px;
-      }
+      // .time {
+      //   width: 120px;
+      // }
     }
-    .pay {
-      margin-right: 4px;
-      width: 70px;
-      height: 30px;
-    }
+    // .pay {
+    //   margin-right: 4px;
+    //   width: 70px;
+    //   height: 30px;
+    // }
   }
 }
