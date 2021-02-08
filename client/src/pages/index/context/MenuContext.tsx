@@ -7,7 +7,7 @@ import { useMenuListData } from "../hooks/useMenuListData";
 
 export const MenuContext = React.createContext<{
   categoryList?: IFurnitureCategory[];
-  loading?: boolean;
+  loading: boolean;
   data?: IMenuListItem[];
   list?: IFurniture[];
   materialList?: IMaterial[];

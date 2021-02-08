@@ -9,6 +9,7 @@ import { scrollMenuEventKey } from "@/config/eventCenterKey";
 
 interface IListProps {}
 
+let timer: any;
 const List: React.FC<IListProps> = props => {
   const { data, loading } = React.useContext(MenuContext);
   const [scrollTop, setScrollTop] = React.useState(0);
@@ -21,20 +22,24 @@ const List: React.FC<IListProps> = props => {
   }, [data]);
 
   const handleScroll = async (id: string) => {
-    if (!data?.length) return
-    Promise.all([
-      getDomHeight("menu-item-for-scroll"),
-      getDomHeight("category-title")
-    ]).then(([itemHeight, titleHeight]) => {
-      let currentScrollTop = 0;
-      for (let item of data) {
-        if (item.category._id === id) {
-          break;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      if (!data?.length) return;
+      Promise.all([
+        getDomHeight("menu-item-for-scroll"),
+        getDomHeight("category-title")
+      ]).then(([itemHeight, titleHeight]) => {
+        let currentScrollTop = 0;
+        for (let item of data) {
+          if (item.category._id === id) {
+            break;
+          }
+          currentScrollTop +=
+            titleHeight + item.funitureList.length * itemHeight;
         }
-        currentScrollTop += titleHeight + item.funitureList.length * itemHeight;
-      }
-      setScrollTop(currentScrollTop);
-    });
+        setScrollTop(currentScrollTop);
+      });
+    }, 200);
   };
 
   const getDomHeight = (classname: string) => {
@@ -55,7 +60,6 @@ const List: React.FC<IListProps> = props => {
         .exec();
     });
   };
-
   return (
     <ScrollView
       className="content-list"
@@ -63,27 +67,19 @@ const List: React.FC<IListProps> = props => {
       scrollY
       scrollWithAnimation
     >
-      {/* <View className="content-list"> */}
-      {loading ? (
-        <Skeletons />
-      ) : (
-        <>
-          {data?.map(item => {
-            return (
-              <View>
-                <CategoryTitle
-                  id={item.category._id}
-                  name={item.category.name}
-                />
-                {item.funitureList.map(furniture => (
-                  <ListItem key={furniture._id} data={furniture} />
-                ))}
-              </View>
-            );
-          })}
-        </>
-      )}
-      {/* </View> */}
+      {<Skeletons visible={loading} />}
+      <>
+        {data?.map(item => {
+          return (
+            <View>
+              <CategoryTitle id={item.category._id} name={item.category.name} />
+              {item.funitureList.map(furniture => (
+                <ListItem key={furniture._id} data={furniture} />
+              ))}
+            </View>
+          );
+        })}
+      </>
     </ScrollView>
   );
 };

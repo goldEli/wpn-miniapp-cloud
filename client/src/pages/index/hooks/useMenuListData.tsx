@@ -41,7 +41,7 @@ export const useMenuListData = (
     );
     setTimeout(() => {
       setLoading(false)
-    }, 200)
+    }, 500)
   }, [list, categoryList, materialList]);
 
   return [data, loading] as const;
