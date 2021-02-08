@@ -52,7 +52,7 @@ export default class CategoryTitle extends React.Component<
     return (
       <View>
         <View className={"class-" + this.props.id} id={"the-" + this.props.id}>
-          {this.props.name}
+          <Text className="category-title">{this.props.name}</Text>
         </View>
       </View>
     );
