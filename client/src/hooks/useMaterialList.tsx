@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { IFurniture, IMaterial } from "@/type";
 
-export const useMaterialList = (list: IFurniture[]) => {
+export const useMaterialList = () => {
   const [materialList, setMaterialList] = React.useState<IMaterial[]>([]);
 
-  React.useEffect(() => {
+  const initMaterialist = (list: IFurniture[]) => {
     if (list) {
       const m = list.filter(item => item?.material).map(item => item.material);
       setMaterialList(
@@ -14,7 +14,7 @@ export const useMaterialList = (list: IFurniture[]) => {
         }))
       );
     }
-  }, [list]);
+  };
 
   const selectMaterial = (name: string) => {
     setMaterialList(prev => {
@@ -27,5 +27,5 @@ export const useMaterialList = (list: IFurniture[]) => {
     });
   };
 
-  return { materialList, selectMaterial };
+  return { materialList, selectMaterial, initMaterialist };
 };

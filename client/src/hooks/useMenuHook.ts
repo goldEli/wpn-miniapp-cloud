@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import Taro, { Config } from "@tarojs/taro";
-import { IFurniture } from "../type";
+import { IFurniture, IMaterial } from "../type";
 import { http } from "@/utils";
+import { useMaterialList } from "@/hooks/useMaterialList";
 
 export interface IMenuAction {
   add: () => void;
@@ -10,16 +11,19 @@ export interface IMenuAction {
   deleteItem: (_id: string) => void;
   plus: (_id: string) => void;
   sub: (_id: string) => void;
+  selectMaterial: (name: string) => void;
 }
 
 export default function(): {
   list: IFurniture[];
   loading: boolean;
+  materialList: IMaterial[];
   action: IMenuAction;
 } {
   const [list, setList] = React.useState<IFurniture[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [refreshNum, setRefreshNum] = React.useState(1);
+  const { materialList, selectMaterial, initMaterialist } = useMaterialList();
 
   useEffect(() => {
     getData();
@@ -30,12 +34,12 @@ export default function(): {
       action: "getAll"
     });
     if (data instanceof Array) {
-      setList(
-        data
-          // .sort((a, b) => a.index - b.index)
-          .filter(item => item.onSale)
-          .map(item => ({ ...item, number: 0 }))
-      );
+      const d = data
+        // .sort((a, b) => a.index - b.index)
+        .filter(item => item.onSale)
+        .map(item => ({ ...item, number: 0 }));
+      setList(d);
+      initMaterialist(d);
       setLoading(false);
     }
   };
@@ -128,7 +132,8 @@ export default function(): {
   return {
     list,
     loading,
-    action: { add, refresh, update, deleteItem, plus, sub }
+    materialList,
+    action: { add, refresh, update, deleteItem, plus, sub, selectMaterial }
   };
 }
 

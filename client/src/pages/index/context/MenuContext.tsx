@@ -1,9 +1,13 @@
 import React from "react";
-import { IFurniture, IFurnitureCategory, IMaterial, IMenuListItem } from "@/type";
+import {
+  IFurniture,
+  IFurnitureCategory,
+  IMaterial,
+  IMenuListItem
+} from "@/type";
 import useMenuHook from "@/hooks/useMenuHook";
 import useFurnitureCategory from "@/hooks/useFurnitureCategory";
-import { useMaterialList } from "../hooks/useMaterialList";
-import { useMenuListData } from "../hooks/useMenuListData";
+import { useMenuListData } from "@/hooks/useMenuListData";
 
 export const MenuContext = React.createContext<{
   categoryList?: IFurnitureCategory[];
@@ -22,11 +26,11 @@ interface IMenuContextProviderProps {}
 export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props => {
   const {
     list,
-    action: { plus, sub },
+    materialList,
+    action: { plus, sub, selectMaterial },
     loading: listLoading
   } = useMenuHook();
   const { categoryList, loading: categoryLoading } = useFurnitureCategory();
-  const { materialList, selectMaterial } = useMaterialList(list);
   const [data] = useMenuListData(list, categoryList, materialList);
 
   const action = {
