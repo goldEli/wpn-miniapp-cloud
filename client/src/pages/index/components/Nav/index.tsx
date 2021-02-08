@@ -29,15 +29,14 @@ const Nav: React.FC<INavProps> = props => {
   };
 
   const changeNav = (id: string) => {
-    Taro.eventCenter.trigger(scrollMenuEventKey, id)
+    Taro.eventCenter.trigger(scrollMenuEventKey, id);
     setActiveId(id);
   };
 
   return (
-    <View className="content-nav">
-      {/* <ScrollView scrollY scrollWithAnimation> */}
-        <View className="fix-box at-tag--primary">
-          <>
+    <ScrollView className="content-nav" scrollY scrollWithAnimation>
+      <View className="fix-box at-tag--primary">
+        <>
           {categoryList?.map(item => {
             const classes = classnames("btn", {
               active: item._id === activeId
@@ -52,11 +51,10 @@ const Nav: React.FC<INavProps> = props => {
               </Text>
             );
           })}
-          </>
-          <View className="spacer"></View>
-        </View>
-      {/* </ScrollView> */}
-    </View>
+        </>
+        <View className="spacer"></View>
+      </View>
+    </ScrollView>
   );
 };
 

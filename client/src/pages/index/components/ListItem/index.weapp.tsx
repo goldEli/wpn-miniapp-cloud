@@ -36,7 +36,7 @@ const Item: React.FC<IItemProps> = props => {
         {(data.number as number) > 0 && (
           <>
             <View
-              onClick={(e: Event) => {
+              onClick={(e: any) => {
                 e.stopPropagation();
                 action?.sub(data._id || "");
               }}
@@ -50,7 +50,7 @@ const Item: React.FC<IItemProps> = props => {
           </>
         )}
         <View
-          onClick={(e: Event) => {
+          onClick={(e: any) => {
             e.stopPropagation();
             action?.plus(data._id || "");
           }}
