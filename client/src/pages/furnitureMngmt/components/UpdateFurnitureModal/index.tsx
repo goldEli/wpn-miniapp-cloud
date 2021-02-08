@@ -57,6 +57,14 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
+    if (_.isEmpty(data.material)) {
+      Taro.showToast({
+        title: "材料未填",
+        icon: "none",
+        duration: 2000
+      });
+      return false;
+    }
     if (!isNumber(data?.price)) {
       // if (_.isEmpty(data.price)) {
       Taro.showToast({
@@ -106,13 +114,6 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
     close();
   };
   const title = isAdd ? "新增" : "修改";
-  const handleNumber = (value: number | undefined) => {
-    if (typeof value === "number" && !isNaN(value)) {
-      return value + "";
-    } else {
-      return "";
-    }
-  };
   const onDelete = () => {
     props.deleteById(data?._id || "");
     close();
@@ -143,6 +144,14 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         placeholder="数字越小排在越前面"
         value={data?.index}
         handleChange={onChange}
+      />
+      <AtInput
+        name="material"
+        title="材料"
+        type="text"
+        placeholder="输入材料"
+        value={data?.material || ""}
+        onChange={(value: string) => onChange("material", value)}
       />
       <Title title="图片地址" />
       <AtTextarea

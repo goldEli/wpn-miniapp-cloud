@@ -19,7 +19,7 @@ const Item: React.FC<IItemProps> = props => {
   };
   const note = `排序${data.index}，￥${data.price}，${
     data.onSale ? "已上架" : "未上架"
-  }`;
+  }，${data.material || ""}`;
   const imageSrcList = data.imgSrc?.split(",").filter(item => item) || [];
   return (
     <View className="furnitureMngomt-item">
