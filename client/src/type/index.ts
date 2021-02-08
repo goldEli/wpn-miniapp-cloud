@@ -28,6 +28,7 @@ export interface IFurniture {
   title?: string;
   number?: number;
   total?: number;
+  material?: string;
 }
 
 export interface IExpress {

@@ -7,17 +7,17 @@ import { IFurniture } from "@/type";
 interface IFooterProps {}
 
 const Footer: React.FC<IFooterProps> = props => {
-  const { data } = React.useContext(MenuContext);
+  const { list } = React.useContext(MenuContext);
   const sum = React.useMemo(() => {
-    return data
+    return list
       ?.reduce(
         (prev, item) => prev + (item.number * (item.price as number) || 0),
         0
       )
       .toFixed(2);
-  }, [data]);
+  }, [list]);
 
-  const text = JSON.stringify(filterData(data));
+  const text = JSON.stringify(filterData(list));
 
   const toOrderPage = () => {
     Taro.navigateTo({

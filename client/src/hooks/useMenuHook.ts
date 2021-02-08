@@ -8,6 +8,8 @@ export interface IMenuAction {
   refresh: () => void;
   update: (data: IFurniture) => void;
   deleteItem: (_id: string) => void;
+  plus: (_id: string) => void;
+  sub: (_id: string) => void;
 }
 
 export default function(): {
@@ -28,8 +30,12 @@ export default function(): {
       action: "getAll"
     });
     if (data instanceof Array) {
-      data.sort((a, b) => a.index - b.index);
-      setList(data);
+      setList(
+        data
+          // .sort((a, b) => a.index - b.index)
+          .filter(item => item.onSale)
+          .map(item => ({ ...item, number: 0 }))
+      );
       setLoading(false);
     }
   };
@@ -98,7 +104,32 @@ export default function(): {
     setRefreshNum(prev => prev + 1);
   };
 
-  return { list, loading, action: { add, refresh, update, deleteItem } };
+  const plus = (_id: string) => {
+    setList(prev => {
+      return prev.map(item => {
+        if (item._id === _id) {
+          return { ...item, number: (item.number || 0) + 1 };
+        }
+        return item;
+      });
+    });
+  };
+  const sub = (_id: string) => {
+    setList(prev => {
+      return prev.map(item => {
+        if (item._id === _id && (item.number || 0) > 0) {
+          return { ...item, number: (item.number || 0) - 1 };
+        }
+        return item;
+      });
+    });
+  };
+
+  return {
+    list,
+    loading,
+    action: { add, refresh, update, deleteItem, plus, sub }
+  };
 }
 
 function handleData(data: IFurniture) {

@@ -23,6 +23,7 @@ export default function useFurnitureCategory() {
       setLoading(false);
     }
   };
+  
   const add = async (data: IFurnitureCategory) => {
     await http(
       furnitureCategory,
