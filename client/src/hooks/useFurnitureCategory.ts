@@ -14,16 +14,30 @@ export default function useFurnitureCategory() {
     refresh();
   }, []);
   const refresh = async () => {
-    const data = await http(furnitureCategory, {
+    const data = (await http(furnitureCategory, {
       action: "getAll"
-    });
+    })) as IFurnitureCategory[];
     if (data instanceof Array) {
-      data.sort((a, b) => a.index - b.index);
-      setCategoryList(data);
+      setCategoryList(
+        data
+          .map((item, idx) => ({ ...item, seleted: idx === 0 }))
+          .sort((a, b) => a.index - b.index)
+      );
       setLoading(false);
     }
   };
-  
+
+  const onSelectCategory = (id: string) => {
+    setCategoryList(prev => {
+      return prev.map(item => {
+        if (item._id === id) {
+          return { ...item, seleted: true };
+        }
+        return { ...item, seleted: false };
+      });
+    });
+  };
+
   const add = async (data: IFurnitureCategory) => {
     await http(
       furnitureCategory,
@@ -66,5 +80,13 @@ export default function useFurnitureCategory() {
     refresh();
   };
 
-  return { categoryList, loading, refresh, add, deleteById, update };
+  return {
+    categoryList,
+    loading,
+    refresh,
+    add,
+    deleteById,
+    update,
+    onSelectCategory
+  };
 }

@@ -8,14 +8,7 @@ import { navActiveIdKey, scrollMenuEventKey } from "@/config/eventCenterKey";
 interface INavProps {}
 
 const Nav: React.FC<INavProps> = props => {
-  const [activeId, setActiveId] = React.useState<string>("");
-  const { categoryList } = React.useContext(MenuContext);
-
-  useEffect(() => {
-    if (categoryList?.length) {
-      setActiveId(categoryList[0]._id || "");
-    }
-  }, [categoryList]);
+  const { categoryList, action: {onSelectCategory} } = React.useContext(MenuContext);
 
   useEffect(() => {
     Taro.eventCenter.on(navActiveIdKey, changeNavWithOutScroll);
@@ -25,12 +18,12 @@ const Nav: React.FC<INavProps> = props => {
   }, []);
 
   const changeNavWithOutScroll = (id: string) => {
-    setActiveId(id);
+    onSelectCategory(id);
   };
 
   const changeNav = (id: string) => {
     Taro.eventCenter.trigger(scrollMenuEventKey, id);
-    setActiveId(id);
+    onSelectCategory(id);
   };
 
   return (
@@ -39,7 +32,7 @@ const Nav: React.FC<INavProps> = props => {
         <>
           {categoryList?.map(item => {
             const classes = classnames("btn", {
-              active: item._id === activeId
+              active: item.seleted
             });
             return (
               <Text

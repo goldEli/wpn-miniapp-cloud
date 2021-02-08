@@ -19,6 +19,7 @@ export const MenuContext = React.createContext<{
     plus: (_id: string) => void;
     sub: (_id: string) => void;
     selectMaterial: (name: string) => void;
+    onSelectCategory: (id: string) => void;
   };
 }>({});
 
@@ -30,11 +31,16 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
     action: { plus, sub, selectMaterial },
     loading: listLoading
   } = useMenuHook();
-  const { categoryList, loading: categoryLoading } = useFurnitureCategory();
+  const {
+    categoryList,
+    loading: categoryLoading,
+    onSelectCategory
+  } = useFurnitureCategory();
   const [data] = useMenuListData(list, categoryList, materialList);
 
   const action = {
     selectMaterial,
+    onSelectCategory,
     plus,
     sub
   };

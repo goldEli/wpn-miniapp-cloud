@@ -12,9 +12,10 @@ export interface IMenu {
 }
 
 export interface IFurnitureCategory {
-  _id?: string;
-  name?: string;
-  index?: number;
+  _id: string;
+  name: string;
+  index: number;
+  seleted?: boolean; 
 }
 
 export interface IFurniture {
