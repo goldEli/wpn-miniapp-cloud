@@ -1,17 +1,14 @@
 import React from "react";
-import { IFurniture, IFurnitureCategory, IMaterial } from "@/type";
+import { IFurniture, IFurnitureCategory, IMaterial, IMenuListItem } from "@/type";
 import useMenuHook from "@/hooks/useMenuHook";
 import useFurnitureCategory from "@/hooks/useFurnitureCategory";
 import { useMaterialList } from "./useMaterialList";
-import { isEmpty } from "lodash";
+import { useMenuListData } from "./useMenuListData";
 
 export const MenuContext = React.createContext<{
   categoryList?: IFurnitureCategory[];
   loading?: boolean;
-  data?: {
-    category: IFurnitureCategory;
-    funitureList: IFurniture[];
-  }[];
+  data?: IMenuListItem[];
   list?: IFurniture[];
   materialList?: IMaterial[];
   action?: {
@@ -28,39 +25,9 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
     loading,
     action: { plus, sub }
   } = useMenuHook();
-  const [data, setData] = React.useState<
-    {
-      category: IFurnitureCategory;
-      funitureList: IFurniture[];
-    }[]
-  >([]);
   const { loading: categoryListLoading, categoryList } = useFurnitureCategory();
   const { materialList, selectMaterial } = useMaterialList(list);
-
-  React.useEffect(() => {
-    if (!categoryList?.length || !list?.length) {
-      return;
-    }
-    const selected = materialList
-      .filter(item => item.active)
-      .map(item => item.name);
-    setData(
-      categoryList
-        .map(category => {
-          const funitureList = list
-            .filter(item => item.furnitureCategoryId === category._id)
-            .filter(item =>
-              selected.length ? selected.includes(item?.material || "") : true
-            )
-            .sort((a, b) => (a?.index || 0) - (b?.index || 0));
-          return {
-            category,
-            funitureList
-          };
-        })
-        .filter(item => !isEmpty(item.funitureList))
-    );
-  }, [list, categoryList, materialList]);
+  const [data] = useMenuListData(list, categoryList, materialList);
 
   const action = {
     selectMaterial,

@@ -43,3 +43,8 @@ export interface IMaterial {
   name: string;
   active: boolean;
 }
+
+export interface IMenuListItem {
+  category: IFurnitureCategory;
+  funitureList: IFurniture[];
+}
