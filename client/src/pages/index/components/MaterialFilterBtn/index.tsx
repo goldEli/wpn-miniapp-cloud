@@ -11,41 +11,43 @@ interface IMaterialFilterBtnProps {
 
 const MaterialFilterBtn: React.FC<IMaterialFilterBtnProps> = props => {
   const [data, setData] = React.useState([
-    { name: "全部", active: true },
     { name: "火烧石", active: false },
     { name: "大理石", active: false },
-    { name: "玻璃", active: false },
-    { name: "岩板", active: false },
     { name: "金刚石", active: false },
-    { name: "石木面", active: false }
+    { name: "石木面", active: false },
+    { name: "玻璃", active: false },
+    { name: "岩板", active: false }
   ]);
 
-  console.log(data, 123)
+  console.log(data, 123);
 
-  const onChange = e => {
-    const { value } = e.detail;
-    // console.log(e)
-    setData(prev => {
-      return prev.map((item, idx) => {
-        if (idx == value) {
-          return { ...item, active: true };
+  const onChange = (name: string) => {
+    setData(prev =>
+      prev.map(item => {
+        if (item.name === name) {
+          return { ...item, active: !item.active };
         }
-        return { ...item, active: false };
-      });
-    });
+        return item;
+      })
+    );
   };
 
   return (
-    <View className="tag-box">
-      <Picker
-        mode="selector"
-        range={data.map(item => item.name)}
-        onChange={onChange}
-      >
-        <AtTag type="primary" circle>
-          {`材质(${data.find(item => item.active)?.name})`}
-        </AtTag>
-      </Picker>
+    <View className="filter-box">
+      {data.map(item => {
+        return (
+          <View key={item.name} className="tag-box">
+            <AtTag
+              type="primary"
+              onClick={() => onChange(item.name)}
+              active={item.active}
+              circle
+            >
+              {item.name}
+            </AtTag>
+          </View>
+        );
+      })}
     </View>
   );
 };

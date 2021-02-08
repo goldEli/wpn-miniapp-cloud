@@ -8,16 +8,23 @@
   padding: 0 8px;
   height: 100vh;
   box-sizing: border-box;
-  .tag-box {
+  display: flex;
+  flex-direction: column;
+  .filter-box {
     width: 100%;
-    height: @tagBoxHeight;
-    // display: flex;
-    // flex-direction: row;
-    // justify-content: flex-start;
+    // height: @tagBoxHeight;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    .tag-box {
+      padding: 8px;
+    }
   }
   .content {
     background-color: @white;
-    height: calc(100vh - @tagBoxHeight);
+    flex: 1;
+    // height: calc(100vh - @tagBoxHeight);
     box-sizing: border-box;
     .flex(row, flex-start, flex-start);
     overflow: hidden;
