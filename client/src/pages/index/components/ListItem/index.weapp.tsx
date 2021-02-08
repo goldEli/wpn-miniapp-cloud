@@ -22,7 +22,7 @@ const Item: React.FC<IItemProps> = props => {
   };
 
   return (
-    <View onClick={goToDetailPage} key={data._id} className="item">
+    <View onClick={goToDetailPage} key={data._id} className="item menu-item-for-scroll">
       <View className="img-box">
         <Image
           className="img"

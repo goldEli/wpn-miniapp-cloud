@@ -8,8 +8,6 @@ import CategoryTitle from "../CategoryTitle";
 import { scrollMenuEventKey } from "@/config/eventCenterKey";
 
 interface IListProps {}
-const titleHight = 21;
-const ItemHight = 85+8;
 
 const List: React.FC<IListProps> = props => {
   const { data, loading } = React.useContext(MenuContext);
@@ -22,16 +20,40 @@ const List: React.FC<IListProps> = props => {
     };
   }, [data]);
 
-  const handleScroll = (id: string) => {
-    if (!data?.length) return;
-    let currentScrollTop = 0;
-    for (let item of data) {
-      if (item.category._id === id) {
-        break;
+  const handleScroll = async (id: string) => {
+    if (!data?.length) return
+    Promise.all([
+      getDomHeight("menu-item-for-scroll"),
+      getDomHeight("category-title")
+    ]).then(([itemHeight, titleHeight]) => {
+      let currentScrollTop = 0;
+      for (let item of data) {
+        if (item.category._id === id) {
+          break;
+        }
+        currentScrollTop += titleHeight + item.funitureList.length * itemHeight;
       }
-      currentScrollTop += titleHight + item.funitureList.length * ItemHight;
-    }
-    setScrollTop(currentScrollTop);
+      setScrollTop(currentScrollTop);
+    });
+  };
+
+  const getDomHeight = (classname: string) => {
+    return new Promise<number>((resolve, reject) => {
+      Taro.createSelectorQuery()
+        .select("." + classname)
+        .fields(
+          {
+            // dataset: true,
+            size: true
+            // scrollOffset: true,
+            // properties: ["scrollX", "scrollY"]
+          },
+          function(res) {
+            resolve(res.height);
+          }
+        )
+        .exec();
+    });
   };
 
   return (
