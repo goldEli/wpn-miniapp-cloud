@@ -12,7 +12,7 @@ interface IIndexProps {}
 const Index: React.FC<IIndexProps> = props => {
   useShareAppMessage(res => {
     return {
-      title: "艾菲特家私，品质典范。",
+      title: "艾菲特家私立志于做品质高，价格实惠的产品。",
       path: "pages/index/index",
       imageUrl:
         "https://wx3.sinaimg.cn/mw690/671cf50fgy1gnf9f0r6jvj20aa08bweo.jpg"
