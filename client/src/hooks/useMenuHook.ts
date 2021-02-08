@@ -1,22 +1,21 @@
 import React, { useEffect } from "react";
 import Taro, { Config } from "@tarojs/taro";
-import { IMenu } from "../type";
+import { IFurniture } from "../type";
 import { http } from "@/utils";
-type PIMenu = Partial<IMenu>;
 
 export interface IMenuAction {
   add: () => void;
   refresh: () => void;
-  update: (data: IMenu) => void;
+  update: (data: IFurniture) => void;
   deleteItem: (_id: string) => void;
 }
 
 export default function(): {
-  list: PIMenu[];
+  list: IFurniture[];
   loading: boolean;
   action: IMenuAction;
 } {
-  const [list, setList] = React.useState<PIMenu[]>([]);
+  const [list, setList] = React.useState<IFurniture[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [refreshNum, setRefreshNum] = React.useState(1);
 
@@ -67,7 +66,7 @@ export default function(): {
     refresh();
   };
 
-  const update = async (data: IMenu) => {
+  const update = async (data: IFurniture) => {
     if (data._id) {
       await http(
         "menu",
@@ -102,7 +101,7 @@ export default function(): {
   return { list, loading, action: { add, refresh, update, deleteItem } };
 }
 
-function handleData(data: PIMenu) {
+function handleData(data: IFurniture) {
   const ret = { ...data };
   delete ret._id;
   for (let key in ret) {
