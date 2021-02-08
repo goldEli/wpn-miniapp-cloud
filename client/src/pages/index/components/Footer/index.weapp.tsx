@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Taro from "@tarojs/taro";
 import { View, Button } from "@tarojs/components";
 import { MenuContext } from "@/pages/index/context/MenuContext";
-import { IMenuWithNum } from "@/type";
+import { IFurniture } from "@/type";
 
 interface IFooterProps {}
 
@@ -45,9 +45,9 @@ const Footer: React.FC<IFooterProps> = props => {
 };
 
 export default Footer;
-const filterData = (data: IMenuWithNum[] = []) => {
+const filterData = (data: IFurniture[] = []) => {
   return data
-    .filter(item => item.number > 0)
+    .filter(item => item?.number > 0)
     .map(item => ({
       title: item.title,
       number: item.number,

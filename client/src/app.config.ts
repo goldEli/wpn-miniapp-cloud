@@ -6,7 +6,6 @@ export default {
     "pages/furnitureMngmt/index",
     "pages/login/login",
     "pages/order/index",
-    "pages/menuMngmt/menuMngmt"
   ],
   window: {
     backgroundTextStyle: "light",

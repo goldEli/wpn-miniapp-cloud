@@ -17,10 +17,6 @@ export interface IFurnitureCategory {
   index?: number;
 }
 
-export interface IMenuWithNum extends Partial<IMenu> {
-  number: number;
-}
-
 export interface IFurniture {
   _id?: string;
   furnitureCategoryId?: string;
