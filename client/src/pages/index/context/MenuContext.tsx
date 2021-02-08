@@ -22,12 +22,11 @@ interface IMenuContextProviderProps {}
 export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props => {
   const {
     list,
-    loading,
     action: { plus, sub }
   } = useMenuHook();
-  const { loading: categoryListLoading, categoryList } = useFurnitureCategory();
+  const { categoryList } = useFurnitureCategory();
   const { materialList, selectMaterial } = useMaterialList(list);
-  const [data] = useMenuListData(list, categoryList, materialList);
+  const [data, loading] = useMenuListData(list, categoryList, materialList);
 
   const action = {
     selectMaterial,
@@ -41,7 +40,7 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
         categoryList: data.map(item => item.category),
         list,
         data,
-        loading: loading && categoryListLoading,
+        loading: loading,
         materialList,
         action
       }}

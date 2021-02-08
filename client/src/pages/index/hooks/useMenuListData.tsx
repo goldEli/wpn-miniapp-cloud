@@ -13,8 +13,10 @@ export const useMenuListData = (
   materialList: IMaterial[]
 ) => {
   const [data, setData] = React.useState<IMenuListItem[]>([]);
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
+    setLoading(true)
     if (!categoryList?.length || !list?.length) {
       return;
     }
@@ -37,7 +39,10 @@ export const useMenuListData = (
         })
         .filter(item => !isEmpty(item.funitureList))
     );
+    setTimeout(() => {
+      setLoading(false)
+    }, 200)
   }, [list, categoryList, materialList]);
 
-  return [data] as const;
+  return [data, loading] as const;
 };
