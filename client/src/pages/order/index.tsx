@@ -74,7 +74,6 @@ const Order: React.FC<IOrderProps> = props => {
       Taro.getStorage({
         key,
         success: function(res) {
-          console.log(res.data, key, "res");
           res.data &&
             setExpressInfo(prev => {
               return { ...prev, [key]: res.data };
@@ -95,7 +94,6 @@ const Order: React.FC<IOrderProps> = props => {
   };
 
   const onInputChange = (name: keyof IExpress, value: any) => {
-    console.log(name, value);
     Taro.setStorage({
       key: name,
       data: value

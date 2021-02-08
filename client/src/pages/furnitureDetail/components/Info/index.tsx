@@ -6,7 +6,6 @@ interface IInfoProps {}
 
 const Info: React.FC<IInfoProps> = props => {
   const note = getCurrentInstance().router?.params?.note as string;
-  console.log({note})
   return (
     <View>
       {note?.split("\n").map(item => {

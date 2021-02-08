@@ -41,3 +41,8 @@ export interface IExpress {
   express: string;
   expressPhone: string;
 }
+
+export interface IMaterial {
+  name: string;
+  active: boolean;
+}

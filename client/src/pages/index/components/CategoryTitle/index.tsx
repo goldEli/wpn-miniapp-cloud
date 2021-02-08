@@ -28,17 +28,14 @@ export default class CategoryTitle extends React.Component<
 
   handleScroll = () => {
     Taro.nextTick(() => {
-      console.log("didMount", this.current);
       // @ts-ignore
       this.io = Taro.createIntersectionObserver(this.current.page, {
         thresholds: [1],
         observeAll: true
       });
-      // console.log('io 实例:', io);
       this.io
         .relativeToViewport({ bottom: 0 })
         .observe(".class-" + this.props.id, res => {
-          console.log(this.props.name, res);
           if (res.intersectionRatio !== 1) return;
           clearTimeout(timer);
           timer = setTimeout(() => {
