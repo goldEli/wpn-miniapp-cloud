@@ -3,7 +3,7 @@ import Taro from "@tarojs/taro";
 import { View, Text, ScrollView } from "@tarojs/components";
 import classnames from "classnames";
 import { MenuContext } from "@/pages/index/context/MenuContext";
-import { navActiveIdKey } from "@/config/eventCenterKey";
+import { navActiveIdKey, scrollMenuEventKey } from "@/config/eventCenterKey";
 
 interface INavProps {}
 
@@ -24,17 +24,12 @@ const Nav: React.FC<INavProps> = props => {
     };
   }, []);
 
-  // useEffect(() => {
-  // }, [activeId]);
   const changeNavWithOutScroll = (id: string) => {
     setActiveId(id);
   };
 
   const changeNav = (id: string) => {
-    Taro.pageScrollTo({
-      duration: 300,
-      selector: "#the-" + id
-    });
+    Taro.eventCenter.trigger(scrollMenuEventKey, id)
     setActiveId(id);
   };
 

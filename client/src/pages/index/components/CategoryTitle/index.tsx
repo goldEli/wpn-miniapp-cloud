@@ -15,18 +15,23 @@ export default class CategoryTitle extends React.Component<
 > {
   current = Taro.getCurrentInstance();
   io: Taro.IntersectionObserver;
-  // componentDidUpdate() {
-  //   this.handleScroll()
-  // }
+  componentDidUpdate() {
+    this.handleScroll();
+  }
   componentDidMount() {
-    this.handleScroll()
+    this.handleScroll();
   }
   componentWillUnmount() {
+    this.distory();
+  }
+
+  distory() {
     clearTimeout(timer);
-    this.io.disconnect();
+    this?.io?.disconnect();
   }
 
   handleScroll = () => {
+    this.distory();
     Taro.nextTick(() => {
       // @ts-ignore
       this.io = Taro.createIntersectionObserver(this.current.page, {
@@ -43,7 +48,7 @@ export default class CategoryTitle extends React.Component<
               navActiveIdKey,
               res?.id.replace("the-", "")
             );
-          }, 200);
+          }, 1000);
         });
     });
   };

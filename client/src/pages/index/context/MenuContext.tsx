@@ -2,8 +2,8 @@ import React from "react";
 import { IFurniture, IFurnitureCategory, IMaterial, IMenuListItem } from "@/type";
 import useMenuHook from "@/hooks/useMenuHook";
 import useFurnitureCategory from "@/hooks/useFurnitureCategory";
-import { useMaterialList } from "./useMaterialList";
-import { useMenuListData } from "./useMenuListData";
+import { useMaterialList } from "../hooks/useMaterialList";
+import { useMenuListData } from "../hooks/useMenuListData";
 
 export const MenuContext = React.createContext<{
   categoryList?: IFurnitureCategory[];

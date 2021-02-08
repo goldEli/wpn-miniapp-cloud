@@ -5,39 +5,43 @@ import Skeletons from "@/components/skeletons/index.skeletions";
 import { MenuContext } from "../../context/MenuContext";
 import ListItem from "../ListItem/index.weapp";
 import CategoryTitle from "../CategoryTitle";
+import { scrollMenuEventKey } from "@/config/eventCenterKey";
 
 interface IListProps {}
+const titleHight = 21;
+const ItemHight = 85+8;
 
 const List: React.FC<IListProps> = props => {
   const { data, loading } = React.useContext(MenuContext);
-  // const [showSkeletions] = React.useState(true);
+  const [scrollTop, setScrollTop] = React.useState(0);
 
-  // useEffect(() => {
-  //   if (categoryList?.length && data?.length) {
-  //     setList(
-  //       categoryList
-  //         .map(category => {
-  //           const funitureList = data
-  //             .filter(item => item.furnitureCategoryId === category._id)
-  //             .sort((a, b) => (a?.index || 0) - (b?.index || 0));
-  //           return {
-  //             category,
-  //             funitureList
-  //           };
-  //         })
-  //         .filter(item => !isEmpty(item.funitureList))
-  //     );
-  //   }
-  // }, [data, categoryList]);
+  React.useEffect(() => {
+    Taro.eventCenter.on(scrollMenuEventKey, handleScroll);
+    return () => {
+      Taro.eventCenter.on(scrollMenuEventKey, handleScroll);
+    };
+  }, [data]);
 
-  // useEffect(() => {
-  //   if (list.length && !loading) {
-  //     setShowSkeletions(false);
-  //   }
-  // }, [loading, list]);
+  const handleScroll = (id: string) => {
+    if (!data?.length) return;
+    let currentScrollTop = 0;
+    for (let item of data) {
+      if (item.category._id === id) {
+        break;
+      }
+      currentScrollTop += titleHight + item.funitureList.length * ItemHight;
+    }
+    setScrollTop(currentScrollTop);
+  };
 
   return (
-    <View className="content-list">
+    <ScrollView
+      className="content-list"
+      scrollTop={scrollTop}
+      scrollY
+      scrollWithAnimation
+    >
+      {/* <View className="content-list"> */}
       {loading ? (
         <Skeletons />
       ) : (
@@ -57,7 +61,8 @@ const List: React.FC<IListProps> = props => {
           })}
         </>
       )}
-    </View>
+      {/* </View> */}
+    </ScrollView>
   );
 };
 
