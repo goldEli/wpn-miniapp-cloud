@@ -45,13 +45,17 @@ export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props =>
     sub
   };
 
+  const isLoading = () => {
+    return ![listLoading, categoryLoading].some(item => item === false)
+  }
+
   return (
     <MenuContext.Provider
       value={{
         categoryList: data.map(item => item.category),
         list,
         data,
-        loading: listLoading && categoryLoading,
+        loading: isLoading(),
         materialList,
         action
       }}
