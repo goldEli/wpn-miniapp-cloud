@@ -12,6 +12,7 @@ import Title from "@/components/Title";
 import ExpressArea from "./components/ExpressArea";
 import ExpressAreaReadOnly from "./components/ExpressAreaReadOnly";
 import _ from "lodash";
+import SuccessPage from "./components/SuccessPage";
 
 interface IOrderProps {}
 
@@ -24,6 +25,7 @@ const Order: React.FC<IOrderProps> = props => {
     express: "",
     expressPhone: ""
   });
+  const [shared, setShared] = React.useState(false);
   const fromHome = getCurrentInstance().router?.params?.fromHome as string;
 
   const sum = React.useMemo(
@@ -38,12 +40,7 @@ const Order: React.FC<IOrderProps> = props => {
 
   useShareAppMessage(res => {
     const text = getCurrentInstance().router?.params?.text || "";
-    Taro.navigateBack({
-      delta: 1
-    });
-    // Taro.redirectTo({
-    //   url: `/pages/index/index`
-    // });
+    setShared(true);
     return {
       title: `我的订单(共计：￥${sum})`,
       imageUrl:
@@ -164,6 +161,9 @@ const Order: React.FC<IOrderProps> = props => {
       return { ...prev, [name]: value };
     });
   };
+  if (shared) {
+    return <SuccessPage />;
+  }
   return (
     <>
       <View className="wme-order">
