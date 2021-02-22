@@ -11,6 +11,7 @@ import { IFurniture, IExpress } from "@/type";
 import Title from "@/components/Title";
 import ExpressArea from "./components/ExpressArea";
 import ExpressAreaReadOnly from "./components/ExpressAreaReadOnly";
+import _ from "lodash";
 
 interface IOrderProps {}
 
@@ -52,6 +53,49 @@ const Order: React.FC<IOrderProps> = props => {
       setExpressInfoFromUrl();
     }
   }, [editable]);
+
+  const checkValid = () => {
+    if (_.isEmpty(expressInfo.name)) {
+      Taro.showToast({
+        title: "收货人未填",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
+    if (_.isEmpty(expressInfo.phone)) {
+      Taro.showToast({
+        title: "电话未填",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
+    if (_.isEmpty(expressInfo.address)) {
+      Taro.showToast({
+        title: "收货地址未填",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
+    if (_.isEmpty(expressInfo.express)) {
+      Taro.showToast({
+        title: "货运部未填",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
+    if (_.isEmpty(expressInfo.expressPhone)) {
+      Taro.showToast({
+        title: "货运部电话未填",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
+  };
 
   const handleOrderData = () => {
     const text = getCurrentInstance().router?.params?.text || "";
@@ -102,6 +146,9 @@ const Order: React.FC<IOrderProps> = props => {
       return { ...prev, [name]: value };
     });
   };
+  const disabledShare = React.useCallback(() => {
+    return !Object.keys(expressInfo).every(key => !_.isEmpty(expressInfo[key]));
+  }, [expressInfo]);
   return (
     <>
       <View className="wme-order">
@@ -126,9 +173,11 @@ const Order: React.FC<IOrderProps> = props => {
         ) : (
           <ExpressAreaReadOnly expressInfo={expressInfo} />
         )}
-        <AtButton openType="share" type="primary">
-          点我发送
-        </AtButton>
+        <view onClick={checkValid}>
+          <AtButton disabled={disabledShare()} openType="share" type="primary">
+            点我发送
+          </AtButton>
+        </view>
       </View>
     </>
   );
