@@ -8,6 +8,7 @@ interface IFooterProps {}
 
 const Footer: React.FC<IFooterProps> = props => {
   const { list } = React.useContext(MenuContext);
+
   const sum = React.useMemo(() => {
     return list
       ?.reduce(
@@ -17,9 +18,22 @@ const Footer: React.FC<IFooterProps> = props => {
       .toFixed(2);
   }, [list]);
 
+  const numberOfProducts =
+    React.useMemo(() => {
+      return list?.reduce((prev, item) => prev + (item.number || 0), 0);
+    }, [list]) || 0;
+
   const text = JSON.stringify(filterData(list));
 
   const toOrderPage = () => {
+    if (numberOfProducts <= 0) {
+      Taro.showToast({
+        title: "您还未选择任何商品，请先选择。",
+        icon: "none",
+        duration: 2000
+      });
+      return;
+    }
     Taro.navigateTo({
       url: `/pages/order/index?text=${text}&fromHome=true`
     });
