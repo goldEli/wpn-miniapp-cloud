@@ -32,14 +32,32 @@ const Order: React.FC<IOrderProps> = props => {
   );
 
   const editable = fromHome === "true";
+  const disabledShare = React.useMemo(() => {
+    return !Object.keys(expressInfo).every(key => !_.isEmpty(expressInfo[key]));
+  }, [expressInfo]);
 
   useShareAppMessage(res => {
     const text = getCurrentInstance().router?.params?.text || "";
+    Taro.navigateBack({
+      delta: 1
+    });
+    // Taro.redirectTo({
+    //   url: `/pages/index/index`
+    // });
     return {
-      title: `订单(共计：￥${sum})`,
+      title: `我的订单(共计：￥${sum})`,
+      imageUrl:
+        "https://wx3.sinaimg.cn/mw690/671cf50fgy1gnf9f0r6jvj20aa08bweo.jpg",
       path: `pages/order/index?text=${text}&expressInfo=${JSON.stringify(
         expressInfo
-      )}`
+      )}`,
+      onSuccess: () => {
+        Taro.showToast({
+          title: "订单发送成功",
+          icon: "none",
+          duration: 2000
+        });
+      }
     };
   });
   useEffect(() => {
@@ -146,9 +164,6 @@ const Order: React.FC<IOrderProps> = props => {
       return { ...prev, [name]: value };
     });
   };
-  const disabledShare = React.useCallback(() => {
-    return !Object.keys(expressInfo).every(key => !_.isEmpty(expressInfo[key]));
-  }, [expressInfo]);
   return (
     <>
       <View className="wme-order">
@@ -173,11 +188,13 @@ const Order: React.FC<IOrderProps> = props => {
         ) : (
           <ExpressAreaReadOnly expressInfo={expressInfo} />
         )}
-        <view onClick={checkValid}>
-          <AtButton disabled={disabledShare()} openType="share" type="primary">
-            点我发送
-          </AtButton>
-        </view>
+        {editable && (
+          <view onClick={checkValid}>
+            <AtButton disabled={disabledShare} openType="share" type="primary">
+              点我发送
+            </AtButton>
+          </view>
+        )}
       </View>
     </>
   );
