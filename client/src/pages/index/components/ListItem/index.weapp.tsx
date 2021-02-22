@@ -3,6 +3,7 @@ import Taro, { Config } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import { IFurniture } from "@/type";
 import { MenuContext } from "../../context/MenuContext";
+import { open } from "../UpdateNumberModal";
 
 interface IItemProps {
   data: IFurniture;
@@ -20,9 +21,17 @@ const Item: React.FC<IItemProps> = props => {
       url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
     });
   };
+  const changeNumber = (e:any) => {
+    e.stopPropagation()
+    open({ _id: data._id, number: data.number });
+  };
 
   return (
-    <View onClick={goToDetailPage} key={data._id} className="item menu-item-for-scroll">
+    <View
+      onClick={goToDetailPage}
+      key={data._id}
+      className="item menu-item-for-scroll"
+    >
       <View className="img-box">
         <Image
           className="img"
@@ -46,7 +55,9 @@ const Item: React.FC<IItemProps> = props => {
                 <View className="at-icon at-icon-subtract"></View>
               </View>
             </View>
-            <View className="text">{data.number}</View>
+            <View onClick={changeNumber} className="text">
+              {data.number}
+            </View>
           </>
         )}
         <View
