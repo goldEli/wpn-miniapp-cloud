@@ -61,6 +61,8 @@ const UpdateCategory: React.FC<IUpdateCategoryProps> = props => {
   };
 
   const onOk = () => {
+    console.log("ok", params);
+
     if (!checkValid()) return;
     if (isAdd) {
       props.add(params);

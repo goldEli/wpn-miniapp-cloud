@@ -62,7 +62,9 @@ export default function useFurnitureCategory() {
       { sucMsg: "删除成功" }
     );
 
-    refresh();
+    setCategoryList(prev => {
+      return prev.filter(item => item._id !== _id);
+    });
   };
 
   const update = async (data: IFurnitureCategory) => {
@@ -73,11 +75,13 @@ export default function useFurnitureCategory() {
         _id: data._id,
         data: _.omit(data, ["_id"])
       },
-      {
-        sucMsg: "修改成功"
-      }
+      { sucMsg: "修改成功" }
     );
-    refresh();
+    setCategoryList(prev => {
+      return prev.map(item => {
+        return item._id === data._id ? data : item;
+      });
+    });
   };
 
   return {
