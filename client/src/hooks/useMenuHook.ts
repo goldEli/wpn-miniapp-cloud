@@ -17,12 +17,11 @@ import { useMaterialList } from "@/hooks/useMaterialList";
 export default function() {
   const [list, setList] = React.useState<IFurniture[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [refreshNum, setRefreshNum] = React.useState(1);
   const { materialList, selectMaterial, initMaterialist } = useMaterialList();
 
   useEffect(() => {
     getData();
-  }, [refreshNum]);
+  }, []);
 
   const getData = async () => {
     const data = await http("menu", {
@@ -37,70 +36,6 @@ export default function() {
       initMaterialist(d);
       setLoading(false);
     }
-  };
-
-  const add = () => {
-    setList(prev => {
-      if (prev.some(item => !item._id)) return prev;
-      return [
-        ...prev,
-        {
-          index: 1,
-          onSale: true
-        }
-      ];
-    });
-  };
-
-  const deleteItem = async (_id: string) => {
-    if (!_id) {
-      setList(prev => {
-        return prev.filter(item => item?._id);
-      });
-      return;
-    }
-    await http(
-      "menu",
-      {
-        action: "delete",
-        _id: _id
-      },
-      { sucMsg: "删除成功" }
-    );
-
-    refresh();
-  };
-
-  const update = async (data: IFurniture) => {
-    if (data._id) {
-      await http(
-        "menu",
-        {
-          action: "update",
-          _id: data._id,
-          data: handleData(data)
-        },
-        {
-          sucMsg: "修改成功"
-        }
-      );
-      return;
-    }
-    await http(
-      "menu",
-      {
-        action: "add",
-        data: handleData(data)
-      },
-      {
-        sucMsg: "修改成功"
-      }
-    );
-    refresh();
-  };
-
-  const refresh = () => {
-    setRefreshNum(prev => prev + 1);
   };
 
   const plus = (_id: string) => {
@@ -138,7 +73,7 @@ export default function() {
     list,
     loading,
     materialList,
-    action: { add, refresh, update, deleteItem, plus, sub, selectMaterial, changeNumber }
+    action: { plus, sub, selectMaterial, changeNumber }
   };
 }
 
