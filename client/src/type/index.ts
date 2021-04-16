@@ -30,6 +30,7 @@ export interface IFurniture {
   number?: number;
   total?: number;
   material?: string;
+  stocks?: string;
 }
 
 export interface IExpress {

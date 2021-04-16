@@ -21,8 +21,8 @@ const Item: React.FC<IItemProps> = props => {
       url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
     });
   };
-  const changeNumber = (e:any) => {
-    e.stopPropagation()
+  const changeNumber = (e: any) => {
+    e.stopPropagation();
     open({ _id: data._id, number: data.number });
   };
 
@@ -40,7 +40,12 @@ const Item: React.FC<IItemProps> = props => {
         ></Image>
       </View>
       <View className="title">{data.title}</View>
-      <View className="price">{getPrice()}</View>
+      <View className="price">
+        <View className="stocksItem">
+          {data?.stocks ? `库存 ${data?.stocks}` : ""}
+        </View>
+        <View className="priceItem">{getPrice()}</View>
+      </View>
       <View className="action">
         {(data.number as number) > 0 && (
           <>

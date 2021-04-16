@@ -98,13 +98,20 @@
         grid-area: title;
         font-size: 32px;
       }
-      .price {
-        .flex(row, flex-end, center);
-        padding-right: 32px;
+      .stocksItem {
+
+        color: rgb(189, 184, 184);
+        font-size: 26px;
+      }
+      .priceItem {
         color: @red;
         font-weight: bold;
-        grid-area: price;
         font-size: 32px;
+      }
+      .price {
+        .flex(row, space-between, center);
+        padding-right: 32px;
+        grid-area: price;
       }
       .action {
         .flex(row, flex-end, center);
