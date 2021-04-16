@@ -42,7 +42,7 @@ const Item: React.FC<IItemProps> = props => {
       <View className="title">{data.title}</View>
       <View className="price">
         <View className="stocksItem">
-          {data?.stocks ? `库存 ${data?.stocks}` : ""}
+          {data?.stock ? `库存 ${data?.stock}` : ""}
         </View>
         <View className="priceItem">{getPrice()}</View>
       </View>
