@@ -137,6 +137,14 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         value={data?.price}
         handleChange={onChange}
       />
+      <AtInput
+        name="stock"
+        title="库存"
+        type="number"
+        placeholder="输入库存"
+        value={data?.stock}
+        onChange={(value: string) => onChange("stock", value)}
+      />
       <InputNumber
         name="index"
         title="排序"
