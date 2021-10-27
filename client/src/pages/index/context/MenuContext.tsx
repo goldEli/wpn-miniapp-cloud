@@ -1,64 +1,41 @@
 import React from "react";
 import {
   IFurniture,
-  IFurnitureCategory,
-  IMaterial,
-  IMenuListItem
 } from "@/type";
 import useMenuHook from "@/hooks/useMenuHook";
-import useFurnitureCategory from "@/hooks/useFurnitureCategory";
-import { useMenuListData } from "@/hooks/useMenuListData";
 
 export const MenuContext = React.createContext<{
-  categoryList?: IFurnitureCategory[];
   loading: boolean;
-  data?: IMenuListItem[];
   list?: IFurniture[];
-  materialList?: IMaterial[];
   action?: {
-    plus: (_id: string) => void;
-    sub: (_id: string) => void;
-    selectMaterial: (name: string) => void;
-    onSelectCategory: (id: string) => void;
-    changeNumber: (_id: string, number: number) => void;
+    plus?: (_id: string) => void;
+    sub?: (_id: string) => void;
+    changeNumber?: (_id: string, number: number) => void;
   };
-}>({});
+}>({
+  loading: true
+});
 
 interface IMenuContextProviderProps {}
 export const MenuContextProvider: React.FC<IMenuContextProviderProps> = props => {
   const {
     list,
-    materialList,
-    action: { plus, sub, selectMaterial, changeNumber },
-    loading: listLoading
+    action: { plus, sub, changeNumber },
+    loading
   } = useMenuHook();
-  const {
-    categoryList,
-    loading: categoryLoading,
-    onSelectCategory
-  } = useFurnitureCategory();
-  const [data] = useMenuListData(list, categoryList, materialList);
+  
 
   const action = {
-    selectMaterial,
-    onSelectCategory,
     plus,
     sub,
     changeNumber
   };
 
-  const isLoading = () => {
-    return ![listLoading, categoryLoading].some(item => item === false);
-  };
-
   return (
     <MenuContext.Provider
       value={{
-        categoryList: data.map(item => item.category),
         list,
-        data,
-        loading: isLoading(),
-        materialList,
+        loading,
         action
       }}
     >

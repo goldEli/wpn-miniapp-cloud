@@ -16,11 +16,11 @@ const Item: React.FC<IItemProps> = props => {
   const getPrice = () => {
     return `￥${data.price}`;
   };
-  const goToDetailPage = () => {
-    Taro.navigateTo({
-      url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
-    });
-  };
+  // const goToDetailPage = () => {
+  //   Taro.navigateTo({
+  //     url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
+  //   });
+  // };
   const changeNumber = (e: any) => {
     e.stopPropagation();
     open({ _id: data._id, number: data.number });
@@ -28,22 +28,19 @@ const Item: React.FC<IItemProps> = props => {
 
   return (
     <View
-      onClick={goToDetailPage}
       key={data._id}
-      className="item menu-item-for-scroll"
+      className="item"
     >
       <View className="img-box">
         <Image
           className="img"
-          mode="widthFix"
-          src={data.imgSrc?.split(",")[0] as string}
+          mode="aspectFill"
+          src={data?.imgSrc || ""}
         ></Image>
       </View>
       <View className="title">{data.title}</View>
       <View className="price">
-        <View className="stocksItem">
-          {data?.stock ? `库存 ${data?.stock}` : ""}
-        </View>
+        
         <View className="priceItem">{getPrice()}</View>
       </View>
       <View className="action">
@@ -52,7 +49,7 @@ const Item: React.FC<IItemProps> = props => {
             <View
               onClick={(e: any) => {
                 e.stopPropagation();
-                action?.sub(data._id || "");
+                action?.sub?.(data._id || "");
               }}
               className="button-icon-sub"
             >
@@ -68,7 +65,7 @@ const Item: React.FC<IItemProps> = props => {
         <View
           onClick={(e: any) => {
             e.stopPropagation();
-            action?.plus(data._id || "");
+            action?.plus?.(data._id || "");
           }}
           className="button-icon-add"
         >

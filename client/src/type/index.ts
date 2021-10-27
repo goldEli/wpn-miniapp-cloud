@@ -20,17 +20,38 @@ export interface IFurnitureCategory {
 
 export interface IFurniture {
   _id?: string;
-  furnitureCategoryId?: string;
+  /**
+   * 图片地址
+   */
   imgSrc?: string;
+  /**
+   * 排序
+   */
   index?: number;
-  note?: string;
+  /**
+   * 是否销售
+   */
   onSale?: boolean;
+  /**
+   * 价格
+   */
   price?: number;
+  /**
+   * 标题
+   */
   title?: string;
-  number?: number;
-  total?: number;
-  material?: string;
-  stock?: string;
+  /**
+   * 数量
+   */
+  number?: number; 
+  /**
+   * 单位（袋）
+   */
+  unit?: string;
+  /**
+   * 120g
+   */
+  weight?: string
 }
 
 export interface IExpress {

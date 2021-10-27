@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '艾菲特家私',
+  navigationBarTitleText: 'xxxx',
 }
