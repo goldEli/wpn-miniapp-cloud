@@ -27,7 +27,7 @@
     // height: calc(100vh - @tagBoxHeight);
     box-sizing: border-box;
     .flex(row, flex-start, flex-start);
-    overflow: hidden;
+    // overflow: hidden;
   }
   .content-nav {
     // position: relative;
@@ -74,7 +74,7 @@
     .item {
       box-sizing: border-box;
       width: 50%;
-      padding: 20px;
+      padding: 0 20px 0 20px;
       display: grid;
       grid-template-areas:
         "img"
@@ -83,6 +83,7 @@
         "action";
       grid-template-columns: auto;
       grid-template-rows: auto;
+      height: 520px;
       .img-box {
         display: flex;
         border-radius: 8px;
@@ -106,26 +107,36 @@
       }
       // .right {
       .title {
-        .flex(row, flex-start, flex-start);
-        padding-right: 32px;
-        font-weight: bold;
         overflow: hidden; //超出的文本隐藏
+        text-overflow: ellipsis;
+        white-space: nowrap;
         grid-area: title;
         font-size: 32px;
+        padding-left: 20px;
+        line-height: 60px;
       }
       .stocksItem {
         color: rgb(189, 184, 184);
         font-size: 26px;
       }
-      .priceItem {
-        color: @red;
-        font-weight: bold;
-        font-size: 32px;
-      }
+
       .price {
         .flex(row, space-between, center);
-        padding-right: 32px;
+        padding-left: 20px;
         grid-area: price;
+        color: @red;
+        font-size: 32px;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: start;
+        .price-num {
+          padding-right: 8px;
+        }
+        .price-des {
+          font-size: 20px;
+          color: rgb(92, 88, 88);
+        }
       }
       .action {
         .flex(row, flex-end, center);

@@ -16,11 +16,7 @@ const Item: React.FC<IItemProps> = props => {
   const getPrice = () => {
     return `￥${data.price}`;
   };
-  // const goToDetailPage = () => {
-  //   Taro.navigateTo({
-  //     url: `/pages/furnitureDetail/index?note=${data.note}&imgSrc=${data.imgSrc}`
-  //   });
-  // };
+  
   const changeNumber = (e: any) => {
     e.stopPropagation();
     open({ _id: data._id, number: data.number });
@@ -40,8 +36,9 @@ const Item: React.FC<IItemProps> = props => {
       </View>
       <View className="title">{data.title}</View>
       <View className="price">
-        
-        <View className="priceItem">{getPrice()}</View>
+          <View className="price-num">{getPrice()}</View>
+          <View className="price-des">{data.weight}</View>
+          <View className="price-des">{`/${data.unit}`}</View>
       </View>
       <View className="action">
         {(data.number as number) > 0 && (
