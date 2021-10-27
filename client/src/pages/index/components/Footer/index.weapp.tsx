@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Taro from "@tarojs/taro";
+import Taro, { setClipboardData } from "@tarojs/taro";
 import { View, Button } from "@tarojs/components";
 import { MenuContext } from "@/pages/index/context/MenuContext";
 import { IFurniture } from "@/type";
+import { handlePrice } from "@/utils";
 
 interface IFooterProps {}
 
@@ -12,7 +13,8 @@ const Footer: React.FC<IFooterProps> = props => {
   const sum = React.useMemo(() => {
     return list
       ?.reduce(
-        (prev, item) => prev + (item.number * (item.price as number) || 0),
+        (prev, item) =>
+          prev + ((item?.number || 0) * (item.price as number) || 0),
         0
       )
       .toFixed(2);
@@ -23,8 +25,6 @@ const Footer: React.FC<IFooterProps> = props => {
       return list?.reduce((prev, item) => prev + (item.number || 0), 0);
     }, [list]) || 0;
 
-  const text = JSON.stringify(filterData(list));
-
   const toOrderPage = () => {
     if (numberOfProducts <= 0) {
       Taro.showToast({
@@ -34,8 +34,34 @@ const Footer: React.FC<IFooterProps> = props => {
       });
       return;
     }
-    Taro.navigateTo({
-      url: `/pages/order/index?text=${text}&fromHome=true`
+    const data = filterData(list);
+
+    let text = "~~~订单信息~~~\n";
+
+    data.forEach(item => {
+      text += `${item.title}：${item.number} x ${
+        item.price
+      } = ${handlePrice.mul(item.number, item.price)}元\n`;
+    });
+
+    text += `共计：${sum} 元（不含运费）`;
+
+    setClipboardData({
+      data: text,
+      success: function(res) {
+        // self.setData({copyTip:true}),
+        Taro.showModal({
+          title: "提示",
+          content: "订单信息复制成功，去聊天窗口粘贴吧！",
+          success: function(res) {
+            if (res.confirm) {
+              console.log("确定");
+            } else if (res.cancel) {
+              console.log("取消");
+            }
+          }
+        });
+      }
     });
   };
 
@@ -43,14 +69,7 @@ const Footer: React.FC<IFooterProps> = props => {
     <View className="footer">
       <View className="inner">
         <View onLongPress={goToLogin} className="price">{` ￥${sum} 元`}</View>
-        <Button
-          // openType="share"
-
-          onClick={toOrderPage}
-          // data-sum={sum}
-          // data-text={text}
-          className="button"
-        >
+        <Button onClick={toOrderPage} className="button">
           选好了，点我
         </Button>
       </View>
@@ -61,7 +80,7 @@ const Footer: React.FC<IFooterProps> = props => {
 export default Footer;
 const filterData = (data: IFurniture[] = []) => {
   return data
-    .filter(item => item?.number > 0)
+    .filter(item => typeof item?.number === "number" && item?.number > 0)
     .map(item => ({
       title: item.title,
       number: item.number,
