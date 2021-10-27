@@ -11,15 +11,15 @@ const List: React.FC<IListProps> = props => {
   const { list, loading } = React.useContext(MenuContext);
 
   return (
-    <>
-    {/* <ScrollView style={{height: "100vh"}} scrollWithAnimation> */}
+    
+    <ScrollView scrollY scrollTop={0} style={{height: "100vh"}} scrollWithAnimation>
       <Skeletons visible={loading} />
       <View className="content-list">
         {list?.map(item => {
           return <ListItem data={item} />;
         })}
       </View>
-    </>
+    </ScrollView>
   );
 };
 

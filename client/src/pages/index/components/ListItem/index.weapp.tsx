@@ -26,6 +26,7 @@ const Item: React.FC<IItemProps> = props => {
     <View key={data._id} className="item">
       <View className="img-box">
         <Image
+          lazyLoad
           className="img"
           mode="aspectFill"
           src={data?.imgSrc || ""}
