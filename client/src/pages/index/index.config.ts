@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: 'xxxx',
+  navigationBarTitleText: '歪婆娘冷吃',
 }

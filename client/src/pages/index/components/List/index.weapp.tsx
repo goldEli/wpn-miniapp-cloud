@@ -13,12 +13,12 @@ const List: React.FC<IListProps> = props => {
   return (
     <>
     {/* <ScrollView style={{height: "100vh"}} scrollWithAnimation> */}
-      <Skeletons visible={loading} />
-      <View className="content-list">
+      <Skeletons visible={true} />
+      {/* <View className="content-list">
         {list?.map(item => {
           return <ListItem data={item} />;
         })}
-      </View>
+      </View> */}
     </>
   );
 };

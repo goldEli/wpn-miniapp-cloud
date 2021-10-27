@@ -12,13 +12,13 @@ const Skeletions: React.FC<ISkeletionsProps> = props => {
 
   return (
     <View
-      style={{ display: props.visible ? "block" : "none" }}
+      style={{ display: props.visible ? "flex" : "none" }}
       className="order-skeletons"
     >
       {state.map(item => (
         <View className="order-item" key={item}>
-          <View className={"skeletons left"}></View>
-          <View className="center">
+          <View className={"skeletons top"}></View>
+          <View className="bottom">
             <View className={"skeletons title"}></View>
             <View className={"skeletons title1"}></View>
             <View className={"skeletons price"}></View>

@@ -40,24 +40,28 @@
   top: 0;
   left: 0;
   width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
   .order-item {
-    .flex(row, flex-start);
-    margin-bottom: 12px;
+    .flex(column, flex-start);
+    // margin-bottom: 12px;
     padding: 12px;
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
-    .left {
-      width: 200px;
-      height: 200px;
+    .top {
+      width: 100%;
+      height: 300px;
     }
-    .center {
+    .bottom {
       flex: 1;
-      margin: 0 12px;
+      // margin: 0 12px;
+      width: 100%;
       height: 200px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       .title {
+        width: 80%;
         margin: 12px 0;
         height: 30px;
       }
