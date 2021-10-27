@@ -60,12 +60,9 @@ const Login: React.FC<ILoginProps> = props => {
         const { result: res } = data;
         if (res.isUser) {
           Taro.hideLoading()
-          // Taro.atMessage({
-          //   message: "登录成功",
-          //   type: "success"
-          // });
+          
           Taro.redirectTo({
-            url: "/pages/setting/index"
+            url: "/pages/furnitureMngmt/index"
           });
           saveToStorage();
         } else {

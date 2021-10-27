@@ -7,16 +7,13 @@ const urlKey = "menu";
 export default function useFurnitureList() {
   const [furnitureList, setFurnitureList] = React.useState<IFurniture[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [furnitureCategoryId, setFurnitureCategoryId] = React.useState("");
 
-  // useEffect(() => {
-  //   refresh();
-  // }, []);
-  const refresh = async (furnitureCategoryId: string) => {
-    setFurnitureCategoryId(furnitureCategoryId);
+  useEffect(() => {
+    refresh();
+  }, []);
+  const refresh = async () => {
     const data = await http(urlKey, {
-      action: "getByFurnitureCategoryId",
-      furnitureCategoryId
+      action: "getAll",
     });
     if (data instanceof Array) {
       data.sort((a, b) => a.index - b.index);
@@ -36,7 +33,7 @@ export default function useFurnitureList() {
         sucMsg: "新增成功"
       }
     );
-    refresh(furnitureCategoryId);
+    refresh();
   };
 
   const deleteById = async (_id: string) => {

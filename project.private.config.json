@@ -1,0 +1,36 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "__key_=16353209936141",
+          "scene": null
+        },
+        {
+          "name": "pages/furnitureMngmt/index",
+          "pathName": "pages/furnitureMngmt/index",
+          "query": "__key_=16353213797741",
+          "scene": null
+        },
+        {
+          "name": "pages/furnitureMngmt/index",
+          "pathName": "pages/furnitureMngmt/index",
+          "query": "__key_=16353213797741",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

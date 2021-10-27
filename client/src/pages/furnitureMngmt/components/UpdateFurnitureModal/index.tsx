@@ -19,7 +19,6 @@ interface IUpdateCategoryProps {
   add: (data: IFurniture) => void;
   update: (data: IFurniture) => void;
   deleteById: (_id: string) => void;
-  furnitureCategoryId: string;
 }
 
 const initData: IFurniture = {
@@ -38,13 +37,16 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
   React.useEffect(() => {
     if (!visible) return;
     if (isAdd) {
-      setData({ ...initData, furnitureCategoryId: props.furnitureCategoryId });
+      setData({ ...initData });
     } else {
-      setData({ ...modalData, furnitureCategoryId: props.furnitureCategoryId });
+      setData({ ...modalData });
     }
   }, [modalData, visible]);
 
-  const onChange = (key: keyof IFurniture, value: string | Boolean | number) => {
+  const onChange = (
+    key: keyof IFurniture,
+    value: string | Boolean | number
+  ) => {
     setData(prev => ({ ...prev, [key]: value }));
   };
 
@@ -57,14 +59,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (_.isEmpty(data.material)) {
-      Taro.showToast({
-        title: "材料未填",
-        icon: "none",
-        duration: 2000
-      });
-      return false;
-    }
+  
     if (!isNumber(data?.price)) {
       // if (_.isEmpty(data.price)) {
       Taro.showToast({
@@ -91,20 +86,13 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
       });
       return false;
     }
-    if (_.isEmpty(data.note)) {
-      Taro.showToast({
-        title: "介绍未填",
-        icon: "none",
-        duration: 2000
-      });
-      return false;
-    }
+   
     return true;
   };
 
   const onOk = () => {
     if (!checkValid()) return;
-    const newData:IFurniture = {...data, imgSrc: handleImgSrc(data?.imgSrc)}
+    const newData: IFurniture = { ...data, imgSrc: handleImgSrc(data?.imgSrc) };
     if (isAdd) {
       props.add(newData);
     } else {
@@ -125,7 +113,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         name="title"
         title="名称"
         type="text"
-        placeholder="输入系列名称"
+        placeholder="输入名称"
         value={data?.title || ""}
         onChange={(value: string) => onChange("title", value)}
       />
@@ -138,12 +126,20 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         handleChange={onChange}
       />
       <AtInput
-        name="stock"
-        title="库存"
-        type="number"
-        placeholder="输入库存"
-        value={data?.stock}
-        onChange={(value: string) => onChange("stock", value)}
+        name="weight"
+        title="重量"
+        type="text"
+        placeholder="比如：128g"
+        value={data?.weight || ""}
+        onChange={(value: string) => onChange("weight", value)}
+      />
+      <AtInput
+        name="unit"
+        title="单位"
+        type="text"
+        placeholder="比如：袋"
+        value={data?.unit || ""}
+        onChange={(value: string) => onChange("unit", value)}
       />
       <InputNumber
         name="index"
@@ -153,28 +149,14 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
         value={data?.index}
         handleChange={onChange}
       />
-      <AtInput
-        name="material"
-        title="材料"
-        type="text"
-        placeholder="输入材料"
-        value={data?.material || ""}
-        onChange={(value: string) => onChange("material", value)}
-      />
+      
       <Title title="图片地址" />
       <AtTextarea
         value={data?.imgSrc || ""}
         onChange={(value: string) => onChange("imgSrc", value)}
         maxLength={1000}
-        placeholder="多张图片地址用英文逗号分隔，第一张图片会用作封面，必须为正方形"
       />
-      <Title title="介绍" />
-      <AtTextarea
-        value={data?.note || ""}
-        onChange={(value: string) => onChange("note", value)}
-        maxLength={1000}
-        placeholder="输入家具介绍"
-      />
+      
       <AtSwitch
         title="是否上架"
         checked={data?.onSale}
@@ -191,7 +173,7 @@ const UpdateFurnitrueModal: React.FC<IUpdateCategoryProps> = props => {
 };
 
 const handleImgSrc = (value?: string): string => {
-  if (!value) return ""
+  if (!value) return "";
   return value
     .split(",")
     .filter(item => !!item)

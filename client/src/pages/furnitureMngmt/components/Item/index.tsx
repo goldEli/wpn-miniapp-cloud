@@ -19,18 +19,13 @@ const Item: React.FC<IItemProps> = props => {
   };
   const note =
     `排序${data.index}，` +
-    `￥${data.price}，` +
-    `${data.onSale ? "已上架" : "未上架"}` +
-    `${data.stock ? ", 库存" + data.stock : ""}` +
-    `${data.material ? ", " + data.material : ""}`;
+    `￥${data.price} ${data.weight}/${data.unit}，` +
+    `${data.onSale ? "已上架" : "未上架"}`;
   const imageSrcList = data.imgSrc?.split(",").filter(item => item) || [];
   return (
     <View className="furnitureMngomt-item">
       <AtCard onClick={edit} title={data.title} note={note}>
         <ImageBox list={imageSrcList} />
-        {data.note?.split("\n").map(item => {
-          return <View>{item}</View>;
-        })}
       </AtCard>
     </View>
   );
