@@ -134,30 +134,38 @@
         }
       }
       .action {
-        .flex(row, flex-end, center);
-        // margin-right: 32px;
         grid-area: action;
-        .button-icon-sub,
-        .button-icon-add {
-          padding: 32px;
-          .button-icon-add-bg,
-          .button-icon-sub-bg {
-            padding: 8px;
-            border-radius: 16px;
-            .flex(row, center, center);
+        position: relative;
+        height: 120px;
+        .action-fix {
+          position: absolute;
+          right: -16px;
+          top: 0;
+          .flex(row, flex-end, center);
+          // margin-right: 32px;
+
+          .button-icon-sub,
+          .button-icon-add {
+            padding: 32px;
+            .button-icon-add-bg,
+            .button-icon-sub-bg {
+              padding: 8px;
+              border-radius: 16px;
+              .flex(row, center, center);
+            }
           }
-        }
-        .button-icon-add-bg {
-          background-color: @color_brand_dark;
-        }
-        .button-icon-sub-bg {
-          background-color: @color_brand_light;
-        }
-        .button-icon-bg {
-        }
-        .text {
-          .flex(row, center, center);
-          padding: 0 32px;
+          .button-icon-add-bg {
+            background-color: @color_brand_dark;
+          }
+          .button-icon-sub-bg {
+            background-color: @color_brand_light;
+          }
+          .button-icon-bg {
+          }
+          .text {
+            .flex(row, center, center);
+            padding: 0 32px;
+          }
         }
       }
     }
