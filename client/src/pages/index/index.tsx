@@ -11,7 +11,7 @@ interface IIndexProps {}
 const Index: React.FC<IIndexProps> = props => {
   useShareAppMessage(res => {
     return {
-      title: "歪婆娘冷吃",
+      title: "点我下单吧",
       path: "pages/index/index",
       imageUrl: "https://wx4.sinaimg.cn/mw2000/006coskkgy1gvttdird14j30m80m8my8.jpg"
     };
