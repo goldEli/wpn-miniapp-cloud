@@ -5,6 +5,7 @@ import Skeletons from "@/components/skeletons/index.skeletions";
 import { MenuContext } from "../../context/MenuContext";
 import ListItem from "../ListItem/index.weapp";
 import "./index.less";
+import { handlePrice } from "@/utils";
 
 interface IListProps {}
 
@@ -20,7 +21,7 @@ const List: React.FC<IListProps> = props => {
     >
       <Skeletons visible={loading} />
       <View className="content-list">
-        {list?.map(item => {
+        {list?.sort((a,b) => (a.index || 0) - (b.index || 0))?.map(item => {
           return <ListItem data={item} />;
         })}
       </View>
