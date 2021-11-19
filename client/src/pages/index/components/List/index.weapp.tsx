@@ -25,7 +25,7 @@ const List: React.FC<IListProps> = props => {
           return <ListItem data={item} />;
         })}
       </View>
-      <View className="blank"></View>
+      {/* <View className="blank"></View> */}
     </ScrollView>
   );
 };

@@ -30,6 +30,7 @@ const Item: React.FC<IItemProps> = props => {
           className="img"
           mode="aspectFill"
           src={data?.imgSrc || ""}
+          // src={"https://wx4.sinaimg.cn/large/671cf50fgy1gloqtxr025j20500500sm.jpg"}
         ></Image>
       </View>
       <View className="title">{data.title}</View>
